@@ -26,7 +26,7 @@ using Weather;
 namespace Characters
 {
     class Human : BaseCharacter
-    {
+    {//Zippy: add drop item on death (100% chance for gas, 50 for blade)
         // setup
         public HumanComponentCache HumanCache;
         public BaseUseable Special;
@@ -121,6 +121,8 @@ namespace Characters
         private bool _isReelingOut;
         private Dictionary<BaseTitan, float> _lastNapeHitTimes = new Dictionary<BaseTitan, float>();
 
+        [SerializeField]
+        private GameObject LogisticianBackPack;
 
         [PunRPC]
         public override void MarkDeadRPC(PhotonMessageInfo info)
@@ -656,6 +658,8 @@ namespace Characters
             }
             Weapon.Reset();
             CurrentGas = MaxGas;
+            EmVariables.LogisticianBladeSupply = 4;
+            EmVariables.LogisticianGasSupply = 4;
         }
 
         public override void Emote(string emote)
@@ -1088,6 +1092,11 @@ namespace Characters
 
         protected void FixedUpdate()
         {
+            if (gameObject.GetPhotonView().Owner.CustomProperties.ContainsKey("Logistician"))
+                LogisticianBackPack.SetActive(true);
+            else
+                LogisticianBackPack.SetActive(false);
+
             if (IsMine())
             {
                 FixedUpdateLookTitan();
@@ -2809,6 +2818,15 @@ namespace Characters
                 else transform.position = new Vector3(x, y, z);
             }
         }
+        #region EXPEDITION EXTENSION HUMAN
+
+        //THUNDERSPEAR EDIT
+        public void DieToTS() //Added by Momo Dec 6 2023 to kill people too close to the explosion. and print 100 damage.
+        {
+            GetHit("Thunderspear", 100, "Thunderspear", "");
+            Die();
+        }
+        #endregion
     }
 
     public enum HumanState
