@@ -1908,7 +1908,7 @@ namespace Characters
             HumanCache.UpperarmR.rotation = Quaternion.Euler(180f, -90f + (Mathf.Atan2(x, z) * Mathf.Rad2Deg), -90f - Mathf.Atan2(y, sq) * Mathf.Rad2Deg);
         }
 
-        protected override void SetColliders()
+        protected override void SetColliders() // look here //
         {
             foreach (Collider c in GetComponentsInChildren<Collider>())
             {
@@ -2507,6 +2507,19 @@ namespace Characters
                 }
             }
         }
+
+        #region DisableHumanHitbox For Air Dodge Special - Added by Ata 2 May 2024
+        public void DisableHumanHitbox()
+        {
+            // Write Logic for making human immune to titan colliders //
+        }
+
+        public void EnableHumanHitbox()
+        {
+            // Turn human hitbox back on for titan colliders //
+        }
+
+        #endregion
 
         private void ContinueAnimation()
         {

@@ -271,7 +271,7 @@ namespace Controllers
             if (_human.Special != null)
             {
                 bool canSpecial = _human.MountState == HumanMountState.None && 
-                    (_human.Special is EscapeSpecial || _human.Special is ShifterTransformSpecial || _human.State != HumanState.Grab)
+                    (_human.Special is EscapeSpecial || _human.Special is ShifterTransformSpecial || _human.State != HumanState.Grab || _human.Special is AirDodgeSpecial) // edited by Ata 2 May 2024 //
                     && _human.CarryState != HumanCarryState.Carry && _human.State != HumanState.EmoteAction && _human.State != HumanState.SpecialAttack && !inMenu && !_human.Dead;
                 if (canSpecial)
                     _human.Special.ReadInput(specialInput);
