@@ -455,7 +455,9 @@
 		"General.Character": "Character",
 		"General.Costume": "Costume",
 		"General.Loadout": "Loadout",
-		"General.Special": "Special"
+		"General.Special": "Special",
+		"General.Special2": "Special 2", // added by ata 12 May 2024 for Three Wheel Special //
+		"General.Special3": "Special 3"	 // added by ata 12 May 2024 for Three Wheel Special //
 	},
 	"CharacterEditor": {
 		"Costume.Title": "Costume",

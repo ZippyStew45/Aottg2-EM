@@ -52,6 +52,7 @@ namespace Characters
         public float GasUsage = 0.2f;
         public float HorseSpeed = 50f;
         public string CurrentSpecial;
+        public string SpecialsArray; // added by Ata 11 May 2024 for Three Wheel Specials //
         public BaseTitan Grabber;
         public Transform GrabHand;
         public Human Carrier;
@@ -1962,9 +1963,15 @@ namespace Characters
                 SetupWeapon(set, humanWeapon);
                 SetupItems();
                 SetSpecial(SettingsManager.InGameCharacterSettings.Special.Value);
+                SetSpecial(SettingsManager.InGameCharacterSettings.Special_2.Value); // added by Ata 12 May 2024 for Three Wheel Special //
+                SetSpecial(SettingsManager.InGameCharacterSettings.Special_3.Value); // added by Ata 12 May 2024 for Three Wheel Special //
             }
             FinishSetup = true;
             CustomAnimationSpeed();
+
+            Debug.Log("Special 1" + SettingsManager.InGameCharacterSettings.Special.Value);
+            Debug.Log("Special 2" + SettingsManager.InGameCharacterSettings.Special_2.Value);
+            Debug.Log("Special 3" + SettingsManager.InGameCharacterSettings.Special_3.Value);
         }
 
         public void SetAcceleration(int acceleration)

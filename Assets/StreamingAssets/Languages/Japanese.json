@@ -384,7 +384,9 @@
 		"General.Character": "キャラクター",
 		"General.Costume": "衣装",
 		"General.Loadout": "武装",
-		"General.Special": "特殊"
+		"General.Special": "特殊",
+		"General.Special2": "特殊 - 2", // added by ata 12 May 2024 for Three Wheel Special //
+		"General.Special3": "特殊 - 3" // added by ata 12 May 2024 for Three Wheel Special //
 	},
 	"CharacterEditor": {
 		"Costume.Title": "衣装",

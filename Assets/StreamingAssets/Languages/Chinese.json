@@ -378,13 +378,15 @@
     "MutePopup.MuteEmote": "屏蔽表情",
     "MutePopup.MuteText": "屏蔽聊天"
   },
-  "CharacterPopup": {
-    "Bottom.SpectateButton": "观战",
-    "General.Character": "角色",
-    "General.Costume": "服装",
-    "General.Loadout": "服装",
-    "General.Special": "服装"
-  },
+    "CharacterPopup": {
+        "Bottom.SpectateButton": "观战",
+        "General.Character": "角色",
+        "General.Costume": "服装",
+        "General.Loadout": "服装",
+        "General.Special": "服装",
+        "General.Special2": "服装 - 2", // added by ata 12 May 2024 for Three Wheel Special //
+        "General.Special3": "服装 - 3" // added by ata 12 May 2024 for Three Wheel Special //
+    },
   "CharacterEditor": {
     "Costume.Title": "服装",
     "Costume.SaveQuit": "保存并退出",

@@ -369,13 +369,15 @@
     "MutePopup.MuteEmote": "Stummschalten von Emotes",
     "MutePopup.MuteText": "Stummschalten von Text"
   },
-  "CharacterPopup": {
-    "Bottom.SpectateButton": "Zuschauen",
-    "General.Character": "Charakter",
-    "General.Costume": "Kleidung",
-    "General.Loadout": "Ausr�stung",
-    "General.Special": "F�higkeit"
-  },
+    "CharacterPopup": {
+        "Bottom.SpectateButton": "Zuschauen",
+        "General.Character": "Charakter",
+        "General.Costume": "Kleidung",
+        "General.Loadout": "Ausr�stung",
+        "General.Special": "F�higkeit",
+        "General.Special2": "F�higkeit 2",
+        "General.Special3": "F�higkeit 3"
+    },
   "CharacterEditor": {
     "Costume.Title": "Kleidung",
     "Costume.SaveQuit": "Speichern und Verlassen",
