@@ -287,6 +287,8 @@ class ZippsUIManager : MonoBehaviour
     private GameObject AbilityWheelMenu;
     [SerializeField]
     private GameObject AbilityWheelCanvas;
+    [SerializeField]
+    private AudioSource AbilityWheelAudio;
 
     private bool Ability1Selected = false;
     private bool Ability2Selected = false;
@@ -294,49 +296,43 @@ class ZippsUIManager : MonoBehaviour
 
     public void OnHoverAbility1()
     {
-        _human = GetComponent<Human>();
+        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         Ability1Selected = true;
-        MenuAudioSource.Play();
+        AbilityWheelAudio.Play();
         GasImage.color = new Color(0.525f, 0.164f, 0.227f);
-        _human.CurrentSpecial = _human.SpecialsArray[0];
-        _human.SpecialActionState(0);
+        _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special.Value, 1);
     }
 
     public void OnHoverExitAbility1()
     {
-        _human = GetComponent<Human>();
         Ability1Selected = false;
         // some UI events like color change //
     }
     public void OnHoverAbility2()
     {
-        _human = GetComponent<Human>();
+        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         Ability2Selected = true;
-        MenuAudioSource.Play();
+        AbilityWheelAudio.Play();
         GasImage.color = new Color(0.525f, 0.164f, 0.227f);
-        _human.CurrentSpecial = _human.SpecialsArray[1];
-        _human.SpecialActionState(0);
+        _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special_2.Value, 2);
     }
 
     public void OnHoverExitAbility2()
     {
-        _human = GetComponent<Human>();
         Ability2Selected = false;
         // some UI events like color change //
     }
     public void OnHoverAbility3()
     {
-        _human = GetComponent<Human>();
+        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         Ability3Selected = true;
-        MenuAudioSource.Play();
+        AbilityWheelAudio.Play();
         GasImage.color = new Color(0.525f, 0.164f, 0.227f);
-        _human.CurrentSpecial = _human.SpecialsArray[2];
-        _human.SpecialActionState(0);
+        _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special_3.Value, 3);
     }
 
     public void OnHoverExitAbility3()
     {
-        _human = GetComponent<Human>();
         Ability3Selected = false;
         // some UI events like color change //
     }

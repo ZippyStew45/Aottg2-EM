@@ -30,6 +30,7 @@ namespace Characters
         // setup
         public HumanComponentCache HumanCache;
         public BaseUseable Special;
+        public BaseUseable[] SpecialsArray; // added by Ata 12 May 2024 for Ability Wheel //
         public BaseUseable Weapon;
         public HookUseable HookLeft;
         public HookUseable HookRight;
@@ -52,7 +53,6 @@ namespace Characters
         public float GasUsage = 0.2f;
         public float HorseSpeed = 50f;
         public string CurrentSpecial;
-        public string[] SpecialsArray; // added by Ata 11 May 2024 for Ability Wheel //
         public BaseTitan Grabber;
         public Transform GrabHand;
         public Human Carrier;
@@ -2055,12 +2055,26 @@ namespace Characters
             ((InGameMenu)UIManager.CurrentMenu).HUDBottomHandler.SetSpecialIcon(HumanSpecials.GetSpecialIcon(special));
         }
 
-        #region
+        #region Ability Wheel
         public void SetAllSpecials(string special1, string special2, string special3) 
         {
-            SpecialsArray = new string[] {special1, special2, special3};
+            SpecialsArray = new BaseUseable[] 
+            {   
+                HumanSpecials.GetSpecialUseable(this, special1), 
+                HumanSpecials.GetSpecialUseable(this, special2), 
+                HumanSpecials.GetSpecialUseable(this, special3) 
+            };
+            
             // add the icons for all specials at some point //
         }
+
+        public void SwitchCurrentSpecial(string special, int newSpecial)
+        {
+            CurrentSpecial = special;
+            Special = SpecialsArray[newSpecial-1];
+            ((InGameMenu)UIManager.CurrentMenu).HUDBottomHandler.SetSpecialIcon(HumanSpecials.GetSpecialIcon(special));
+        }
+
         #endregion
 
         protected void LoadSkin()
