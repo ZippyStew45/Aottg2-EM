@@ -52,7 +52,7 @@ namespace Characters
         public float GasUsage = 0.2f;
         public float HorseSpeed = 50f;
         public string CurrentSpecial;
-        public string SpecialsArray; // added by Ata 11 May 2024 for Three Wheel Specials //
+        public string[] SpecialsArray; // added by Ata 11 May 2024 for Three Wheel Specials //
         public BaseTitan Grabber;
         public Transform GrabHand;
         public Human Carrier;
@@ -1963,15 +1963,12 @@ namespace Characters
                 SetupWeapon(set, humanWeapon);
                 SetupItems();
                 SetSpecial(SettingsManager.InGameCharacterSettings.Special.Value);
-                SetSpecial(SettingsManager.InGameCharacterSettings.Special_2.Value); // added by Ata 12 May 2024 for Three Wheel Special //
-                SetSpecial(SettingsManager.InGameCharacterSettings.Special_3.Value); // added by Ata 12 May 2024 for Three Wheel Special //
+                SetAllSpecials( SettingsManager.InGameCharacterSettings.Special.Value, 
+                                SettingsManager.InGameCharacterSettings.Special_2.Value, 
+                                SettingsManager.InGameCharacterSettings.Special_3.Value); // added by Ata 12 May 2024 for Ability Wheel //
             }
             FinishSetup = true;
             CustomAnimationSpeed();
-
-            Debug.Log("Special 1" + SettingsManager.InGameCharacterSettings.Special.Value);
-            Debug.Log("Special 2" + SettingsManager.InGameCharacterSettings.Special_2.Value);
-            Debug.Log("Special 3" + SettingsManager.InGameCharacterSettings.Special_3.Value);
         }
 
         public void SetAcceleration(int acceleration)
@@ -2051,12 +2048,20 @@ namespace Characters
             Items.Add(new FlareItem(this, "Yellow", new Color(1f, 1f, 0f, 0.7f), 10f));
         }
 
-        public void SetSpecial(string special)
+        public void SetSpecial(string special) // Ata: Can use this to also switch between specials. after each switch, the special's cooldown timer has to be cached somehow.
         {
             CurrentSpecial = special;
             Special = HumanSpecials.GetSpecialUseable(this, special);
             ((InGameMenu)UIManager.CurrentMenu).HUDBottomHandler.SetSpecialIcon(HumanSpecials.GetSpecialIcon(special));
         }
+
+        #region
+        public void SetAllSpecials(string special1, string special2, string special3) 
+        {
+            SpecialsArray = new string[] {special1, special2, special3};
+            // add the icons for all specials at some point //
+        }
+        #endregion
 
         protected void LoadSkin()
         {
