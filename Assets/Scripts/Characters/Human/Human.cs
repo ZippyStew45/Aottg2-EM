@@ -52,7 +52,7 @@ namespace Characters
         public float GasUsage = 0.2f;
         public float HorseSpeed = 50f;
         public string CurrentSpecial;
-        public string[] SpecialsArray; // added by Ata 11 May 2024 for Three Wheel Specials //
+        public string[] SpecialsArray; // added by Ata 11 May 2024 for Ability Wheel //
         public BaseTitan Grabber;
         public Transform GrabHand;
         public Human Carrier;
