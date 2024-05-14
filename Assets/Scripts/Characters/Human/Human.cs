@@ -25,7 +25,7 @@ using Weather;
 
 namespace Characters
 {
-    class Human : BaseCharacter
+    internal partial class Human : BaseCharacter
     {//Zippy: add drop item on death (100% chance for gas, 50 for blade)
         // setup
         public HumanComponentCache HumanCache;
@@ -954,7 +954,8 @@ namespace Characters
                         Unmount(true);
                     else
                     {
-                        Cache.Transform.position = Horse.Cache.Transform.position + Vector3.up * 1.95f;
+                        //Cache.Transform.position = Horse.Cache.Transform.position + Vector3.up * 1.95f;
+                        Cache.Transform.position = Horse.Cache.Transform.TransformPoint(Vector3.up * 1.95f); //changed by Sysyfus May 14 2024 so player stays in saddle when horse is tilted
                         Cache.Transform.rotation = Horse.Cache.Transform.rotation;
                     }
                 }
@@ -1481,6 +1482,8 @@ namespace Characters
                 FixedUpdateSetHookedDirection();
                 FixedUpdateBodyLean();
                 FixedUpdateClippingCheck();
+                FixedUpdateInWater(); //added by Sysyfus May 14 2024
+                FixedUpdateStandStill(gravity); //added by Sysyfus May 14 2024
                 ReelInAxis = 0f;
             }
         }
@@ -2812,6 +2815,50 @@ namespace Characters
         {
             GetHit("Thunderspear", 100, "Thunderspear", "");
             Die();
+        }
+
+        //PHYSICS EDIT
+        public void FixedUpdateStandStill(Vector3 gravity) //Added by Sysyfus May 14 2024 created Jan 19 2024 so characters can stand still and not slide down slopes they can stand on
+        {
+            if (CanJump() && Cache.Animation.IsPlaying(StandAnimation) && Cache.Rigidbody.velocity.magnitude < 1f && Cache.Rigidbody.velocity.y < 0f) //added check for negative y velocity May 14 2024
+            {
+                Vector3 inverseGravity = -gravity * Mathf.Clamp(((Cache.Rigidbody.velocity.magnitude - 0.8f) / -0.55f), 0f, 1f);
+                Cache.Rigidbody.AddForce(inverseGravity);
+            }
+        }
+
+        //SURVEY POINT DETECTION
+        private void OnTriggerEnter(Collider other)
+        {
+            /*//Added by Momo to check for Survey Point collision on 18th january 2024
+            if (other.gameObject.tag == "SurveyPoint")
+            {
+                BoxCollider collider = other.gameObject.GetComponent<BoxCollider>();
+                MeshRenderer obj = other.gameObject.GetComponentInChildren<MeshRenderer>();
+                AudioSource audio = other.gameObject.GetComponentInChildren<AudioSource>();
+                ParticleSystem ps = other.gameObject.GetComponentInChildren<ParticleSystem>();
+                collider.enabled = false;
+                RPCManager.PhotonView.RPC("CollectEmblemRPC", RpcTarget.AllViaServer, collider, obj, audio, ps);
+            }*/
+            #region Bounce on water surface
+            //Added by Sysyfus Jan 11 2024
+            if (photonView.IsMine && other.gameObject.layer == LayerMask.NameToLayer("WaterVolume"))
+            {
+                if (Cache.Rigidbody.velocity.magnitude > 35f && timeSinceLastBounce > 0.25f)
+                {
+                    float horiSpeed = Mathf.Pow((Cache.Rigidbody.velocity.x * Cache.Rigidbody.velocity.x) + (Cache.Rigidbody.velocity.z * Cache.Rigidbody.velocity.z), 0.5f);
+                    float vertSpeed = Mathf.Abs(Cache.Rigidbody.velocity.y);
+
+                    //  check for 'shallow' angle of impact              check if falling
+                    if (horiSpeed > /*1.1547f * */ vertSpeed && Cache.Rigidbody.velocity.y < 0f)
+                    {
+                        Cache.Rigidbody.velocity = new Vector3(Cache.Rigidbody.velocity.x * 0.6f, (vertSpeed * 0.08f) + horiSpeed * 0.05f + 2f, Cache.Rigidbody.velocity.z * 0.6f);
+                        timeSinceLastBounce = 0f;
+                    }
+                }
+            }
+
+            #endregion
         }
         #endregion
     }

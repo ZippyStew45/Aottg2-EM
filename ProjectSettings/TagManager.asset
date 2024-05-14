@@ -36,7 +36,7 @@ TagManager:
   - MinimapIcon
   - Background
   - PostProcessing
-  - 
+  - WaterVolume
   - 
   m_SortingLayers:
   - name: Default

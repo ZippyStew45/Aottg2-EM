@@ -16,7 +16,7 @@ using CustomLogic;
 
 namespace Cameras
 {
-    class InGameCamera : BaseCamera
+    partial class InGameCamera : BaseCamera
     {
         public BaseCharacter _follow;
         private InGameManager _inGameManager;
@@ -284,6 +284,7 @@ namespace Cameras
             }
             Cache.Transform.position += Cache.Transform.right * (SettingsManager.GeneralSettings.CameraSide.Value - 1f);
             UpdateShake();
+            UpdateWater(); //added by Sysyfus Jan 27 2024
         }
 
         private void UpdateSpectate()
