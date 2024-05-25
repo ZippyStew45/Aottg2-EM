@@ -654,6 +654,13 @@ class ZippsUIManager : MonoBehaviour
         FlareSelectors[index].color = Color.white;
     }
     
+    public void OpenFlareMenu()
+    {
+        if (!FlaresMenu.activeInHierarchy && !FlaresCanvas.activeInHierarchy) {
+            FlaresMenu.SetActive(true);
+            FlaresCanvas.SetActive(true);
+        }
+    }
 
     #endregion
 }
