@@ -10,6 +10,9 @@ using Utility;
 using System.Resources;
 using GameManagers;
 using CustomLogic;
+using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+using System;
 
 class ZippsUIManager : MonoBehaviour
 {
@@ -625,5 +628,32 @@ class ZippsUIManager : MonoBehaviour
 
         UpdateLoadoutVisibility();
     }
+    #endregion
+
+    #region Flares 
+
+    [Header("Flares")]
+
+    [SerializeField]
+    private GameObject FlaresMenu;
+    [SerializeField]
+    private GameObject FlaresCanvas;
+    [SerializeField]
+    private RawImage[] FlareSelectors = new RawImage[8];
+
+    [SerializeField]
+    private GameObject[] FlareColliders = new GameObject[8];
+
+    public void OnFlareEnter(int index)
+    {
+        FlareSelectors[index].color = new Color(0.525f, 0.164f, 0.227f);
+    }
+
+    public void OnFlareExit(int index)
+    {
+        FlareSelectors[index].color = Color.white;
+    }
+    
+
     #endregion
 }
