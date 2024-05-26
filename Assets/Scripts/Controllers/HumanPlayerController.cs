@@ -224,7 +224,6 @@ namespace Controllers
             UpdateDashInput(inMenu);
             UpdateDashUpwardsInput(inMenu);
             UpdateDashDownwardsInput(inMenu);
-            UpdateLoadoutSwap(inMenu);
             if (!inMenu)
             {
                 if (SettingsManager.InputSettings.General.HideCursor.GetKeyDown())
@@ -268,15 +267,15 @@ namespace Controllers
                         _human._gunArmAim = attackInput.GetKey() || _human.Weapon.IsActive;
                     }
                     else
-                        _human.Weapon?.ReadInput(attackInput); // null check added by Ata 25 May 2024 because it broke loadout swapping //
+                        _human.Weapon.ReadInput(attackInput);
                 }
             }
             else
-                _human.Weapon?.SetInput(false); // null check added by Ata 25 May 2024 because it broke loadout swapping //
+                _human.Weapon.SetInput(false);
 
             if (_human.Special != null)
             {
-                if (_humanInput.Ability1.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special.Value && SettingsManager.InGameCharacterSettings.Special.Value != "None" && !inMenu) // added by Ata 20 May 2024 for Ability Wheel//
+                if (_humanInput.Ability1.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special.Value && SettingsManager.InGameCharacterSettings.Special.Value != "None") // added by Ata 20 May 2024 for Ability Wheel//
                 {
                     _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special.Value, 1);
                     PlayAbilitySelectSound();
@@ -291,13 +290,13 @@ namespace Controllers
                     _human.Special.SetInput(false);
             }
             
-            if (_human.Special_2 != null && _humanInput.Ability2.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special_2.Value && SettingsManager.InGameCharacterSettings.Special_2.Value != "None" && !inMenu)
+            if (_human.Special_2 != null && _humanInput.Ability2.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special_2.Value && SettingsManager.InGameCharacterSettings.Special_2.Value != "None")
             {
                 _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special_2.Value, 2);
                 PlayAbilitySelectSound();
             }
 
-            if (_human.Special_3 != null && _humanInput.Ability3.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special_3.Value && SettingsManager.InGameCharacterSettings.Special_3.Value != "None" && !inMenu)
+            if (_human.Special_3 != null && _humanInput.Ability3.GetKeyDown() && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special_3.Value && SettingsManager.InGameCharacterSettings.Special_3.Value != "None")
             {
                 _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special_3.Value, 3);
                 PlayAbilitySelectSound();
@@ -306,7 +305,12 @@ namespace Controllers
             if (inMenu || _human.Dead || _human.State == HumanState.Stun)
                 return;
             if (_human.MountState == HumanMountState.None)
-            {
+            {   
+                if (_humanInput.HorseAutorun.GetKeyDown())
+                {
+                    PlayHorseAutoSwitchSoundFromKeybind();
+                    EmVariables.HorseAutorun = !EmVariables.HorseAutorun; // added by Snake 26 May 2024 for Horse Auto Running Bug Fixing //
+                } 
                 if (_human.CanJump())
                 {
                     if (_humanInput.Jump.GetKeyDown())
@@ -320,7 +324,7 @@ namespace Controllers
                             _human.Dodge(_human.TargetAngle + 180f);
                         else
                             _human.Dodge(_human.TargetAngle);
-                    }
+                    } 
                 }
                 if (_human.State == HumanState.Idle)
                 {
@@ -335,11 +339,27 @@ namespace Controllers
             }
             else if (_human.MountState == HumanMountState.Horse)
             {
+                if (_humanInput.HorseAutorun.GetKeyDown())
+                {
+                    PlayHorseAutoSwitchSoundFromKeybind();
+                    EmVariables.HorseAutorun = !EmVariables.HorseAutorun; // added by Snake 24 May 2024 for Horse Auto Running Key Input //
+                } 
+                else  
                 if (_humanInput.HorseMount.GetKeyDown())
                     _human.Unmount(false);
                 else if (_humanInput.HorseJump.GetKeyDown())
                     _human.Horse.Jump();
             }
+        }
+        
+        private void PlayHorseAutoSwitchSoundFromKeybind() // added by Ata 20 May 2024 for Ability Wheel //
+        {
+            _zippsUIManager = FindFirstObjectByType<ZippsUIManager>();
+            if ( _zippsUIManager != null )
+            {
+                _zippsUIManager.PlayHorseAutoSwitchSoundFromKeybind();
+            }
+
         }
 
         private void PlayAbilitySelectSound() // added by Ata 20 May 2024 for Ability Wheel //
@@ -508,19 +528,6 @@ namespace Controllers
                 }
             }
         }
-        #endregion
-
-        #region Veteran Loadout Swap
-
-        void UpdateLoadoutSwap(bool inMenu)
-        {
-            if (!inMenu && _human.Weapon != null && _human.Weapon_2 != null && PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Veteran")) 
-            {
-                if (_humanInput.LoadoutSwap.GetKeyDown())
-                    _human.SwitchVeteranLoadout();
-            }
-        }
-
         #endregion
     }
 }

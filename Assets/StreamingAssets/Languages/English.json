@@ -342,7 +342,6 @@
 		"Keybinds.Human.Ability1": "Ability 1", // added by Ata 20 May 24
 		"Keybinds.Human.Ability2": "Ability 2", // added by Ata 20 May 24
 		"Keybinds.Human.Ability3": "Ability 3", // added by Ata 20 May 24
-		"Keybinds.Human.LoadoutSwap": "Swap Loadout", // added by Ata 20 May 24
 		"Keybinds.Human.ReelIn": "Reel in",
 		"Keybinds.Human.ReelOut": "Reel out",
 		"Keybinds.Human.Dodge": "Dodge",
@@ -355,6 +354,7 @@
 		"Keybinds.Human.HorseMount": "Horse mount",
 		"Keybinds.Human.HorseWalk": "Horse walk",
 		"Keybinds.Human.HorseJump": "Horse jump",
+		"Keybinds.Human.HorseAutorun": "Horse autorun", // added by Snake 26 May 24
 		"Keybinds.Human.NapeLock": "Nape lock",
 		"Keybinds.Human.DashDoubleTap": "Double-tap to dash",
 		"Keybinds.Human.AutoUseGas": "Auto use gas",

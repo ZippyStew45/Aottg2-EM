@@ -273,7 +273,6 @@
         "Keybinds.Human.Ability1": "Fähigkeit 1", // added by Ata 20 May 24
         "Keybinds.Human.Ability2": "Fähigkeit 2", // added by Ata 20 May 24
         "Keybinds.Human.Ability3": "Fähigkeit 3", // added by Ata 20 May 24
-        "Keybinds.Human.LoadoutSwap": "Ausrüstung wechseln",
         "Keybinds.Human.ReelIn": "Seil heranziehen",
         "Keybinds.Human.ReelOut": "Seil verl�ngern",
         "Keybinds.Human.Dodge": "Ausweichen",
@@ -286,6 +285,7 @@
         "Keybinds.Human.HorseMount": "Pferd besteigen",
         "Keybinds.Human.HorseWalk": "Pferd traben",
         "Keybinds.Human.HorseJump": "Pferd springen",
+        "Keybinds.Human.HorseAutorun": "Pferd-Autolauf", // added by Snake 26 May 24
         "Keybinds.Human.NapeLock": "Titanenfokus",
         "Keybinds.Human.DashDoubleTap": "Bewegungstaste doppelt dr�cken f�r Gasburst",
         "Keybinds.Human.ReelOutScrollSmoothing": "Seil verl�ngern Scrollempfindlichkeit",

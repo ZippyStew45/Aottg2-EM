@@ -282,7 +282,6 @@
         "Keybinds.Human.Ability1": "能力 1", // added by Ata 20 May 24
         "Keybinds.Human.Ability2": "能力 2", // added by Ata 20 May 24
         "Keybinds.Human.Ability3": "能力 3", // added by Ata 20 May 24
-        "Keybinds.Human.LoadoutSwap": "更换装备",
         "Keybinds.Human.ReelIn": "收绳",
         "Keybinds.Human.ReelOut": "放绳",
         "Keybinds.Human.Dodge": "闪避",
@@ -295,6 +294,7 @@
         "Keybinds.Human.HorseMount": "上马",
         "Keybinds.Human.HorseWalk": "前进（马）",
         "Keybinds.Human.HorseJump": "跳跃（马）",
+        "Keybinds.Human.HorseAutorun": "自动奔跑", // added by Snake 26 May 24
         "Keybinds.Human.NapeLock": "锁定后颈",
         "Keybinds.Human.DashDoubleTap": "双击方向键以爆气",
         "Keybinds.Human.ReelOutScrollSmoothing": "放绳顺滑度",
