@@ -601,6 +601,7 @@ class ZippsUIManager : MonoBehaviour
             yield return null;
         }
          HorseAutoRunAudioObject.SetActive(false);
+        //atas mom
     }
     #endregion
 }
