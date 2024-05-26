@@ -10,22 +10,25 @@ namespace Projectiles
     class ProjectileSpawner: MonoBehaviour
     {
         public static BaseProjectile Spawn(string name, Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 gravity, float liveTime,
-            int charViewId, string team, object[] settings = null, bool flash = false)
+            int charViewId, string team, object[] settings = null, int _type = 0)
         {
             GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/" + name, position, rotation, 0);
             BaseProjectile projectile;
             projectile = go.GetComponent<BaseProjectile>();
             
             Light light = go.GetComponentInChildren<Light>(); // flash added by Ata 26 May 2024 for flash flare //
-            if (flash) 
+            if (_type == 1) 
             {
                 light.enabled = true;
             }
-            else 
+            if (_type == 2)
             {
-                light.enabled = false;
-            }
-            
+                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/InGame/AcousticFlareMarker", new Vector3 (0, 0, 0), rotation, 0);
+                
+                AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
+                _settings.target = go.transform;
+                _settings.meter.text = name;
+            }    
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
             return projectile;

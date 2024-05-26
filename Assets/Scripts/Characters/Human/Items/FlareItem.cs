@@ -19,12 +19,19 @@ namespace Characters
 
         protected override void Activate()
         {
+            int _type = 0;
+
+            if (Name == "Flash")
+                _type = 1;
+            if (Name == "Acoustic")
+                _type = 2;
+
             var human = (Human)_owner;
             Vector3 target = human.GetAimPoint();
             Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 2f;
             Vector3 direction = (target - start).normalized;
             ProjectileSpawner.Spawn(ProjectilePrefabs.Flare, start, Quaternion.identity, direction * Speed, Gravity, 6.5f, _owner.Cache.PhotonView.ViewID,
-                "", new object[] { _color }, Name == "Flash"); // flash added by Ata 26 May 2024 for flash flare //
+                "", new object[] { _color }, _type); // flash added by Ata 26 May 2024 for flash flare //
             human.PlaySound(HumanSounds.FlareLaunch);
         }
     }
