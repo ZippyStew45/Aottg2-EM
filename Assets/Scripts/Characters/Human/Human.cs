@@ -2134,6 +2134,8 @@ namespace Characters
             Items.Add(new FlareItem(this, "Purple", new Color(195f / 255f, 69f / 255f, 1f, 0.7f), 10f));
             Items.Add(new FlareItem(this, "Blue", new Color(27 / 255f, 96 / 255f, 1f, 0.7f), 10f));
             Items.Add(new FlareItem(this, "Yellow", new Color(1f, 158 / 255f, 23 / 255f, 0.7f), 10f));
+            Items.Add(new FlareItem(this, "Flash", Color.white, 10f)); // added by Ata 26 May 2024 //
+            Items.Add(new FlareItem(this, "Acoustic", new Color(1f, 158 / 255f, 23 / 255f, 0.7f), 10f)); // added by Ata 26 May 2024 //
         }
 
         public void SetSpecial(string special)

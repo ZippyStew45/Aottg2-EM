@@ -24,7 +24,7 @@ namespace Characters
             Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 2f;
             Vector3 direction = (target - start).normalized;
             ProjectileSpawner.Spawn(ProjectilePrefabs.Flare, start, Quaternion.identity, direction * Speed, Gravity, 6.5f, _owner.Cache.PhotonView.ViewID,
-                "", new object[] { _color });
+                "", new object[] { _color }, Name == "Flash"); // flash added by Ata 26 May 2024 for flash flare //
             human.PlaySound(HumanSounds.FlareLaunch);
         }
     }
