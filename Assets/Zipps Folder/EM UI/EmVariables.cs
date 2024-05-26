@@ -10,6 +10,7 @@ public static class EmVariables
     public static Player SelectedPlayer;
     public static bool LogisticianOpen = false;
     public static bool AbilityWheelOpen = false;
+    public static bool FlareWheelOpen = false;
     public static int LogisticianBladeSupply = LogisticianMaxSupply;
     public static int LogisticianGasSupply = LogisticianMaxSupply;
     public static bool isVeteranSet = false;

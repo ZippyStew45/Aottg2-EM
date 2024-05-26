@@ -32,6 +32,7 @@ class ZippsUIManager : MonoBehaviour
         LogisticianUpdate();
         CannoneerUpdate();
         AbilityWheelUpdate();
+        UpdateFlareMenu();
     }
 
     private void OnApplicationFocus(bool focus)
@@ -654,11 +655,32 @@ class ZippsUIManager : MonoBehaviour
         FlareSelectors[index].color = Color.white;
     }
     
-    public void OpenFlareMenu()
+    private void OpenFlareMenu()
     {
-        if (!FlaresMenu.activeInHierarchy && !FlaresCanvas.activeInHierarchy) {
-            FlaresMenu.SetActive(true);
-            FlaresCanvas.SetActive(true);
+        FlaresMenu.SetActive(true);
+        FlaresCanvas.SetActive(true);
+        EmVariables.FlareWheelOpen = true;
+    }
+
+    private void CloseFlareMenu()
+    {
+        FlaresMenu.SetActive(false);
+        FlaresCanvas.SetActive(false);
+        EmVariables.FlareWheelOpen = false;
+    }
+
+    private void UpdateFlareMenu()
+    {
+        bool inMenu = InGameMenu.InMenu() || ChatManager.IsChatActive() || CustomLogicManager.Cutscene;
+            
+        if (!inMenu && _humanInput.FlareWheelMenu.GetKeyDown()) 
+        {
+            OpenFlareMenu();
+        }
+        
+        if (_humanInput.FlareWheelMenu.GetKeyUp())
+        {
+            CloseFlareMenu();
         }
     }
 
