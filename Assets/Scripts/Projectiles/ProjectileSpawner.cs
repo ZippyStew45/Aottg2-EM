@@ -25,7 +25,7 @@ namespace Projectiles
             {
                 GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/InGame/AcousticFlareMarker", position, rotation, 0);
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
-                _settings.Setup(marker.transform);
+                _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
             }    
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
