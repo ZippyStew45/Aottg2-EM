@@ -40,10 +40,7 @@ public class AcousticFlare : MonoBehaviour
     {
         Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
 
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-
-        if (Vector3.Dot((uiTransform.position - _human.transform.position), _human.transform.forward) < 0)
+        if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
         {
             if (pos.x < Screen.width / 2)
             {
@@ -54,6 +51,9 @@ public class AcousticFlare : MonoBehaviour
                 pos.x = minX;
             }
         }
+
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
         markerImage.transform.position = pos;
     }
