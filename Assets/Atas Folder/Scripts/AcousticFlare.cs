@@ -44,15 +44,17 @@ public class AcousticFlare : MonoBehaviour
     private float _offset2 = offset2;
     private float timeLeft = 180f;
 
-    Player PhotonPlayer;
-
     public void Setup(Transform _transform, Player _player)
     {
         uiTransform = _transform;
         _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
-        PhotonPlayer = _player;
+
+        PhotonView photonView = GetComponent<PhotonView>();
+        photonView.RPC("Initialize", RpcTarget.All, _player);
     }
-    private void Start()
+
+    [PunRPC]
+    private void Initialize(Player PhotonPlayer)
     {
         _camera = FindFirstObjectByType<Camera>();
 
