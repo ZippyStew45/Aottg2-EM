@@ -23,11 +23,9 @@ namespace Projectiles
             }
             if (_type == 2)
             {
-                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/InGame/AcousticFlareMarker", new Vector3 (0, 0, 0), rotation, 0);
-                
+                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/InGame/AcousticFlareMarker", position, rotation, 0);
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
-                _settings.target = go.transform;
-                _settings.meter.text = name;
+                _settings.Setup(marker.transform);
             }    
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
