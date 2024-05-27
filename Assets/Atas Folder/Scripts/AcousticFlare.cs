@@ -12,10 +12,22 @@ public class AcousticFlare : MonoBehaviour
     private Image markerImage;
     private Transform uiTransform;
     private Human _human; // gonna use this for distance calculation
+    Camera _camera;
+
+    private float minX;
+    private float maxX;
+    private float minY;
+    private float maxY;
+    private float timeLeft = 10f;
 
     private void Start()
     {
-        //Debug.Log(Camera.main.pixelWidth + " " + Camera.main.pixelHeight);
+        _camera = FindFirstObjectByType<Camera>();
+
+        minX = markerImage.GetPixelAdjustedRect().width / 2;
+        maxX = Screen.width - minX;
+        minY = markerImage.GetPixelAdjustedRect().width / 2;
+        maxY = Screen.height -minY;
     }
 
     public void Setup(Transform _transform)
@@ -26,11 +38,38 @@ public class AcousticFlare : MonoBehaviour
 
     private void ChangeCanvasLocation()
     {
-        markerImage.transform.position = new Vector3(100f, 100f, 1);
+        Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
+
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+
+        if (Vector3.Dot((uiTransform.position - _human.transform.position), _human.transform.forward) < 0)
+        {
+            if (pos.x < Screen.width / 2)
+            {
+                pos.x = maxX;
+            }
+            else 
+            {
+                pos.x = minX;
+            }
+        }
+
+        markerImage.transform.position = pos;
     }
 
-    private void Update()
+    private void DestorySelf()
     {
-        ChangeCanvasLocation();
+        Destroy(gameObject);
+    }
+
+    private void FixedUpdate()
+    {
+        timeLeft -= Time.fixedDeltaTime;
+        if (timeLeft <= 0)
+            DestorySelf();
+
+        if ( _camera != null && uiTransform != null)
+            ChangeCanvasLocation();
     }
 }
