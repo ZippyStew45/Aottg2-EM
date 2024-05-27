@@ -72,6 +72,28 @@ public class AcousticFlare : MonoBehaviour
         }
     }
 
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] instantiationData = info.photonView.InstantiationData;
+        if (instantiationData != null && instantiationData.Length > 0)
+        {
+            string userId = (string)instantiationData[0];
+            Setup(uiTransform, GetPlayerByUserId(userId));
+        }
+    }
+
+    private Player GetPlayerByUserId(string userId)
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.UserId == userId)
+            {
+                return player;
+            }
+        }
+        return null;
+    }
+
     private void ChangeCanvasLocation()
     {
         Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
