@@ -43,26 +43,36 @@ public class AcousticFlare : MonoBehaviour
     private float _offset1 = offset1;
     private float _offset2 = offset2;
     private float timeLeft = 180f;
+    Player _owner;
 
     public void Setup(Transform _transform, Player _player)
     {
-        uiTransform = _transform;
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
-
         PhotonView photonView = GetComponent<PhotonView>();
-        photonView.RPC("Initialize", RpcTarget.All, _player);
+        photonView.RPC("SetupRPC", RpcTarget.All, new object[] { _transform.position, _transform.rotation, _transform.localScale, _player });
     }
 
     [PunRPC]
-    private void Initialize(Player PhotonPlayer)
+    private void SetupRPC(Vector3 _position, Quaternion _rotation, Vector3 _scale, Player _player, PhotonMessageInfo info)
     {
+        if (uiTransform == null)
+        {
+            gameObject.AddComponent<Transform>();
+        }
+
+        uiTransform = gameObject.GetComponent<Transform>();
+
+        uiTransform.transform.position = _position;
+        uiTransform.transform.rotation = _rotation;
+        uiTransform.transform.localScale = _scale;
+
+        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         _camera = FindFirstObjectByType<Camera>();
 
         minX = markerImage.GetPixelAdjustedRect().width / 2;
         maxX = Screen.width - minX;
         minY = markerImage.GetPixelAdjustedRect().width / 2;
         maxY = Screen.height - minY;
-        ownerName.text = PhotonPlayer.GetStringProperty(PlayerProperty.Name);
+        ownerName.text = _player.GetStringProperty(PlayerProperty.Name);
         bannerImage.color = GenerateRandomColor();
 
         flareSound.Play();
@@ -72,30 +82,9 @@ public class AcousticFlare : MonoBehaviour
         }
     }
 
-    public void OnPhotonInstantiate(PhotonMessageInfo info)
-    {
-        object[] instantiationData = info.photonView.InstantiationData;
-        if (instantiationData != null && instantiationData.Length > 0)
-        {
-            string userId = (string)instantiationData[0];
-            Setup(uiTransform, GetPlayerByUserId(userId));
-        }
-    }
-
-    private Player GetPlayerByUserId(string userId)
-    {
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (player.UserId == userId)
-            {
-                return player;
-            }
-        }
-        return null;
-    }
-
     private void ChangeCanvasLocation()
     {
+        Debug.Log(uiTransform.position);
         Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
 
         if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
@@ -130,7 +119,7 @@ public class AcousticFlare : MonoBehaviour
 
         markerImage.transform.localScale = new Vector2( Mathf.Clamp(scale, 0.25f, 1f), Mathf.Clamp(scale, 0.25f, 1f));
         bannerImage.transform.localScale = new Vector2( Mathf.Clamp(scale, 0.25f, 1f), Mathf.Clamp(scale, 0.25f, 1f));
-        Debug.Log("Scale: " + scale);
+        
         ownerName.fontSize = (int)(Mathf.Clamp(scale, .25f, 1f) * 30);
         distance.fontSize = (int)(Mathf.Clamp(scale, .25f, 1f) * 20);
 
