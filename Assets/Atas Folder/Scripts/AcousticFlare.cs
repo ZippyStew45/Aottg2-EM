@@ -89,7 +89,7 @@ public class AcousticFlare : MonoBehaviour
 
         if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
         {
-            if (pos.x < Screen.width / 2)
+            if (pos.x < _camera.pixelWidth / 2)
             {
                 pos.x = maxX;
             }
