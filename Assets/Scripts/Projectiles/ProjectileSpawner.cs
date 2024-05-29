@@ -23,7 +23,7 @@ namespace Projectiles
             }
             if (_type == 2)
             {
-                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/InGame/AcousticFlareMarker", position, rotation, 0);
+                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/AtasFolder/AcousticFlare", position, rotation, 0);
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
                 _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
             }    
