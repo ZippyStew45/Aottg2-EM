@@ -82,7 +82,7 @@ public class AcousticFlare : MonoBehaviour
         }
     }
 
-    private void ChangeCanvasLocation()
+    private void ChangeCanvasLocation() // debugging was worthless so pushing this again to see if it fixes anything with a pull //
     {
         Debug.Log(uiTransform.position);
         Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
