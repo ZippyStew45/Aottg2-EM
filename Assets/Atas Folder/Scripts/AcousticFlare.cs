@@ -33,6 +33,8 @@ public class AcousticFlare : MonoBehaviour
 
     private Transform uiTransform;
     private Human _human; // gonna use this for distance calculation
+    [SerializeField]
+    Canvas _canvas;
     Camera _camera;
 
     private float minX;
@@ -67,6 +69,7 @@ public class AcousticFlare : MonoBehaviour
 
         _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         _camera = FindFirstObjectByType<Camera>();
+        _canvas.worldCamera = _camera;
 
         minX = markerImage.GetPixelAdjustedRect().width / 2;
         minY = markerImage.GetPixelAdjustedRect().width / 2;
