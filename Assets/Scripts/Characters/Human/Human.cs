@@ -351,6 +351,30 @@ namespace Characters
             }
         }
 
+        #region Forward Dash by Snake 31 may 24
+        public void DashForward()
+        {
+            if (_dashTimeLeft <= 0f && CurrentGas > 0 && MountState == HumanMountState.None &&
+                State != HumanState.Grab && CarryState != HumanCarryState.Carry && _dashCooldownLeft <= 0f)
+            {
+                UseGas(Mathf.Min(MaxGas * 0.06f, 10));
+                TargetAngle = Cache.Transform.eulerAngles.y; // Forward direction based on character's rotation
+                Vector3 direction = GetTargetDirection();
+                _originalDashSpeed = Cache.Rigidbody.velocity.magnitude;
+                _targetRotation = GetTargetRotation();
+                Cache.Rigidbody.rotation = _targetRotation;
+                EffectSpawner.Spawn(EffectPrefabs.GasBurst, Cache.Transform.position, Cache.Transform.rotation);
+                PlaySound(HumanSounds.GasBurst);
+                _dashTimeLeft = 0.5f;
+                CrossFade(HumanAnimations.Dash, 0.1f, 0.1f);
+                State = HumanState.AirDodge;
+                FalseAttack();
+                Cache.Rigidbody.AddForce(direction * 70f, ForceMode.VelocityChange); // Adjust the force as needed
+                _dashCooldownLeft = 0.2f;
+                ((InGameMenu)UIManager.CurrentMenu).HUDBottomHandler.ShakeGas();
+            }
+        }
+        #endregion
         #region Upward Dash by Ata - 2 May 24
 
         public void DashUpwards()

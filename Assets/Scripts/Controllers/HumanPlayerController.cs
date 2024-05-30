@@ -465,8 +465,15 @@ namespace Controllers
                         }
                     }
                 }
-                if (currentDirection != HumanDashDirection.None)
+                //added by Snake for Buffing Forward Dash 31 may 24
+                if (currentDirection == HumanDashDirection.Forward)
+                {
+                    _human.DashForward();
+                }
+                else if (currentDirection != HumanDashDirection.None)
+                {
                     _human.Dash(GetDashAngle(currentDirection));
+                }
             }
         }
 
