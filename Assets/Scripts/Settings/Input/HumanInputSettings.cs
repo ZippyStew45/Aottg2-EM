@@ -30,6 +30,7 @@
         public KeybindSetting NapeLock = new KeybindSetting(new string[] { "None", "None" });
         public BoolSetting DashDoubleTap = new BoolSetting(true);
         public BoolSetting DashUpwardsDoubleTap = new BoolSetting(true); // Added by Ata 21 May 24 //
+        public BoolSetting ForwardDashBoost = new BoolSetting(false); // Added by Snake 31 May 24 //
         public FloatSetting ReelOutScrollSmoothing = new FloatSetting(0.2f, minValue: 0f, maxValue: 1f);
         public BoolSetting SwapTSAttackSpecial = new BoolSetting(false);
         public BoolSetting AutoRefillGas = new BoolSetting(false);

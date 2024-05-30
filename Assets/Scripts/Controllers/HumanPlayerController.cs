@@ -465,8 +465,8 @@ namespace Controllers
                         }
                     }
                 }
-                //added by Snake for Buffing Forward Dash 31 may 24
-                if (currentDirection == HumanDashDirection.Forward)
+                //added by Snake for Forward Dash Boost 31 may 24
+                if (currentDirection == HumanDashDirection.Forward && SettingsManager.InputSettings.Human.ForwardDashBoost.Value)
                 {
                     _human.DashForward();
                 }

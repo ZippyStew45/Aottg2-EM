@@ -357,7 +357,7 @@ namespace Characters
             if (_dashTimeLeft <= 0f && CurrentGas > 0 && MountState == HumanMountState.None &&
                 State != HumanState.Grab && CarryState != HumanCarryState.Carry && _dashCooldownLeft <= 0f)
             {
-                UseGas(Mathf.Min(MaxGas * 0.06f, 10));
+                UseGas(Mathf.Min(MaxGas * 0.07f, 10));
                 TargetAngle = Cache.Transform.eulerAngles.y; // Forward direction based on character's rotation
                 Vector3 direction = GetTargetDirection();
                 _originalDashSpeed = Cache.Rigidbody.velocity.magnitude;
@@ -375,6 +375,7 @@ namespace Characters
             }
         }
         #endregion
+        
         #region Upward Dash by Ata - 2 May 24
 
         public void DashUpwards()
@@ -382,7 +383,7 @@ namespace Characters
             if (_dashTimeLeft <= 0f && CurrentGas > 0 && MountState == HumanMountState.None && 
                 State != HumanState.Grab && CarryState != HumanCarryState.Carry && _dashCooldownLeft <= 0f)
             {
-                UseGas(Mathf.Min(MaxGas * 0.06f, 10));
+                UseGas(Mathf.Min(MaxGas * 0.07f, 10));
                 EffectSpawner.Spawn(EffectPrefabs.GasBurst, Cache.Transform.position, Cache.Transform.rotation);
                 PlaySound(HumanSounds.GasBurst);
                 _originalDashSpeed = Cache.Rigidbody.velocity.magnitude;

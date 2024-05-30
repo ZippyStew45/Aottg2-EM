@@ -27,7 +27,10 @@ namespace UI
                 UIManager.GetLocale(cat, "Keybinds.Human", "DashDoubleTap"));
 
                 ElementFactory.CreateToggleSetting(DoublePanelRight, style, SettingsManager.InputSettings.Human.DashUpwardsDoubleTap, // added by Ata 21 May 2024 //
-                UIManager.GetLocale(cat, "Keybinds.Human", "DashUpwardsDoubleTap"), tooltip: UIManager.GetLocale(cat, "Keybinds.Human", "DashUpwardsTooltip"));                                                  
+                UIManager.GetLocale(cat, "Keybinds.Human", "DashUpwardsDoubleTap"), tooltip: UIManager.GetLocale(cat, "Keybinds.Human", "DashUpwardsTooltip"));
+
+                ElementFactory.CreateToggleSetting(DoublePanelRight, style, SettingsManager.InputSettings.Human.ForwardDashBoost, // added by Snake 31 May 2024 //
+                UIManager.GetLocale(cat, "Keybinds.Human", "ForwardDashBoost"), tooltip: UIManager.GetLocale(cat, "Keybinds.Human", "ForwardDashBoostTooltip"));                                                    
 
                 ElementFactory.CreateToggleSetting(DoublePanelRight, style, SettingsManager.InputSettings.Human.AutoUseGas,
                 UIManager.GetLocale(cat, "Keybinds.Human", "AutoUseGas"), tooltip: UIManager.GetLocale(cat, "Keybinds.Human", "AutoUseGasTooltip"));

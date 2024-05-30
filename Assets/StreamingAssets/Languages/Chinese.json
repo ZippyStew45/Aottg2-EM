@@ -280,6 +280,8 @@
         "Keybinds.Human.DashDownwards": "向下冲刺", // added by Ata 21 May 24
         "Keybinds.Human.DashUpwardsDoubleTap": "双击向上冲刺", // added by Ata 21 May 24
         "Keybinds.Human.DashUpwardsTooltip": "双击跳跃按钮向上冲刺。", // added by Ata 21 May 24
+        "Keybinds.Human.ForwardDashBoost": "前冲加速", // added by Snake 31 May 24
+        "Keybinds.Human.ForwardDashBoostTooltip": "以更高的气体消耗提升前冲速度。", // added by Snake 31 May 24
         "Keybinds.Human.LogisticianMenu": "物流师供应", // added by zippy 5 May 24
         "Keybinds.Human.AbilityWheelMenu": "能力轮", // added by Ata 13 May 24
         "Keybinds.Human.Ability1": "能力 1", // added by Ata 20 May 24
