@@ -85,11 +85,11 @@ public class AcousticFlare : MonoBehaviour
 
     private void ChangeCanvasLocation() // debugging was worthless so pushing this again to see if it fixes anything with a pull //
     {
-        Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
+        Vector2 pos = _camera.WorldToViewportPoint(uiTransform.position);
 
         if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
         {
-            if (pos.x < _camera.pixelWidth / 2)
+            if (pos.x < Screen.width / 2)
             {
                 pos.x = Screen.width - minX;
             }
@@ -99,8 +99,8 @@ public class AcousticFlare : MonoBehaviour
             }
         }
 
-        pos.x = Mathf.Clamp(pos.x, minX, Screen.width - minX);
-        pos.y = Mathf.Clamp(pos.y, minY, Screen.height - minY);
+        pos.x = Mathf.Clamp(pos.x * Screen.width, minX, Screen.width - minX);
+        pos.y = Mathf.Clamp(pos.y * Screen.height, minY, Screen.height - minY);
 
         markerImage.transform.position = pos;
         bannerImage.transform.position = new Vector2(pos.x, pos.y - _offset1);
