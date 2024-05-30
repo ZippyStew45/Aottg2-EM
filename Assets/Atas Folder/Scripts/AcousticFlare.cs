@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using ApplicationManagers;
 using Characters;
 using GameManagers;
 using Photon.Pun;
 using Photon.Realtime;
+using Settings;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,7 +86,6 @@ public class AcousticFlare : MonoBehaviour
 
     private void ChangeCanvasLocation() // debugging was worthless so pushing this again to see if it fixes anything with a pull //
     {
-        Debug.Log(uiTransform.position);
         Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
 
         if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
@@ -99,14 +100,22 @@ public class AcousticFlare : MonoBehaviour
             }
         }
 
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        pos.x = Mathf.Clamp(pos.x, minX, Screen.width - minX);
+        pos.y = Mathf.Clamp(pos.y, minY, Screen.height - minY);
 
         markerImage.transform.position = pos;
         bannerImage.transform.position = new Vector2(pos.x, pos.y - _offset1);
         ownerName.transform.position = new Vector2(pos.x, pos.y - _offset1);
         distance.transform.position = new Vector2(pos.x, pos.y - _offset2);
         distance.text = "-" + ((int)Vector3.Distance(uiTransform.position, _human.transform.position)).ToString() + "U-";
+
+        Debug.Log("_camera: " + _camera.pixelWidth);
+        Debug.Log("pos " + pos);
+        Debug.Log("Marker Location: " + uiTransform.position);
+        Debug.Log("minX: " + minX);
+        Debug.Log("maxX: " + maxX);
+        Debug.Log("minY: " + minY);
+        Debug.Log("maxY: " + maxY);
     }
 
     private void ScaleUIElements() // optionally, add scaling for when player is too close (looks fine to me for now)
@@ -133,7 +142,7 @@ public class AcousticFlare : MonoBehaviour
         float green = UnityEngine.Random.Range(0f, 1f);
         float blue = UnityEngine.Random.Range(0f, 1f); 
 
-        return new Color(red, green, blue);
+        return new Color(red, green, blue, .5f);
     }
 
     private void DestorySelf()
