@@ -84,12 +84,12 @@ public class AcousticFlare : MonoBehaviour
 
     private void ChangeCanvasLocation() // debugging was worthless so pushing this again to see if it fixes anything with a pull //
     {
-        Vector3 pos = _camera.WorldToViewportPoint(uiTransform.position);
+        Vector3 pos = SceneLoader.CurrentCamera.Camera.WorldToViewportPoint(uiTransform.position);
 
         pos.x *= canvas.pixelRect.width;
         pos.y *= canvas.pixelRect.height;
 
-        if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
+        if (Vector3.Dot((uiTransform.position - SceneLoader.CurrentCamera.Camera.transform.position), SceneLoader.CurrentCamera.Camera.transform.forward) < 0)
         {
             if (pos.x < Screen.width / 2)
             {
@@ -141,7 +141,7 @@ public class AcousticFlare : MonoBehaviour
         if (timeLeft <= 0)
             DestorySelf();
 
-        if ( _camera != null && uiTransform != null)
+        if ( SceneLoader.CurrentCamera.Camera != null && uiTransform != null)
         {
             ChangeCanvasLocation();
             ScaleUIElements();
