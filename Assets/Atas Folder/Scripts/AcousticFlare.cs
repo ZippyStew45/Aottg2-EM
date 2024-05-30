@@ -35,17 +35,10 @@ public class AcousticFlare : MonoBehaviour
 
     private Transform uiTransform;
     private Human _human; // gonna use this for distance calculation
-    Camera _camera;
 
     private float minX;
     private float minY;
-
-    readonly static private float offset1 = 50f;
-    readonly static private float offset2 = 80f;
-    private float _offset1 = offset1;
-    private float _offset2 = offset2;
     private float timeLeft = 180f;
-    Player _owner;
 
     public void Setup(Transform _transform, Player _player)
     {
@@ -56,11 +49,6 @@ public class AcousticFlare : MonoBehaviour
     [PunRPC]
     private void SetupRPC(Vector3 _position, Quaternion _rotation, Vector3 _scale, Player _player, PhotonMessageInfo info)
     {
-        if (uiTransform == null)
-        {
-            gameObject.AddComponent<Transform>();
-        }
-
         uiTransform = gameObject.GetComponent<Transform>();
 
         uiTransform.transform.position = _position;
@@ -68,7 +56,6 @@ public class AcousticFlare : MonoBehaviour
         uiTransform.transform.localScale = _scale;
 
         _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
-        _camera = FindFirstObjectByType<Camera>();
 
         minX = 0;
         minY = 0;
@@ -113,19 +100,56 @@ public class AcousticFlare : MonoBehaviour
     private void ScaleUIElements() // optionally, add scaling for when player is too close (looks fine to me for now)
     {
         float _distanceValue = Vector3.Distance(uiTransform.position, _human.transform.position);
-        if (_distanceValue == 0)
-            return;
 
-        float scale = 250f / _distanceValue;
+        if (_distanceValue > 40f && _distanceValue < 10000f)
+        {
+            float scale = 50f / _distanceValue;
+            marker.transform.localScale = new Vector2( Mathf.Clamp(scale, 0.25f, .75f), Mathf.Clamp(scale, 0.25f, .75f));
+        }
+        else 
+            marker.transform.localScale = new Vector2( .5f, .5f);
+    }
 
-        marker.transform.localScale = new Vector2( Mathf.Clamp(scale, 0.25f, 1f), Mathf.Clamp(scale, 0.25f, 1f));
+    private void ScaleOpacity()
+    {
+        float _distanceValue = Vector3.Distance(uiTransform.position, _human.transform.position);
+        if (_distanceValue > 40f && _distanceValue <= 10000f)
+        {
+            float scale = _distanceValue / 600f;
+            ApplyOpacity( Mathf.Clamp(scale, .2f, .7f));
+        }
+        else
+        {
+            if (_distanceValue > 10000f)
+                ApplyOpacity(0);
+            else
+                ApplyOpacity(.15f);
+        }
+    }
+
+    private void ApplyOpacity(float opacity)
+    {
+        foreach (Transform child in marker.transform)
+        {
+            RawImage _rawImage = child.gameObject.GetComponent<RawImage>();
+            Text _text = child.gameObject.GetComponent<Text>();
+
+            if (_text != null)
+            {
+                _text.color = new Color(_text.color.r, _text.color.g, _text.color.b, opacity);
+            }
+            if (_rawImage != null)
+            {
+                _rawImage.color = new Color(_rawImage.color.r, _rawImage.color.g, _rawImage.color.b, opacity);
+            }
+        }
     }
 
     private Color GenerateRandomColor()
     {
-        float red = UnityEngine.Random.Range(0f, 1f);  
-        float green = UnityEngine.Random.Range(0f, 1f);
-        float blue = UnityEngine.Random.Range(0f, 1f); 
+        float red = UnityEngine.Random.Range(.01f, .99f);  
+        float green = UnityEngine.Random.Range(.01f, .99f);
+        float blue = UnityEngine.Random.Range(.01f, .99f); 
 
         return new Color(red, green, blue, .5f);
     }
@@ -145,6 +169,7 @@ public class AcousticFlare : MonoBehaviour
         {
             ChangeCanvasLocation();
             ScaleUIElements();
+            ScaleOpacity();
         }
     }
 }
