@@ -50,7 +50,7 @@ namespace ApplicationManagers
             return options.ToArray();
         }
 
-        public static List<Resolution> GetResolutions()
+        static List<Resolution> GetResolutions()
         {
             List<Resolution> resolutions = new List<Resolution>();
             HashSet<string> found = new HashSet<string>();
