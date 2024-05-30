@@ -36,9 +36,7 @@ public class AcousticFlare : MonoBehaviour
     Camera _camera;
 
     private float minX;
-    private float maxX;
     private float minY;
-    private float maxY;
 
     readonly static private float offset1 = 50f;
     readonly static private float offset2 = 80f;
@@ -71,9 +69,7 @@ public class AcousticFlare : MonoBehaviour
         _camera = FindFirstObjectByType<Camera>();
 
         minX = markerImage.GetPixelAdjustedRect().width / 2;
-        maxX = Screen.width - minX;
         minY = markerImage.GetPixelAdjustedRect().width / 2;
-        maxY = Screen.height - minY;
         ownerName.text = _player.GetStringProperty(PlayerProperty.Name);
         bannerImage.color = GenerateRandomColor();
 
@@ -92,7 +88,7 @@ public class AcousticFlare : MonoBehaviour
         {
             if (pos.x < _camera.pixelWidth / 2)
             {
-                pos.x = maxX;
+                pos.x = Screen.width - minX;
             }
             else 
             {
@@ -113,9 +109,7 @@ public class AcousticFlare : MonoBehaviour
         Debug.Log("pos " + pos);
         Debug.Log("Marker Location: " + uiTransform.position);
         Debug.Log("minX: " + minX);
-        Debug.Log("maxX: " + maxX);
         Debug.Log("minY: " + minY);
-        Debug.Log("maxY: " + maxY);
     }
 
     private void ScaleUIElements() // optionally, add scaling for when player is too close (looks fine to me for now)
