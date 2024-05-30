@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marker: {fileID: 8374771368264658305}
   bannerImage: {fileID: 4300326262174170109}
+  canvas: {fileID: 8907513054135321184}
   ownerName: {fileID: 2087810965329691673}
   distance: {fileID: 1935116288135604120}
   ringingSound: {fileID: 7342979554131355908}

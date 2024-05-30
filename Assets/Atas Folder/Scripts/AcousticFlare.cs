@@ -19,6 +19,8 @@ public class AcousticFlare : MonoBehaviour
 
     [SerializeField]
     private RawImage bannerImage;
+    [SerializeField]
+    private Canvas canvas;
 
     [SerializeField]
     Text ownerName;
@@ -82,7 +84,10 @@ public class AcousticFlare : MonoBehaviour
 
     private void ChangeCanvasLocation() // debugging was worthless so pushing this again to see if it fixes anything with a pull //
     {
-        Vector2 pos = _camera.WorldToScreenPoint(uiTransform.position);
+        Vector3 pos = _camera.WorldToViewportPoint(uiTransform.position);
+
+        pos.x *= canvas.pixelRect.width;
+        pos.y *= canvas.pixelRect.height;
 
         if (Vector3.Dot((uiTransform.position - _camera.transform.position), _camera.transform.forward) < 0)
         {
