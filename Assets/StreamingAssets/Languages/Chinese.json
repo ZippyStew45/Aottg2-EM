@@ -187,6 +187,8 @@
         "General.CameraTilt": "视角摇晃",
         "General.CameraMode": "视角模式",
         "General.MinimapEnabled": "打开小地图",
+        "General.FlareMarkers": "闪光标记", // added by Ata 31 May 2024 for Flare Markers //
+        "General.FlareMarkersTooltip": "切换游戏中闪光标记的可见性",
         "General.MinimapHeight": "小地图尺寸",
         "General.SnapshotsEnabled": "开启击杀截屏",
         "General.SnapshotsShowInGame": "游戏内显示击杀截屏",

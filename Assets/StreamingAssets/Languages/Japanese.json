@@ -186,7 +186,9 @@
 		"General.SkipCutscenes": "カットシーンをスキップ",
 		"General.CameraTilt": "カメラ揺れ",
 		"General.CameraMode": "カメラモード",
-		"General.MinimapEnabled": "ミニマップ有効化",
+		"General.MinimapEnabled": "ミニマップ有効化", // added by Ata 31 May 2024 for Flare Markers //
+		"General.FlareMarkersTooltip": "ゲーム内のフレアマーカーの表示を切り替えます",
+		"General.FlareMarkers": "フレアマーカー",
 		"General.MinimapHeight": "ミニマップの高さ",
 		"General.SnapshotsEnabled": "スナップショット有効化",
 		"General.SnapshotsShowInGame": "ゲーム中スナップショット",

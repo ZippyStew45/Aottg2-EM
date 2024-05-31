@@ -202,6 +202,8 @@
 		"General.CameraClipping": "Camera clipping",
 		"General.CameraClippingTooltip": "Allow camera to clip through walls and objects.",
 		"General.MinimapEnabled": "Minimap on",
+		"General.FlareMarkers": "Flare Markers", // added by Ata 31 May 2024 for Flare Markers //
+		"General.FlareMarkersTooltip": "Toggle visibility of flare markers ingame",
 		"General.MinimapHeight": "Minimap height",
 		"General.SnapshotsEnabled": "Snapshots on",
 		"General.SnapshotsShowInGame": "Snapshots in-game",

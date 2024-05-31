@@ -17,6 +17,7 @@ namespace Projectiles
             BaseProjectile projectile;
             projectile = go.GetComponent<BaseProjectile>();
             
+            // block added by ata for flare wheel //
             Light light = go.GetComponentInChildren<Light>(); // flash added by Ata 26 May 2024 for flash flare //
             if (_type == 1) 
             {
@@ -28,6 +29,7 @@ namespace Projectiles
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
                 _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
             }    
+            // block added by ata for flare wheel //
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
             return projectile;

@@ -143,29 +143,26 @@ public class AcousticFlare : MonoBehaviourPun, IPunObservable
     {
         float _distanceValue = Vector3.Distance(uiTransform.position, SceneLoader.CurrentCamera.Camera.transform.position);
 
-        if (_distanceValue > 40f && _distanceValue < 10000f)
+        if (_distanceValue > 200f && _distanceValue < 10000f)
         {
             float scale = 50f / _distanceValue;
             marker.transform.localScale = new Vector2( Mathf.Clamp(scale, 0.25f, .75f), Mathf.Clamp(scale, 0.25f, .75f));
         }
         else 
-            marker.transform.localScale = new Vector2( .5f, .5f);
+            marker.transform.localScale = new Vector2( .25f, .25f);
     }
 
     private void ScaleOpacity()
     {
         float _distanceValue = Vector3.Distance(uiTransform.position, SceneLoader.CurrentCamera.Camera.transform.position);
-        if (_distanceValue > 40f && _distanceValue <= 10000f)
+        if (_distanceValue > 130f && _distanceValue <= 10000f)
         {
-            float scale = _distanceValue / 600f;
+            float scale = _distanceValue / 1500f;
             ApplyOpacity( Mathf.Clamp(scale, .2f, .7f));
         }
         else
         {
-            if (_distanceValue > 10000f)
-                ApplyOpacity(0);
-            else
-                ApplyOpacity(.15f);
+            ApplyOpacity(0);
         }
     }
 
@@ -219,6 +216,15 @@ public class AcousticFlare : MonoBehaviourPun, IPunObservable
             ChangeCanvasLocation();
             ScaleUIElements();
             ScaleOpacity();
+        }
+
+        if (SettingsManager.GeneralSettings.FlareMarkers.Value && !marker.activeInHierarchy)
+        {
+            marker.SetActive(true);
+        }
+        if (!SettingsManager.GeneralSettings.FlareMarkers.Value && marker.activeInHierarchy)
+        {
+            marker.SetActive(false);
         }
     }
 }

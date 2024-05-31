@@ -178,6 +178,8 @@
         "General.CameraTilt": "Kameraneigung",
         "General.CameraMode": "Kameramodus",
         "General.MinimapEnabled": "Minimap an",
+        "General.FlareMarkers": "Fackelmarkierungen", // added by Ata 31 May 2024 for Flare Markers //
+        "General.FlareMarkersTooltip": "Sichtbarkeit der Fackelmarkierungen im Spiel umschalten",
         "General.MinimapHeight": "Minimap H�he",
         "General.SnapshotsEnabled": "Snapshots an",
         "General.SnapshotsShowInGame": "Snapshots im Spiel anzeigen",
