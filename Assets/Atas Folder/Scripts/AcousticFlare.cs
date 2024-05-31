@@ -69,6 +69,9 @@ public class AcousticFlare : MonoBehaviourPun, IPunObservable
         {
             ringingSound.Play();
         }
+
+        
+        UI.MinimapHandler.CreateMinimapIcon(uiTransform, "Flare");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
