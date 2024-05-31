@@ -281,8 +281,8 @@
 		"Keybinds.Human.DashDownwards": "下にダッシュ", // added by Ata 21 May 24
 		"Keybinds.Human.DashUpwardsDoubleTap": "ダブルタップで上にダッシュ", // added by Ata 21 May 24
 		"Keybinds.Human.DashUpwardsTooltip": "ジャンプボタンをダブルタップして上にダッシュします。", // added by Ata 21 May 24
-		"Keybinds.Human.ForwardDashBoost": "前方ダッシュブースト", // added by Snake 31 May 24
-		"Keybinds.Human.ForwardDashBoostTooltip": "ガス消費量を増やして前方ダッシュを強化します。", // added by Snake 31 May 24
+		"Keybinds.Human.ForwardDashBoost": "オールドフォワードダッシュ", // added by Snake 31 May 24
+		"Keybinds.Human.ForwardDashBoostTooltip": "より少ない力およびより少ないガスの消費の古い前方ダッシュ。", // added by Snake 31 May 24
 		"Keybinds.Human.LogisticianMenu": "物流業者の供給", // added by zippy 5 May 24
 		"Keybinds.Human.AbilityWheelMenu": "アビリティホイール", // added by Ata 13 May 24
 		"Keybinds.Human.Ability1": "能力 1", // added by Ata 20 May 24

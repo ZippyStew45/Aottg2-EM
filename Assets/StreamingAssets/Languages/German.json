@@ -271,8 +271,8 @@
         "Keybinds.Human.DashDownwards": "Runterstürzen", // added by Ata 21 May 24
         "Keybinds.Human.DashUpwardsDoubleTap": "Doppeltippen zum Hochspringen", // added by Ata 21 May 24
         "Keybinds.Human.DashUpwardsTooltip": "Doppeltippen Sie Ihre Sprungtaste, um nach oben zu springen.", // added by Ata 21 May 24
-        "Keybinds.Human.ForwardDashBoost": "Vorwärts-Schub", // added by Snake 31 May 24
-        "Keybinds.Human.ForwardDashBoostTooltip": "Erhöht den Vorwärtsschub bei höherem Gasverbrauch.", // added by Snake 31 May 24
+        "Keybinds.Human.ForwardDashBoost": "Alter vorderer Strich", // added by Snake 31 May 24
+        "Keybinds.Human.ForwardDashBoostTooltip": "Alter vorderer Armaturenbrett mit weniger Leistung und weniger Gasverbrauch.", // added by Snake 31 May 24
         "Keybinds.Human.LogisticianMenu": "Logistikerversorgung", // added by zippy 5 May 24
         "Keybinds.Human.AbilityWheelMenu": "Fähigkeitenrad", // added by Ata 13 May 24
         "Keybinds.Human.Ability1": "Fähigkeit 1", // added by Ata 20 May 24
