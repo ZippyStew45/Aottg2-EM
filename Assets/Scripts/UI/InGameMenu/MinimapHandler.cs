@@ -44,17 +44,22 @@ namespace UI
 
             if (type == "Flare")
                 texture = "Prefabs/AtasFolder/WaypointImage"; // added by ata 31 May 2024 for Flare Marker //
+                
             var go = ResourceManager.InstantiateAsset<GameObject>(ResourcePaths.UI, "Minimap/Prefabs/MinimapIcon", true);
             if (!_cache.ContainsKey(texture))
             {
                 go.GetComponent<Renderer>().material.SetTexture("_MainTex", (Texture2D)ResourceManager.LoadAsset(ResourcePaths.UI, texture, true));
                 go.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                 _cache.Add(texture, go.GetComponent<Renderer>().material);
+
+                if (type == "Flare")
+                    go.GetComponent<Renderer>().sortingOrder = 9999; // added by ata 31 May 2024 for Flare Marker //
             }
             else
                 go.GetComponent<Renderer>().material = _cache[texture];
             var follow = go.AddComponent<MinimapIconFollow>();
-            follow.Init(CameraTransform, transform);
+
+            follow.Init(CameraTransform, transform, type == "Flare");
         }
 
         public static void CreateMinimapIcon(BaseCharacter character)
