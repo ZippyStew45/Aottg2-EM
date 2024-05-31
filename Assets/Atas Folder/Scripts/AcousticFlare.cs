@@ -60,6 +60,7 @@ public class AcousticFlare : MonoBehaviour
         minX = 0;
         minY = 0;
         ownerName.text = _player.GetStringProperty(PlayerProperty.Name);
+        ownerName.text = RemoveColorTagsFromName(ownerName.text);
         bannerImage.color = GenerateRandomColor();
 
         flareSound.Play();
@@ -143,6 +144,13 @@ public class AcousticFlare : MonoBehaviour
                 _rawImage.color = new Color(_rawImage.color.r, _rawImage.color.g, _rawImage.color.b, opacity);
             }
         }
+    }
+
+    private string RemoveColorTagsFromName(string playerName)
+    {
+        string pattern = @"<color=[^>]+>|</color>";
+        string cleanName = System.Text.RegularExpressions.Regex.Replace(playerName, pattern, string.Empty);
+        return cleanName;
     }
 
     private Color GenerateRandomColor()
