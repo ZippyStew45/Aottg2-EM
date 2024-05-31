@@ -41,6 +41,9 @@ namespace UI
             if (!CameraTransform.gameObject.activeSelf)
                 return;
             string texture = "Minimap/Textures/MinimapSupplyIcon";
+
+            if (type == "Flare")
+                texture = "Prefabs/AtasFolder/WaypointImage"; // added by ata 31 May 2024 for Flare Marker //
             var go = ResourceManager.InstantiateAsset<GameObject>(ResourcePaths.UI, "Minimap/Prefabs/MinimapIcon", true);
             if (!_cache.ContainsKey(texture))
             {

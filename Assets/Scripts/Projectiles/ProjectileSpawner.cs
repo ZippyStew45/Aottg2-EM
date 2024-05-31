@@ -2,6 +2,7 @@
 using GameManagers;
 using Photon.Pun;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using Utility;
 
@@ -26,6 +27,7 @@ namespace Projectiles
                 GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/AtasFolder/AcousticFlareMarker", position, rotation, 0);
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
                 _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
+                MinimapHandler.CreateMinimapIcon(marker.transform, "Flare");
             }    
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
