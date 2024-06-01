@@ -32,6 +32,10 @@ class CannoneerCannon : MonoBehaviourPun
     private float currentRot = 0f;
     private float RotateSpeed = 20f;
     private float BallSpeed = 300f;
+
+    public float interval = 3.0f; // Time interval in seconds
+    private float timer; // Timer to track time
+
     public LineRenderer myCannonLine;
 
     private void Awake()
@@ -55,12 +59,16 @@ class CannoneerCannon : MonoBehaviourPun
             _humanInput = SettingsManager.InputSettings.Human;
             _interactionInput = SettingsManager.InputSettings.Interaction;
         }
+
+        timer = 3.0f;
     }
 
     void Shoot()
     {
-        //if(self._cooldownLeft = self.Cooldown)
+        if(timer >= interval)
         {
+            timer = 0.0f;
+
             Vector3 position = BarrelEnd.transform.position;
             Vector3 velocity = Barrel.forward.normalized * BallSpeed;
             Vector3 gravity = new Vector3(0, -20, 0);
@@ -77,6 +85,8 @@ class CannoneerCannon : MonoBehaviourPun
 
     void FixedUpdate()
     {
+        timer += Time.fixedDeltaTime;
+
         DrawLine();
         Controls();
     }
