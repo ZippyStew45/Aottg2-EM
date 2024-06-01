@@ -1,8 +1,13 @@
+using ApplicationManagers;
+using Characters;
+using GameManagers;
+using Map;
 using Photon.Pun;
 using Settings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 class CannoneerCannon : MonoBehaviourPun
 {
@@ -15,6 +20,7 @@ class CannoneerCannon : MonoBehaviourPun
     private PhotonView PV;
 
     private GameObject Hero;
+    private Human _human;
 
     protected GeneralInputSettings _input;
     protected HumanInputSettings _humanInput;
@@ -30,6 +36,7 @@ class CannoneerCannon : MonoBehaviourPun
     {
         PV = gameObject.GetComponent<PhotonView>();
         Hero = PhotonExtensions.GetPlayerFromID(PV.Owner.ActorNumber);
+        _human = Hero.GetComponent<Human>();
         this.correctBarrelRot = this.Barrel.rotation;
         this.myCannonLine = this.BarrelEnd.GetComponent<LineRenderer>();
     }
@@ -38,6 +45,8 @@ class CannoneerCannon : MonoBehaviourPun
     {
         Hero.transform.position = HumanMount.transform.position;
         Hero.transform.SetParent(HumanMount.transform);
+        _human.MountState = HumanMountState.MapObject;
+        _human.MountedTransform = HumanMount.transform;
 
         if (PV.IsMine)
         {
@@ -54,8 +63,7 @@ class CannoneerCannon : MonoBehaviourPun
 
     public void UnMount() //Gotta Send RPC Here
     {
-        Hero.transform.parent = null; //RPC
-        PhotonNetwork.Destroy(gameObject);
+        RPCManager.PhotonView.RPC("UnMountCannoneer", RpcTarget.All, _human, Hero, gameObject, HumanMount.transform);
     }
 
     void FixedUpdate()
