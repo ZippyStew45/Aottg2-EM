@@ -11,7 +11,7 @@ using System.Resources;
 using GameManagers;
 using CustomLogic;
 
-class ZippsUIManager : MonoBehaviour
+class ZippsUIManager : MonoBehaviourPunCallbacks
 {
     protected Human _human;
     private void Start()
@@ -42,6 +42,12 @@ class ZippsUIManager : MonoBehaviour
             LogisticianMenu.SetActive(false);
             EmVariables.LogisticianOpen = false;
         }
+    }
+
+    public override void OnJoinedRoom()
+    {
+        EmVariables.SelectedPlayer = PhotonNetwork.LocalPlayer;
+        base.OnJoinedRoom();
     }
 
     #region EM Menu
@@ -319,8 +325,11 @@ class ZippsUIManager : MonoBehaviour
 
         if (_humanInput.CannoneerSpawn.GetKeyDown())
         {
+            _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+            if (!_human.Grounded) return;
+
             GameObject hero = PhotonExtensions.GetMyHuman();
-            Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f) + new Vector3(0, 1.5f, 0);
+            Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f);
             if (CannonObj != null)
             {
                 CannonObj.GetComponent<CannoneerCannon>().UnMount();
@@ -331,7 +340,6 @@ class ZippsUIManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region Ability Wheel
     [Header("Ability Wheel")]
