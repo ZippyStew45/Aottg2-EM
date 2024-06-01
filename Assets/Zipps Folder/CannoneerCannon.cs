@@ -74,7 +74,7 @@ class CannoneerCannon : MonoBehaviourPun
             Vector3 gravity = new Vector3(0, -20, 0);
 
             EffectSpawner.Spawn(EffectPrefabs.Boom2, position, gameObject.transform.rotation, 0.5f);
-            ProjectileSpawner.Spawn(ProjectilePrefabs.CannonBall, position, Quaternion.Euler(Vector3.zero), velocity, gravity, 2.0f, _human.GetComponent<PhotonView>().ViewID, _human.Team);
+            ProjectileSpawner.Spawn(ProjectilePrefabs.CannonBall, position, Quaternion.Euler(Vector3.zero), velocity, gravity, 6.0f, _human.GetComponent<PhotonView>().ViewID, _human.Team);
         }
     }
 
