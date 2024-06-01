@@ -17,6 +17,7 @@ using Photon.Pun;
 using Projectiles;
 using Spawnables;
 using UnityEditor;
+using Palmmedia.ReportGenerator.Core;
 
 namespace Characters
 {
@@ -79,8 +80,9 @@ namespace Characters
                 _walkAnimation = BasicAnimations.Walk;
             }
 
-            if (EmVariables.Faker)
+            if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceFaker.Value)
             {
+                Debug.Log("Faker");
                 if (Name == "Punk" || Name == "Thrower")
                 {
                     _runAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Walk : BasicAnimations.Runs[0];
