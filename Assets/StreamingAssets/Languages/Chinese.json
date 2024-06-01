@@ -112,6 +112,7 @@
     "Titans.Jumper": "跳跃奇行种",
     "Titans.Crawler": "爬行奇行种",
     "Titans.Punk": "朋克奇行种",
+    "Titans.Faker": "假装者", // added by FederalChicken 1 June 24
     "Titans.SizeEnabled": "自定义尺寸",
     "Titans.MinSize": "最小尺寸",
     "Titans.MaxSize": "最大尺寸",
