@@ -18,10 +18,11 @@ namespace Projectiles
             projectile = go.GetComponent<BaseProjectile>();
             
             // block added by ata for flare wheel //
-            Light light = go.GetComponentInChildren<Light>(); // flash added by Ata 26 May 2024 for flash flare //
             if (_type == 1) 
             {
-                light.enabled = true;
+                PhotonView photonView = go.GetComponent<PhotonView>();
+                if (photonView.IsMine)
+                    photonView.RPC("EnableLight", RpcTarget.AllBuffered, new object[] { go });
             }
             if (_type == 2)
             {
@@ -33,6 +34,13 @@ namespace Projectiles
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
             return projectile;
+        }
+
+        [PunRPC]
+        private void EnableLight(GameObject go)
+        {
+            Light light = go.GetComponentInChildren<Light>();
+            light.enabled = true;
         }
     }
 }
