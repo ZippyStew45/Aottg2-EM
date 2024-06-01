@@ -522,4 +522,5 @@ MonoBehaviour:
   Barrel: {fileID: 3449938275905392003}
   BarrelEnd: {fileID: 2128573608629731688}
   HumanMount: {fileID: 1689482066904005913}
+  interval: 3
   myCannonLine: {fileID: 0}
