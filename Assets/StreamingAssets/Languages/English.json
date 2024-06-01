@@ -119,6 +119,8 @@
 		"Titans.Thrower": "Thrower",
 		"Titans.Crawler": "Crawler",
 		"Titans.Punk": "Punk",
+		"Titans.Stalker": "Stalker", // added by FederalChicken 1 June 24
+		"Titans.TitanChanceStalkerTooltip": "This sets what percent of Titans will be Stalkers. Stalkers follow random users instead of the nearest one.", // added by FederalChicken 1 June 24
 		"Titans.SizeEnabled": "Custom sizes",
 		"Titans.MinSize": "Min size",
 		"Titans.MaxSize": "MaxSize",

@@ -111,6 +111,7 @@
     "Titans.Jumper": "Springer",
     "Titans.Crawler": "Crawler",
     "Titans.Punk": "Punk",
+    "Titans.Stalker": "Stalker", // added by FederalChicken 1 June 24
     "Titans.SizeEnabled": "Gr��e",
     "Titans.MinSize": "Min. Gr��e",
     "Titans.MaxSize": "Max. Gr��e",
