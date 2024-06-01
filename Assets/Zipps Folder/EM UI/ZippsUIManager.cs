@@ -325,6 +325,9 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
         if (_humanInput.CannoneerSpawn.GetKeyDown())
         {
+            _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+            if (!_human.Grounded) return;
+
             GameObject hero = PhotonExtensions.GetMyHuman();
             Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f);
             if (CannonObj != null)
