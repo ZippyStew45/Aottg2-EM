@@ -8,6 +8,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Projectiles;
+using Effects;
+using UnityEngine.UIElements;
 
 class CannoneerCannon : MonoBehaviourPun
 {
@@ -29,6 +32,7 @@ class CannoneerCannon : MonoBehaviourPun
     private float currentRot = 0f;
     private float RotateSpeed = 30f;
     private float SmoothingDelay = 5f;
+    private float BallSpeed = 300f;
     private Quaternion correctBarrelRot = Quaternion.identity;
     public LineRenderer myCannonLine;
 
@@ -58,7 +62,16 @@ class CannoneerCannon : MonoBehaviourPun
 
     void Shoot()
     {
+       // self._cooldownLeft = self.Cooldown;
+       // if (self._human != null)
+        {
+            Vector3 position = BarrelEnd.transform.position;
+            Vector3 velocity = Barrel.forward.normalized * BallSpeed;
+            Vector3 gravity = new Vector3(0, -20, 0);
 
+            EffectSpawner.Spawn(EffectPrefabs.Boom2, position, gameObject.transform.rotation, 0.5f);
+            ProjectileSpawner.Spawn(ProjectilePrefabs.CannonBall, position, Quaternion.Euler(Vector3.zero), velocity, gravity, 2.0f, _human.GetComponent<PhotonView>().ViewID, _human.Team);
+        }
     }
 
     public void UnMount() //Gotta Send RPC Here
