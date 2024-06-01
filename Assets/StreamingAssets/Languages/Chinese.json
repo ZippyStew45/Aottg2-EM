@@ -113,6 +113,7 @@
     "Titans.Crawler": "爬行奇行种",
     "Titans.Punk": "朋克奇行种",
     "Titans.Stalker": "尾随者", // added by FederalChicken 1 June 24
+
     "Titans.SizeEnabled": "自定义尺寸",
     "Titans.MinSize": "最小尺寸",
     "Titans.MaxSize": "最大尺寸",

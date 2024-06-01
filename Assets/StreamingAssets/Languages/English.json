@@ -113,6 +113,8 @@
 		"Titans.StandardModelsTooltip": "Use only standard titan models (body0 and head0).",
 		"Titans.SpawnEnabled": "Custom spawns",
 		"Titans.SpawnEnabledTooltip": "Spawn rates must add up to 100.",
+		"Titans.TitanChanceStalkerTooltip": "This sets what percent of Titans will be Stalkers. Stalkers follow random users instead of the nearest one.", // added by FederalChicken 1 June 24
+
 		"Titans.Normal": "Normal",
 		"Titans.Abnormal": "Abnormal",
 		"Titans.Jumper": "Jumper",
@@ -120,7 +122,7 @@
 		"Titans.Crawler": "Crawler",
 		"Titans.Punk": "Punk",
 		"Titans.Stalker": "Stalker", // added by FederalChicken 1 June 24
-		"Titans.TitanChanceStalkerTooltip": "This sets what percent of Titans will be Stalkers. Stalkers follow random users instead of the nearest one.", // added by FederalChicken 1 June 24
+
 		"Titans.SizeEnabled": "Custom sizes",
 		"Titans.MinSize": "Min size",
 		"Titans.MaxSize": "MaxSize",

@@ -32,6 +32,9 @@ namespace UI
             CreateHorizontalDivider(DoublePanelLeft);
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanChanceStalker, UIManager.GetLocale(cat, sub, "Stalker"), elementWidth: inputWidth, // added by FederalChicken 1 June 24
                 tooltip: UIManager.GetLocale(cat, sub, "TitanChanceStalkerTooltip")); // added by FederalChicken 1 June 24
+
+
+
             ElementFactory.CreateToggleSetting(DoublePanelLeft, style, settings.TitanSizeEnabled, UIManager.GetLocale(cat, sub, "SizeEnabled"));
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanSizeMin, UIManager.GetLocale(cat, sub, "MinSize"), elementWidth: inputWidth);
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanSizeMax, UIManager.GetLocale(cat, sub, "MaxSize"), elementWidth: inputWidth);

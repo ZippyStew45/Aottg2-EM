@@ -113,6 +113,7 @@
 		"Titans.Crawler": "四足歩行種",
 		"Titans.Punk": "投擲種",
 		"Titans.Stalker": "追跡者", // added by FederalChicken 1 June 24
+
 		"Titans.SizeEnabled": "カスタムサイズ",
 		"Titans.MinSize": "最小",
 		"Titans.MaxSize": "最大",
