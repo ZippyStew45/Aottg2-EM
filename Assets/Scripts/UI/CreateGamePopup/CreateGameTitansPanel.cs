@@ -30,6 +30,8 @@ namespace UI
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanSpawnThrower, UIManager.GetLocale(cat, sub, "Thrower"), elementWidth: inputWidth);
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanSpawnPunk, UIManager.GetLocale(cat, sub, "Punk"), elementWidth: inputWidth);
             CreateHorizontalDivider(DoublePanelLeft);
+
+
             ElementFactory.CreateInputSetting(DoublePanelLeft, style, settings.TitanChanceFaker, UIManager.GetLocale(cat, sub, "Faker"), elementWidth: inputWidth, // added by FederalChicken 1 June 24
                 tooltip: UIManager.GetLocale(cat, sub, "TitanChanceFakerTooltip")); // added by FederalChicken 1 June 24
             CreateHorizontalDivider(DoublePanelLeft); // added by FederalChicken 1 June 24

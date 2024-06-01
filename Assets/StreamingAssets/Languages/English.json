@@ -113,6 +113,7 @@
 		"Titans.StandardModelsTooltip": "Use only standard titan models (body0 and head0).",
 		"Titans.SpawnEnabled": "Custom spawns",
 		"Titans.SpawnEnabledTooltip": "Spawn rates must add up to 100.",
+
 		"Titans.TitanChanceFakerTooltip": "This sets what percent of titans will be Fakers. Fakers pretend to be other Titans by using different animations.", // added by FederalChicken 1 June 24
 		"Titans.Normal": "Normal",
 		"Titans.Abnormal": "Abnormal",
@@ -120,6 +121,7 @@
 		"Titans.Thrower": "Thrower",
 		"Titans.Crawler": "Crawler",
 		"Titans.Punk": "Punk",
+
 		"Titans.Faker": "Faker", // added by FederalChicken 1 June 24
 		"Titans.SizeEnabled": "Custom sizes",
 		"Titans.MinSize": "Min size",
