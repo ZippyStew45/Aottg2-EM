@@ -88,7 +88,8 @@ class CannoneerCannon : MonoBehaviourPun
         timer += Time.fixedDeltaTime;
 
         DrawLine();
-        Controls();
+        Controls(); 
+        CheckHuman();
     }
 
     private void Controls()
@@ -132,6 +133,14 @@ class CannoneerCannon : MonoBehaviourPun
             this.myCannonLine.SetPosition(i, position);
             position += (Vector3)((vector3 * num) + (((0.5f * vector) * num) * num));
             vector3 += (Vector3)(vector * num);
+        }
+    }
+
+    private void CheckHuman()
+    {
+        if (Hero == null)
+        {
+            Destroy(gameObject);
         }
     }
 }
