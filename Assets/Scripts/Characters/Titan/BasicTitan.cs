@@ -81,8 +81,7 @@ namespace Characters
             }
 
             if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceFaker.Value)
-            {
-                Debug.Log("Faker");
+            {               
                 if (Name == "Punk" || Name == "Thrower")
                 {
                     _runAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Walk : BasicAnimations.Runs[0];
@@ -96,7 +95,7 @@ namespace Characters
                     _walkAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Runs[0] : BasicAnimations.Runs[1];
                 }
             }
-            
+            Name = Name + "<color=#772732> [F]</color>";
             #endregion
 
             Cache.PhotonView.RPC("SetCrawlerRPC", RpcTarget.AllBuffered, new object[] { IsCrawler });
