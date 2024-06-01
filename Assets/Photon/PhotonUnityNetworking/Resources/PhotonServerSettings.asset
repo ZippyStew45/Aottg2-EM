@@ -126,6 +126,8 @@ MonoBehaviour:
   - StopChargeEffectRPC
   - Initialize
   - OnPhotonSerializeView
+  - EnableLight
+  - EnableLightRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
