@@ -30,10 +30,8 @@ class CannoneerCannon : MonoBehaviourPun
     protected InteractionInputSettings _interactionInput;
 
     private float currentRot = 0f;
-    private float RotateSpeed = 30f;
-    private float SmoothingDelay = 5f;
+    private float RotateSpeed = 20f;
     private float BallSpeed = 300f;
-    private Quaternion correctBarrelRot = Quaternion.identity;
     public LineRenderer myCannonLine;
 
     private void Awake()
@@ -41,7 +39,6 @@ class CannoneerCannon : MonoBehaviourPun
         PV = gameObject.GetComponent<PhotonView>();
         Hero = PhotonExtensions.GetPlayerFromID(PV.Owner.ActorNumber);
         _human = Hero.GetComponent<Human>();
-        this.correctBarrelRot = this.Barrel.rotation;
         this.myCannonLine = this.BarrelEnd.GetComponent<LineRenderer>();
     }
 
@@ -62,8 +59,7 @@ class CannoneerCannon : MonoBehaviourPun
 
     void Shoot()
     {
-       // self._cooldownLeft = self.Cooldown;
-       // if (self._human != null)
+        //if(self._cooldownLeft = self.Cooldown)
         {
             Vector3 position = BarrelEnd.transform.position;
             Vector3 velocity = Barrel.forward.normalized * BallSpeed;
@@ -81,12 +77,6 @@ class CannoneerCannon : MonoBehaviourPun
 
     void FixedUpdate()
     {
-        if (!PV.IsMine)
-        {
-            this.Barrel.rotation = Quaternion.Lerp(this.Barrel.rotation, this.correctBarrelRot, Time.deltaTime * this.SmoothingDelay);
-            return;
-        }
-
         DrawLine();
         Controls();
     }
@@ -132,26 +122,6 @@ class CannoneerCannon : MonoBehaviourPun
             this.myCannonLine.SetPosition(i, position);
             position += (Vector3)((vector3 * num) + (((0.5f * vector) * num) * num));
             vector3 += (Vector3)(vector * num);
-        }
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(base.transform.position);
-            stream.SendNext(base.transform.rotation);
-            stream.SendNext(this.Barrel.rotation);
-        }
-        else
-        {
-            //this.correctPlayerPos = (Vector3)stream.ReceiveNext();
-            //this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
-            this.correctBarrelRot = (Quaternion)stream.ReceiveNext();
-
-
-            //float lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
-            //rigidbody.position += rigidbody.velocity * lag;
         }
     }
 }
