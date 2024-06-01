@@ -20,9 +20,7 @@ namespace Projectiles
             // block added by ata for flare wheel //
             if (_type == 1) 
             {
-                PhotonView photonView = go.GetComponent<PhotonView>();
-                if (photonView.IsMine)
-                    photonView.RPC("EnableLight", RpcTarget.AllBuffered, new object[] { go });
+                projectile.EnableLight();
             }
             if (_type == 2)
             {
@@ -34,13 +32,6 @@ namespace Projectiles
 
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
             return projectile;
-        }
-
-        [PunRPC]
-        private void EnableLight(GameObject go)
-        {
-            Light light = go.GetComponentInChildren<Light>();
-            light.enabled = true;
         }
     }
 }

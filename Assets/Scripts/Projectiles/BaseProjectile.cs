@@ -59,6 +59,21 @@ namespace Projectiles
             }
         }
 
+
+        public void EnableLight()
+        {
+            PhotonView photonView = this.GetComponent<PhotonView>();
+                if (photonView.IsMine)
+                    photonView.RPC("EnableLightRPC", RpcTarget.AllBuffered, new object[] {  });
+        }
+
+        [PunRPC]
+        public void EnableLightRPC(PhotonMessageInfo info)
+        {
+            Light light = this.GetComponentInChildren<Light>();
+            light.enabled = true;
+        }
+
         protected virtual void SetupSettings(object[] settings)
         {
         }
