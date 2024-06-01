@@ -11,7 +11,7 @@ using System.Resources;
 using GameManagers;
 using CustomLogic;
 
-class ZippsUIManager : MonoBehaviour
+class ZippsUIManager : MonoBehaviourPunCallbacks
 {
     protected Human _human;
     private void Start()
@@ -42,6 +42,12 @@ class ZippsUIManager : MonoBehaviour
             LogisticianMenu.SetActive(false);
             EmVariables.LogisticianOpen = false;
         }
+    }
+
+    public override void OnJoinedRoom()
+    {
+        EmVariables.SelectedPlayer = PhotonNetwork.LocalPlayer;
+        base.OnJoinedRoom();
     }
 
     #region EM Menu
@@ -331,7 +337,6 @@ class ZippsUIManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region Ability Wheel
     [Header("Ability Wheel")]
