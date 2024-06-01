@@ -95,6 +95,9 @@ namespace Controllers
             IsRun = data["IsRun"].AsBool;
             IsTurn = data["IsTurn"].AsBool;
             TurnAngle = data["TurnAngle"].AsFloat;
+
+             
+            
             foreach (string attack in data["Attacks"].Keys)
             {
                 float chance = data["Attacks"][attack];
@@ -134,6 +137,10 @@ namespace Controllers
 
         protected override void Update()
         {
+            // if (EmVariables.Faker)
+            // {
+            //     ForceIdle(3500);
+            // }
             _focusTimeLeft -= Time.deltaTime;
             _stateTimeLeft -= Time.deltaTime;
             if (_titan.Dead)
