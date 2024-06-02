@@ -25,6 +25,7 @@ namespace Controllers
         public bool IsRun;
         public bool IsTurn;
         public float TurnAngle;
+        private float _initialDelayLeft;
         protected Vector3 _moveToPosition;
         protected float _moveAngle;
         protected bool _moveToActive;
@@ -54,6 +55,7 @@ namespace Controllers
         protected override void Start()
         {
             Idle();
+            _initialDelayLeft = InitialDelay; // For Stalker titan added by Snake 2 June 24
         }
 
         public void MoveTo(Vector3 position, float range, bool ignore)
@@ -134,6 +136,9 @@ namespace Controllers
 
         protected override void Update()
         {
+            _initialDelayLeft -= Time.deltaTime; 
+            if (_initialDelayLeft > 0f)  return; // For Stalker titan added by Snake 2 June 24
+
             _focusTimeLeft -= Time.deltaTime;
             _stateTimeLeft -= Time.deltaTime;
             if (_titan.Dead)
@@ -154,13 +159,29 @@ namespace Controllers
             }
             if (_focusTimeLeft <= 0f || _enemy == null)
             {
-                var enemy = FindNearestEnemy();
-                if (enemy != null)
-                    _enemy = enemy;
-                else if (_enemy != null)
+                if (_titan.Name.Contains("[S]"))
                 {
-                    if (Vector3.Distance(_titan.Cache.Transform.position, _enemy.Cache.Transform.position) > FocusRange)
-                        _enemy = null;
+                    if (_enemy == null) 
+                    {
+                        var randomEnemy = FindRandomEnemy();
+                        if (randomEnemy != null)
+                        {
+                            _enemy = randomEnemy; 
+                            Debug.Log($"Random enemy selected: {_enemy?.Name}");
+                        }
+                    }
+                }
+                else
+                {
+                    var nearestEnemy = FindNearestEnemy();
+                    
+                    if (nearestEnemy != null)
+                        _enemy = nearestEnemy;
+                       
+                }
+                if (_enemy != null && Vector3.Distance(_titan.Cache.Transform.position, _enemy.Cache.Transform.position) > FocusRange)
+                {
+                    _enemy = null;
                 }
                 _focusTimeLeft = FocusTime;
             }
@@ -406,6 +427,30 @@ namespace Controllers
                 }
             }
             return nearestCharacter;
+        }
+
+        //added by Snake on 2 June for Stalker Titan
+        protected BaseCharacter FindRandomEnemy()
+        {
+            if (_detection.Enemies.Count == 0)
+                return null;
+
+            List<BaseCharacter> aliveEnemies = new List<BaseCharacter>();
+
+            foreach (BaseCharacter character in _detection.Enemies)
+            {
+                if (character != null && !character.Dead)
+                    aliveEnemies.Add(character);
+            }
+            Debug.Log($"Number of detected enemies: {_detection.Enemies.Count}");
+            if (aliveEnemies.Count == 0)
+                return null;
+
+            int randomIndex = UnityEngine.Random.Range(0, aliveEnemies.Count);
+            BaseCharacter randomEnemy = aliveEnemies[randomIndex];
+            //Debug.Log($"Random enemy found f: {randomEnemy?.Name}");
+            return randomEnemy;
+            
         }
 
         private string GetRandomAttack()
