@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using SimpleJSONFixed;
 using Utility;
+using Photon.Pun; 
+using Photon.Realtime;
 
 namespace Controllers
 {
@@ -168,7 +170,6 @@ namespace Controllers
                         if (randomEnemy != null)
                         {
                             _enemy = randomEnemy; 
-                            Debug.Log($"Random enemy selected: {_enemy?.Name}");
                         }
                     }
                 }
@@ -437,21 +438,35 @@ namespace Controllers
                 return null;
 
             List<BaseCharacter> aliveEnemies = new List<BaseCharacter>();
+            List<BaseCharacter> wagonEnemies = new List<BaseCharacter>();
 
             foreach (BaseCharacter character in _detection.Enemies)
             {
                 if (character != null && !character.Dead)
+                {
                     aliveEnemies.Add(character);
+                    // Check if the player has the "Wagon" property
+                    Player player = character.GetComponent<PhotonView>().Owner;
+                    if (player != null && player.CustomProperties.ContainsKey("Wagon"))
+                    {
+                        wagonEnemies.Add(character);
+                    }
+                }
             }
-            Debug.Log($"Number of detected enemies: {_detection.Enemies.Count}");
             if (aliveEnemies.Count == 0)
                 return null;
-
-            int randomIndex = UnityEngine.Random.Range(0, aliveEnemies.Count);
-            BaseCharacter randomEnemy = aliveEnemies[randomIndex];
-            //Debug.Log($"Random enemy found f: {randomEnemy?.Name}");
-            return randomEnemy;
-            
+            if (wagonEnemies.Count > 0 && UnityEngine.Random.value < 0.3f)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, wagonEnemies.Count);
+                BaseCharacter randomEnemy = wagonEnemies[randomIndex];
+                return randomEnemy;
+            }
+            else
+            {
+                int randomIndex = UnityEngine.Random.Range(0, aliveEnemies.Count);
+                BaseCharacter randomEnemy = aliveEnemies[randomIndex];
+                return randomEnemy;
+            }
         }
 
         private string GetRandomAttack()
