@@ -28,7 +28,10 @@ namespace Projectiles
                 var handler = GetComponent<Collider>().gameObject.GetComponent<CustomLogicCollisionHandler>();
                 if (handler != null)
                 {
-                    handler.GetHit(_owner, "CannonBall", 100, "CannonBall");
+                    if (EmVariables.NonLethalCannon)
+                        handler.GetHit(_owner, "CannonBall", 0, "CannonBall"); //added by zipp, semi hard damage
+                    else
+                        handler.GetHit(_owner, "CannonBall", 100, "CannonBall");
                     return;
                 }
                 if (character != null && !TeamInfo.SameTeam(character, _team))

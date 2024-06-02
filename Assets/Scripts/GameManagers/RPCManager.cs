@@ -254,6 +254,23 @@ namespace GameManagers
             Destroy(cannon);
         }
 
+        [PunRPC]
+        public void EmSettingsRpc(string[] StrSettings, bool[] BoolSettings, int[] IntSettings, float[] FloatSettings, PhotonMessageInfo info)
+        {
+            ///// Strings \\\\\
+
+
+            ///// Bools \\\\\
+            EmVariables.NonLethalCannon = BoolSettings[0];
+
+
+            ///// Ints \\\\\
+
+
+            ///// Floats \\\\\
+
+        }
+
         #endregion
 
         void Awake()

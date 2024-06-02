@@ -21,4 +21,10 @@ public static class EmVariables
 
     public static List<string> sceneNames = new List<string>();
     public static bool IsSceneInBuild(string sceneName) { return sceneNames.Contains(sceneName); }
+
+    #region Settings Sent By RPC
+
+    public static bool NonLethalCannon = false; //Added by Zipp, hell yea 
+
+    #endregion
 }

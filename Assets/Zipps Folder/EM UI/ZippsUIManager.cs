@@ -10,6 +10,7 @@ using Utility;
 using System.Resources;
 using GameManagers;
 using CustomLogic;
+using UnityEngine.XR;
 
 class ZippsUIManager : MonoBehaviourPunCallbacks
 {
@@ -68,6 +69,37 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
         CanvasObj.SetActive(true);
     }
 
+    #region Settings
+
+    public void NonLethalCannon_OnClick(bool B)
+    {
+        EmVariables.NonLethalCannon = B;
+        SendSettingsRPC();
+    }
+
+    public void SendSettingsRPC() /////     IF YOU EDIT, EDIT THE RPC TOO (int RpcManager)     \\\\\
+    {
+        string[] StrSettings = {
+            null //temp null cuz no settings set
+        };
+
+        int[] IntSettings = {
+            0 //temp 0 cuz no settings yet
+        };
+
+        float[] FloatSettings = {
+            0 //temp 0 cuz no settings yet
+        };
+
+        bool[] BoolSettings = {
+            EmVariables.NonLethalCannon // 0
+        };
+
+        RPCManager.PhotonView.RPC("EmSettingsRpc", RpcTarget.AllBuffered, StrSettings, BoolSettings, IntSettings, FloatSettings);
+    }
+
+    #endregion
+    #region PlayerList
     public void OnTPPlayerButtonClick(int setting)
     {
         GameObject TargetplayerGameObject = PhotonExtensions.GetPlayerFromID(EmVariables.SelectedPlayer.ActorNumber);
@@ -131,8 +163,9 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
             playerProps.Add(RoleName, true);
         EmVariables.SelectedPlayer.SetCustomProperties(playerProps);
     }
-
     #endregion
+
+#endregion
 
     #region Logistician Menu
 

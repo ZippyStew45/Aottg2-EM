@@ -426,7 +426,10 @@ namespace Characters
             var settings = SettingsManager.InGameCurrent.Titan;
             if (type == "CannonBall")
             {
-                base.GetHitRPC(viewId, name, damage, type, collider);
+                if (EmVariables.NonLethalCannon) //added by zipp, titan sit from floppy cannon 
+                    Cripple(2f);
+                else
+                    base.GetHitRPC(viewId, name, damage, type, collider);
                 return;
             }
             if (settings.TitanArmorEnabled.Value && (!IsCrawler || settings.TitanArmorCrawlerEnabled.Value))
