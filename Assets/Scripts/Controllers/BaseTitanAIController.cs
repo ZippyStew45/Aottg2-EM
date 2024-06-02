@@ -25,6 +25,7 @@ namespace Controllers
         public bool IsRun;
         public bool IsTurn;
         public float TurnAngle;
+        public float InitialDelay = 2.0f; // For Stalker titan added by Snake 2 June 24
         private float _initialDelayLeft;
         protected Vector3 _moveToPosition;
         protected float _moveAngle;
