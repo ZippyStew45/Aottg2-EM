@@ -3,7 +3,12 @@ guid: 267add4fa812fe644aad91cc30735d70
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TitanColliderToggler: {instanceID: 0}
+  - HoldHuman: {instanceID: 0}
+  - TargetEnemy: {instanceID: 0}
+  - Setup: {instanceID: 0}
+  - BloodPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
