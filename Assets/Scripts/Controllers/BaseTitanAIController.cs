@@ -100,6 +100,9 @@ namespace Controllers
             IsRun = data["IsRun"].AsBool;
             IsTurn = data["IsTurn"].AsBool;
             TurnAngle = data["TurnAngle"].AsFloat;
+
+             
+            
             foreach (string attack in data["Attacks"].Keys)
             {
                 float chance = data["Attacks"][attack];
@@ -142,6 +145,10 @@ namespace Controllers
             _initialDelayLeft -= Time.deltaTime; 
             if (_initialDelayLeft > 0f)  return; // For Stalker titan added by Snake 2 June 24
 
+            // if (EmVariables.Faker)
+            // {
+            //     ForceIdle(3500);
+            // }
             _focusTimeLeft -= Time.deltaTime;
             _stateTimeLeft -= Time.deltaTime;
             if (_titan.Dead)

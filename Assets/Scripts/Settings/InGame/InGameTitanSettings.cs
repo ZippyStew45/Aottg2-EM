@@ -7,10 +7,10 @@
         public FloatSetting TitanSpawnAbnormal = new FloatSetting(20f, minValue: 0f, maxValue: 100f);
         public FloatSetting TitanSpawnJumper = new FloatSetting(15f, minValue: 0f, maxValue: 100f);
         public FloatSetting TitanSpawnCrawler = new FloatSetting(15f, minValue: 0f, maxValue: 100f);
-        public FloatSetting TitanSpawnThrower = new FloatSetting(15f, minValue: 0f, maxValue: 100f);
+        public FloatSetting TitanSpawnThrower = new FloatSetting(15f, minValue: 0f, maxValue: 100f);       
         public FloatSetting TitanSpawnPunk = new FloatSetting(15f, minValue: 0f, maxValue: 100f);
         public FloatSetting TitanChanceStalker = new FloatSetting(0f, minValue: 0f, maxValue: 100f); // added by FederalChicken 1 June 24
-
+        public FloatSetting TitanChanceFaker = new FloatSetting(0f, minValue: 0f, maxValue: 100f); // added by FederalChicken 1 June 24
         public BoolSetting TitanSizeEnabled = new BoolSetting(false);
         public FloatSetting TitanSizeMin = new FloatSetting(1f, minValue: 0.1f, maxValue: 100f);
         public FloatSetting TitanSizeMax = new FloatSetting(3f, minValue: 0.1f, maxValue: 100f);
