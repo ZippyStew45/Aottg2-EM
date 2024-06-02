@@ -142,13 +142,6 @@ namespace Controllers
 
         protected override void Update()
         {
-            _initialDelayLeft -= Time.deltaTime; 
-            if (_initialDelayLeft > 0f)  return; // For Stalker titan added by Snake 2 June 24
-
-            // if (EmVariables.Faker)
-            // {
-            //     ForceIdle(3500);
-            // }
             _focusTimeLeft -= Time.deltaTime;
             _stateTimeLeft -= Time.deltaTime;
             if (_titan.Dead)
@@ -169,28 +162,13 @@ namespace Controllers
             }
             if (_focusTimeLeft <= 0f || _enemy == null)
             {
-                if (_titan.Name.Contains("[S]"))
+                var enemy = FindNearestEnemy();
+                if (enemy != null)
+                    _enemy = enemy;
+                else if (_enemy != null)
                 {
-                    if (_enemy == null) 
-                    {
-                        var randomEnemy = FindRandomEnemy();
-                        if (randomEnemy != null)
-                        {
-                            _enemy = randomEnemy; 
-                        }
-                    }
-                }
-                else
-                {
-                    var nearestEnemy = FindNearestEnemy();
-                    
-                    if (nearestEnemy != null)
-                        _enemy = nearestEnemy;
-                       
-                }
-                if (_enemy != null && Vector3.Distance(_titan.Cache.Transform.position, _enemy.Cache.Transform.position) > FocusRange)
-                {
-                    _enemy = null;
+                    if (Vector3.Distance(_titan.Cache.Transform.position, _enemy.Cache.Transform.position) > FocusRange)
+                        _enemy = null;
                 }
                 _focusTimeLeft = FocusTime;
             }

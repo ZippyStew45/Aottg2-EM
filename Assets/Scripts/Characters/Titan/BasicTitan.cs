@@ -68,10 +68,9 @@ namespace Characters
                 else
                     _runAnimation = BasicAnimations.Runs[runAnimationType - 1];
             }
-            //added by Snake on 2 June for Stalker Titan
-            if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceStalker.Value)
-                Name = Name + "<color=#274D77> [S]</color>";
-            #region Faker Titan added by Snake on 1 June 24
+            
+            
+            #region Faker-Stalker Titan added by Snake on 2 June 24
            
             if (data != null && data.HasKey("WalkAnimation"))
             {
@@ -81,6 +80,9 @@ namespace Characters
             {
                 _walkAnimation = BasicAnimations.Walk;
             }
+
+            if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceStalker.Value)
+                Name = Name + "<color=#274D77> [S]</color>";
 
             if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceFaker.Value)
             {               
@@ -96,8 +98,9 @@ namespace Characters
                 {   
                     _walkAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Runs[0] : BasicAnimations.Runs[1];
                 }
+                Name = Name + "<color=#772732> [F]</color>";
             }
-            Name = Name + "<color=#772732> [F]</color>";
+            
             #endregion
 
             Cache.PhotonView.RPC("SetCrawlerRPC", RpcTarget.AllBuffered, new object[] { IsCrawler });
