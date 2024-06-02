@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using SimpleJSONFixed;
 using Utility;
-using Photon.Pun; 
+using Photon.Pun;
 using Photon.Realtime;
 
 namespace Controllers
@@ -101,8 +101,8 @@ namespace Controllers
             IsTurn = data["IsTurn"].AsBool;
             TurnAngle = data["TurnAngle"].AsFloat;
 
-             
-            
+
+
             foreach (string attack in data["Attacks"].Keys)
             {
                 float chance = data["Attacks"][attack];
@@ -162,6 +162,7 @@ namespace Controllers
             }
             if (_focusTimeLeft <= 0f || _enemy == null)
             {
+                StalkerUpdate();
                 var enemy = FindNearestEnemy();
                 if (enemy != null)
                     _enemy = enemy;
@@ -416,6 +417,24 @@ namespace Controllers
             return nearestCharacter;
         }
 
+        private void StalkerUpdate()
+        {
+            _initialDelayLeft -= Time.deltaTime;
+            if (_initialDelayLeft > 0f) return; // For Stalker titan added by Snake 2 June 24
+
+            if (_titan.Name.Contains("[S]"))
+            {
+                if (_enemy == null)
+                {
+                    var randomEnemy = FindRandomEnemy();
+                    if (randomEnemy != null)
+                    {
+                        _enemy = randomEnemy;
+                    }
+                }
+            }
+        }
+
         //added by Snake on 2 June for Stalker Titan
         protected BaseCharacter FindRandomEnemy()
         {
@@ -440,17 +459,20 @@ namespace Controllers
             }
             if (aliveEnemies.Count == 0)
                 return null;
-            if (wagonEnemies.Count > 0 && UnityEngine.Random.value < 0.3f)
+            if (wagonEnemies.Count > 0 && UnityEngine.Random.value < .3f)
             {
                 int randomIndex = UnityEngine.Random.Range(0, wagonEnemies.Count);
                 BaseCharacter randomEnemy = wagonEnemies[randomIndex];
+                Debug.Log("wagon found , player: " + randomEnemy.Name);
                 return randomEnemy;
             }
             else
             {
                 int randomIndex = UnityEngine.Random.Range(0, aliveEnemies.Count);
                 BaseCharacter randomEnemy = aliveEnemies[randomIndex];
+                Debug.Log("No wagon found , player: " + randomEnemy.Name);
                 return randomEnemy;
+
             }
         }
 

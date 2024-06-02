@@ -81,9 +81,6 @@ namespace Characters
                 _walkAnimation = BasicAnimations.Walk;
             }
 
-            if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceStalker.Value)
-                Name = Name + "<color=#274D77> [S]</color>";
-
             if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceFaker.Value)
             {               
                 if (Name == "Punk" || Name == "Thrower")
@@ -105,7 +102,8 @@ namespace Characters
 
             Cache.PhotonView.RPC("SetCrawlerRPC", RpcTarget.AllBuffered, new object[] { IsCrawler });
             base.Init(ai, team, data);
-            
+            if (UnityEngine.Random.value * 100f <= SettingsManager.InGameCurrent.Titan.TitanChanceStalker.Value)
+                Name = Name + "<color=#274D77> [S]</color>";
         }
 
         protected override Dictionary<string, float> GetRootMotionAnimations()
