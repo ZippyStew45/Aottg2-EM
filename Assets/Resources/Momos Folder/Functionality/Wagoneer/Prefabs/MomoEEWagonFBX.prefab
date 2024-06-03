@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3787515703203554211}
   - component: {fileID: 8940797734994936971}
   - component: {fileID: 2419243264477178628}
-  m_Layer: 23
+  m_Layer: 24
   m_Name: WagonWheelsBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409396218214386881}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.00000018366461, y: 0.39759865, z: -0.6730394}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.0149932, z: 0.23423588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1174710376674131410}
+  m_Father: {fileID: 140352060377523200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3787515703203554211
 MeshFilter:
@@ -115,8 +115,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1174710376674131410}
-  - component: {fileID: 6822324842623904681}
-  m_Layer: 23
+  - component: {fileID: 4990673825858003500}
+  m_Layer: 24
   m_Name: MomoEEWagonFBX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,39 +136,26 @@ Transform:
   m_LocalScale: {x: 1.7013893, y: 1.7013893, z: 1.7013893}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 140352060377523200}
   - {fileID: 5944290402801993074}
-  - {fileID: 6621474944936643806}
-  - {fileID: 44652267614804764}
+  - {fileID: 140352060377523200}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &6822324842623904681
-Rigidbody:
+--- !u!114 &4990673825858003500
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2331935075035172494}
-  serializedVersion: 4
-  m_Mass: 400
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e011ccd6311d63f499f62159e3f27e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wagon_Body: {fileID: 140352060377523200}
+  Wagon_Saddle: {fileID: 5944290402801993074}
+  Front_Wheels: {fileID: 44652267614804764}
+  Back_Wheels: {fileID: 6621474944936643806}
 --- !u!1 &2998036883118591141
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +168,9 @@ GameObject:
   - component: {fileID: 9112287286774487757}
   - component: {fileID: 3994031826344030145}
   - component: {fileID: 3656579094214714872}
-  m_Layer: 23
+  - component: {fileID: 2760454515782563788}
+  - component: {fileID: 3735475271438792217}
+  m_Layer: 24
   m_Name: WagonBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,11 +185,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2998036883118591141}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.000000049774354, y: 0.63183445, z: 0.3419541}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0.6318343, z: 0.34195426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6621474944936643806}
+  - {fileID: 44652267614804764}
   m_Father: {fileID: 1174710376674131410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9112287286774487757
@@ -275,6 +266,72 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7485464837811596760, guid: 450c42dd0364aa44d84e9741596bc153, type: 3}
+--- !u!54 &2760454515782563788
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998036883118591141}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!59 &3735475271438792217
+HingeJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998036883118591141}
+  m_ConnectedBody: {fileID: 6478689501505336154}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0.98, z: 0.25}
+  m_Axis: {x: 0, y: 0, z: 1}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: -0.0007200688, y: 0.2948227, z: -84.916084}
+  serializedVersion: 2
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 1
+  m_ExtendedLimits: 0
+  m_UseAcceleration: 0
+  m_Limits:
+    min: -35
+    max: 35
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &3522575644867014825
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +344,7 @@ GameObject:
   - component: {fileID: 1207039390885577127}
   - component: {fileID: 4526308323387081165}
   - component: {fileID: 6749880975189440599}
-  m_Layer: 23
+  m_Layer: 24
   m_Name: WagonWheelsFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,12 +359,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3522575644867014825}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.0000014305115, y: 0.3975988, z: 0.67303884}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3310847, z: 0.23423563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1174710376674131410}
+  m_Father: {fileID: 140352060377523200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1207039390885577127
 MeshFilter:
@@ -393,7 +450,8 @@ GameObject:
   - component: {fileID: 419585901034042352}
   - component: {fileID: 5142751169680574524}
   - component: {fileID: 7895389768213896088}
-  m_Layer: 23
+  - component: {fileID: 6478689501505336154}
+  m_Layer: 24
   m_Name: WagonHorseAttachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,3 +545,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1757617546047546494, guid: 450c42dd0364aa44d84e9741596bc153, type: 3}
+--- !u!54 &6478689501505336154
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316528699405671792}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
