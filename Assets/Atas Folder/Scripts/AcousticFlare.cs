@@ -75,41 +75,41 @@ public class AcousticFlare : MonoBehaviourPun, IPunObservable
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-{
-    if (stream.IsWriting)
     {
-        stream.SendNext(this.uiTransform.position);
-        stream.SendNext(this.uiTransform.rotation);
-        stream.SendNext(this.uiTransform.localScale);
-        stream.SendNext(new Vector4(bannerImage.color.r, bannerImage.color.g, bannerImage.color.b, bannerImage.color.a));
-        stream.SendNext(this.ownerName.text);
-        stream.SendNext(this.distance != null ? this.distance.text : "");
-    }
-    else
-    {
-        uiTransform.position = (Vector3)stream.ReceiveNext();
-        uiTransform.rotation = (Quaternion)stream.ReceiveNext();
-        uiTransform.localScale = (Vector3)stream.ReceiveNext();
-
-        Vector4 colorVector = (Vector4)stream.ReceiveNext();
-        bannerImage.color = new Color(colorVector.x, colorVector.y, colorVector.z, colorVector.w);
-
-        ownerName.text = (string)stream.ReceiveNext();
-        if (distance != null)
+        if (stream.IsWriting)
         {
-            distance.text = (string)stream.ReceiveNext();
+            stream.SendNext(this.uiTransform.position);
+            stream.SendNext(this.uiTransform.rotation);
+            stream.SendNext(this.uiTransform.localScale);
+            stream.SendNext(new Vector4(bannerImage.color.r, bannerImage.color.g, bannerImage.color.b, bannerImage.color.a));
+            stream.SendNext(this.ownerName.text);
+            stream.SendNext(this.distance != null ? this.distance.text : "");
         }
         else
         {
-            Debug.LogWarning("Distance text component is null");
+            uiTransform.position = (Vector3)stream.ReceiveNext();
+            uiTransform.rotation = (Quaternion)stream.ReceiveNext();
+            uiTransform.localScale = (Vector3)stream.ReceiveNext();
+    
+            Vector4 colorVector = (Vector4)stream.ReceiveNext();
+            bannerImage.color = new Color(colorVector.x, colorVector.y, colorVector.z, colorVector.w);
+    
+            ownerName.text = (string)stream.ReceiveNext();
+            if (distance != null)
+            {
+                distance.text = (string)stream.ReceiveNext();
+            }
+            else
+            {
+                Debug.LogWarning("Distance text component is null");
+            }
+    
+            ownerName.text = RemoveColorTagsFromName(ownerName.text);
+    
+            minX = 0;
+            minY = 0;
         }
-
-        ownerName.text = RemoveColorTagsFromName(ownerName.text);
-
-        minX = 0;
-        minY = 0;
     }
-}
 
     private void ChangeCanvasLocation()
     {
