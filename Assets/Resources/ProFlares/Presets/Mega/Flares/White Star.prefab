@@ -3,9 +3,10 @@
 --- !u!1 &100000
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: 11400000}
@@ -18,39 +19,42 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &400000
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15b6679336c128b459f37ee207e8c880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Atlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
-  FlareBatches:
-  - {fileID: 0}
+  _Atlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
+  FlareBatches: []
   EditingAtlas: 0
+  isVisible: 1
   Elements:
   - Editing: 0
     Visible: 1
     elementTextureID: 9
     SpriteName: Glow_Chroma
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 0.34
     ScaleRandom: 0
@@ -76,46 +80,44 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 0.8507463
-      g: 0.906438
-      b: 0.8627451
-      a: 0.34405228
-    ElementTint:
-      r: 1
-      g: 1
-      b: 0.8627451
-      a: 0.36862746
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 0.8507463, g: 0.906438, b: 0.8627451, a: 0.34405228}
+    ElementTint: {r: 1, g: 1, b: 0.8627451, a: 0.36862746}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 0
@@ -142,7 +144,7 @@ MonoBehaviour:
     elementTextureID: 39
     SpriteName: Steak_SuperSoftEnds
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 0.74
     ScaleRandom: 0.689
@@ -168,46 +170,44 @@ MonoBehaviour:
     rotationSpeed: 5.71
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.30980393
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.15294118
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 1, g: 1, b: 1, a: 0.30980393}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.15294118}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 0
@@ -217,16 +217,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 0
     DynamicCenterBrightnessOverride: 0.4
     subElements:
-    - color:
-        r: 0.85212547
-        g: 1
-        b: 1
-        a: 0.19528356
-      colorFinal:
-        r: 0.72494256
-        g: 0.906438
-        b: 1
-        a: 0.18226466
+    - color: {r: 0.85212547, g: 1, b: 1, a: 0.19528356}
+      colorFinal: {r: 0.72494256, g: 0.906438, b: 1, a: 0.18226466}
       position: 0.42200375
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 65.2281
@@ -238,16 +230,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.8828008
       RandomColorSeedB: 0.48755595
       RandomColorSeedA: 0.25976917
-    - color:
-        r: 0.86033857
-        g: 1
-        b: 0.8282903
-        a: 0.052394025
-      colorFinal:
-        r: 0.73192984
-        g: 0.906438
-        b: 0.8282903
-        a: 0.04890109
+    - color: {r: 0.86033857, g: 1, b: 0.8282903, a: 0.052394025}
+      colorFinal: {r: 0.73192984, g: 0.906438, b: 0.8282903, a: 0.04890109}
       position: 0.16586578
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 72.470116
@@ -259,16 +243,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.7714033
       RandomColorSeedB: -0.8896878
       RandomColorSeedA: -0.6168537
-    - color:
-        r: 1
-        g: 1
-        b: 0.9119584
-        a: 0.27352345
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 0.9119584
-        a: 0.25528854
+    - color: {r: 1, g: 1, b: 0.9119584, a: 0.27352345}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 0.9119584, a: 0.25528854}
       position: 0.87366843
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 158.30916
@@ -280,16 +256,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.72790885
       RandomColorSeedB: -0.45617402
       RandomColorSeedA: 0.7397685
-    - color:
-        r: 1
-        g: 1
-        b: 0.9796948
-        a: 0.021408781
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 0.9796948
-        a: 0.01998153
+    - color: {r: 1, g: 1, b: 0.9796948, a: 0.021408781}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 0.9796948, a: 0.01998153}
       position: 0.77892566
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 104.69725
@@ -301,16 +269,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.023594499
       RandomColorSeedB: -0.105208516
       RandomColorSeedA: -0.80694723
-    - color:
-        r: 0.850394
-        g: 1
-        b: 0.9113231
-        a: 0.039476026
-      colorFinal:
-        r: 0.72346956
-        g: 0.906438
-        b: 0.9113231
-        a: 0.03684429
+    - color: {r: 0.850394, g: 1, b: 0.9113231, a: 0.039476026}
+      colorFinal: {r: 0.72346956, g: 0.906438, b: 0.9113231, a: 0.03684429}
       position: -0.2094742
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 231.49179
@@ -322,16 +282,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.366562
       RandomColorSeedB: -0.4594661
       RandomColorSeedA: -0.69610524
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.28016543
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.26148775
+    - color: {r: 1, g: 1, b: 1, a: 0.28016543}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.26148775}
       position: -0.11232126
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 196.92058
@@ -343,16 +295,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.0664376
       RandomColorSeedB: 0.9511514
       RandomColorSeedA: 0.78051686
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.045266304
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.04224855
+    - color: {r: 1, g: 1, b: 1, a: 0.045266304}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.04224855}
       position: -0.09989607
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 230.78384
@@ -364,16 +308,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.74137664
       RandomColorSeedB: 0.22615182
       RandomColorSeedA: -0.66058207
-    - color:
-        r: 0.87662053
-        g: 1
-        b: 1
-        a: 0.13346936
-      colorFinal:
-        r: 0.74578166
-        g: 0.906438
-        b: 1
-        a: 0.1245714
+    - color: {r: 0.87662053, g: 1, b: 1, a: 0.13346936}
+      colorFinal: {r: 0.74578166, g: 0.906438, b: 1, a: 0.1245714}
       position: -0.59900093
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 220.73723
@@ -385,16 +321,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.8000295
       RandomColorSeedB: 0.82709384
       RandomColorSeedA: -0.11945903
-    - color:
-        r: 0.98239
-        g: 1
-        b: 0.81066257
-        a: 0.023013636
-      colorFinal:
-        r: 0.83576465
-        g: 0.906438
-        b: 0.81066257
-        a: 0.021479394
+    - color: {r: 0.98239, g: 1, b: 0.81066257, a: 0.023013636}
+      colorFinal: {r: 0.83576465, g: 0.906438, b: 0.81066257, a: 0.021479394}
       position: 0.6629429
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 311.46527
@@ -423,7 +351,7 @@ MonoBehaviour:
     elementTextureID: 31
     SpriteName: Shimmer_Long_Chroma_02
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 0.24
     ScaleRandom: 1
@@ -449,46 +377,44 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.039215688
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.111
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.111}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 0
@@ -498,16 +424,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 0
     DynamicCenterBrightnessOverride: 0.4
     subElements:
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.111
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1036
+    - color: {r: 1, g: 1, b: 1, a: 0.111}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1036}
       position: -0.96164465
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 0
@@ -519,16 +437,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.39442623
       RandomColorSeedB: -0.40067923
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.111
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1036
+    - color: {r: 1, g: 1, b: 1, a: 0.111}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1036}
       position: 0.832721
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 36
@@ -540,16 +450,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.94235444
       RandomColorSeedB: 0.93174934
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.111
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1036
+    - color: {r: 1, g: 1, b: 1, a: 0.111}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1036}
       position: 0.64157677
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 72
@@ -561,16 +463,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.64978075
       RandomColorSeedB: 0.16749084
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.111
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1036
+    - color: {r: 1, g: 1, b: 1, a: 0.111}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1036}
       position: 0.23972881
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 108
@@ -582,16 +476,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.5685315
       RandomColorSeedB: 0.641732
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.111
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1036
+    - color: {r: 1, g: 1, b: 1, a: 0.111}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1036}
       position: -0.4249705
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 144
@@ -620,7 +506,7 @@ MonoBehaviour:
     elementTextureID: 12
     SpriteName: Glow_NoneUniform_02
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 1.03
     ScaleRandom: 0
@@ -646,46 +532,44 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 0.8507463
-      g: 0.906438
-      b: 1
-      a: 0.22306666
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.239
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 0.8507463, g: 0.906438, b: 1, a: 0.22306666}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.239}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 0
@@ -712,7 +596,7 @@ MonoBehaviour:
     elementTextureID: 39
     SpriteName: Steak_SuperSoftEnds
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 1.71
     ScaleRandom: 0
@@ -738,46 +622,44 @@ MonoBehaviour:
     rotationSpeed: -34.87
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.30980393
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.15294118
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 1, g: 1, b: 1, a: 0.30980393}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.15294118}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 0
@@ -787,16 +669,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 0
     DynamicCenterBrightnessOverride: 0.4
     subElements:
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.15294118
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1427451
+    - color: {r: 1, g: 1, b: 1, a: 0.15294118}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1427451}
       position: 0.75350714
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 76.63612
@@ -808,16 +682,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.3758721
       RandomColorSeedB: -0.8780072
       RandomColorSeedA: 0.793026
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.15294118
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1427451
+    - color: {r: 1, g: 1, b: 1, a: 0.15294118}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1427451}
       position: 0.12988651
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 219.79083
@@ -829,16 +695,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.9078851
       RandomColorSeedB: -0.5227723
       RandomColorSeedA: 0.7779186
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.15294118
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1427451
+    - color: {r: 1, g: 1, b: 1, a: 0.15294118}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1427451}
       position: 0.7487588
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 175.75711
@@ -850,16 +708,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.92612743
       RandomColorSeedB: -0.46805656
       RandomColorSeedA: -0.9824836
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.15294118
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.1427451
+    - color: {r: 1, g: 1, b: 1, a: 0.15294118}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.1427451}
       position: -0.3110515
       offset: {x: -0.919719, y: -0.17320508, z: 0}
       angle: 303.895
@@ -888,7 +738,7 @@ MonoBehaviour:
     elementTextureID: 35
     SpriteName: Spectrum_Thick_wide
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 0.9
     ScaleRandom: 0.823
@@ -914,46 +764,44 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 0.8507463
-      g: 0.906438
-      b: 1
-      a: 0.066475414
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.085
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 0.8507463, g: 0.906438, b: 1, a: 0.066475414}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.085}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 1
@@ -963,16 +811,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 1
     DynamicCenterBrightnessOverride: -0.1
     subElements:
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -984,16 +824,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.92629886
       RandomColorSeedB: -0.6976335
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1005,16 +837,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.79279065
       RandomColorSeedB: 0.09548342
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1026,16 +850,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.7173095
       RandomColorSeedB: 0.49853942
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1047,16 +863,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.56564164
       RandomColorSeedB: -0.7399719
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1085,7 +893,7 @@ MonoBehaviour:
     elementTextureID: 35
     SpriteName: Spectrum_Thick_wide
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 1.75
     ScaleRandom: 0.823
@@ -1111,46 +919,44 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 0.8507463
-      g: 0.906438
-      b: 1
-      a: 0.069047
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.085
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 0.8507463, g: 0.906438, b: 1, a: 0.069047}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.085}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 0
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 1
@@ -1160,16 +966,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 1
     DynamicCenterBrightnessOverride: -0.08
     subElements:
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1181,16 +979,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.92629886
       RandomColorSeedB: -0.6976335
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1202,16 +992,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.79279065
       RandomColorSeedB: 0.09548342
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1223,16 +1005,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.7173095
       RandomColorSeedB: 0.49853942
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1244,16 +1018,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.56564164
       RandomColorSeedB: -0.7399719
       RandomColorSeedA: 0.5
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
-      colorFinal:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+    - color: {r: 1, g: 1, b: 1, a: 1}
+      colorFinal: {r: 1, g: 1, b: 1, a: 1}
       position: 1
       offset: {x: 1.9200829, y: 0.1816839, z: 0}
       angle: 0
@@ -1282,7 +1048,7 @@ MonoBehaviour:
     elementTextureID: 17
     SpriteName: Iris_Pentagon_Chroma
     flare: {fileID: 11400000}
-    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 2}
+    flareAtlas: {fileID: 11400000, guid: cb9d833d9a9304870b9f6bad04ea93e3, type: 3}
     Brightness: 1
     Scale: 0.56
     ScaleRandom: 0.292
@@ -1308,56 +1074,62 @@ MonoBehaviour:
     rotationSpeed: 0
     rotationOverTime: 0
     useColorRange: 0
-    ElementFinalColor:
-      r: 0.84705883
-      g: 0.90588236
-      b: 1
-      a: 0.30980393
-    ElementTint:
-      r: 1
-      g: 1
-      b: 1
-      a: 0.09411765
-    SubElementColor_Start:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    SubElementColor_End:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    ElementFinalColor: {r: 0.84705883, g: 0.90588236, b: 1, a: 0.30980393}
+    ElementTint: {r: 1, g: 1, b: 1, a: 0.09411765}
+    SubElementColor_Start: {r: 1, g: 1, b: 1, a: 1}
+    SubElementColor_End: {r: 1, g: 1, b: 1, a: 1}
     useScaleCurve: 1
     ScaleCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.6761281
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6761281
         value: 0.39764708
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: 0.74516094
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.74516094
         value: 0.19171181
         inSlope: -1.334995
         outSlope: -1.334995
         tangentMode: 0
-      - time: 0.891242
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.891242
         value: 0.9500969
         inSlope: -0.39462
         outSlope: -0.39462
         tangentMode: 0
-      - time: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
         value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
+      m_RotationOrder: 4
     OverrideDynamicEdgeBoost: 0
     DynamicEdgeBoostOverride: 1
     OverrideDynamicCenterBoost: 1
@@ -1367,16 +1139,8 @@ MonoBehaviour:
     OverrideDynamicCenterBrightness: 1
     DynamicCenterBrightnessOverride: -0.1
     subElements:
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: 0.6872091
       offset: {x: 0.6320393, y: 0.119028114, z: 0}
       angle: 0
@@ -1388,16 +1152,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.09069598
       RandomColorSeedB: 0.9402435
       RandomColorSeedA: -0.97188616
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.9465537
       offset: {x: -0.8705634, y: -0.16394791, z: 0}
       angle: 0
@@ -1409,16 +1165,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.44121906
       RandomColorSeedB: 0.08050287
       RandomColorSeedA: -0.928653
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.76098585
       offset: {x: -0.6998931, y: -0.13180661, z: 0}
       angle: 0
@@ -1430,16 +1178,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.2797818
       RandomColorSeedB: -0.9803064
       RandomColorSeedA: -0.01104033
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.37989008
       offset: {x: -0.34939212, y: -0.06579889, z: 0}
       angle: 0
@@ -1451,16 +1191,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.9068394
       RandomColorSeedB: 0.84249926
       RandomColorSeedA: -0.21199763
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.6253884
       offset: {x: -0.57518154, y: -0.108320445, z: 0}
       angle: 0
@@ -1472,16 +1204,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.2859913
       RandomColorSeedB: 0.61561584
       RandomColorSeedA: 0.01076901
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: 0.6107619
       offset: {x: 0.5617293, y: 0.10578706, z: 0}
       angle: 0
@@ -1493,16 +1217,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.30983245
       RandomColorSeedB: -0.20429885
       RandomColorSeedA: -0.7204182
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.26490867
       offset: {x: -0.24364154, y: -0.045883525, z: 0}
       angle: 0
@@ -1514,16 +1230,8 @@ MonoBehaviour:
       RandomColorSeedG: -0.6885252
       RandomColorSeedB: -0.5782652
       RandomColorSeedA: -0.35121238
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: 0.4237497
       offset: {x: 0.38973063, y: 0.073395595, z: 0}
       angle: 0
@@ -1535,16 +1243,8 @@ MonoBehaviour:
       RandomColorSeedG: 0.1474551
       RandomColorSeedB: -0.6364951
       RandomColorSeedA: 0.0059603453
-    - color:
-        r: 1
-        g: 1
-        b: 1
-        a: 0.09411765
-      colorFinal:
-        r: 0.8507463
-        g: 0.906438
-        b: 1
-        a: 0.07498521
+    - color: {r: 1, g: 1, b: 1, a: 0.09411765}
+      colorFinal: {r: 0.8507463, g: 0.906438, b: 1, a: 0.07498521}
       position: -0.37338102
       offset: {x: -0.3434056, y: -0.06467149, z: 0}
       angle: 0
@@ -1569,15 +1269,13 @@ MonoBehaviour:
     colorTextureDirty: 1
     type: 1
   thisTransform: {fileID: 400000}
+  thisGameObject: {fileID: 100000}
   LensPosition: {x: 0.24132904, y: 0.41339746, z: 10}
   EditGlobals: 1
   GlobalScale: 82
+  MultiplyScaleByTransformScale: 0
   GlobalBrightness: 1
-  GlobalTintColor:
-    r: 0.8507463
-    g: 0.906438
-    b: 1
-    a: 1
+  GlobalTintColor: {r: 0.8507463, g: 0.906438, b: 1, a: 1}
   useMaxDistance: 1
   useDistanceScale: 1
   useDistanceFade: 1
@@ -1588,27 +1286,45 @@ MonoBehaviour:
   UseAngleBrightness: 1
   UseAngleCurve: 0
   AngleCurve:
+    serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 3
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   mask:
-    m_Bits: 1
-  RaycastPhysics: 0
+    serializedVersion: 2
+    m_Bits: 8390657
+  RaycastPhysics: 1
   Occluded: 0
   OccludeScale: 1
+  pixelBasedOcclusion: 0
+  pixelLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967039
+  occlusionScaleSpeed: 4
+  occlusionBrightnessSpeed: 32
   OccludingObject: {fileID: 0}
   EditDynamicTriggering: 1
-  EditOcclusion: 0
+  EditOcclusion: 1
+  IoSetting: 0
   OffScreenFadeDist: 0.2
   useDynamicEdgeBoost: 1
   DynamicEdgeBoost: 1.2
@@ -1616,38 +1332,45 @@ MonoBehaviour:
   DynamicEdgeRange: 0.3
   DynamicEdgeBias: -0.33
   DynamicEdgeCurve:
+    serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 3
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 0.5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   useDynamicCenterBoost: 1
   DynamicCenterBoost: 0.1
   DynamicCenterBrightness: 0
   DynamicCenterRange: 0.3
   DynamicCenterBias: 0
-  DisabledPlayMode: 1
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 100000}
-  m_IsPrefabParent: 1
+  neverCull: 0
+  sunMode: 0
+  sunModeTransformA: {fileID: 0}
+  sunModeTransformB: {fileID: 0}
+  DisabledPlayMode: 0
