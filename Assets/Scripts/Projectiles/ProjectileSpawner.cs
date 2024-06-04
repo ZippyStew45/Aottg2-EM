@@ -34,7 +34,7 @@ namespace Projectiles
             }
             else if (_type == 2)
             {
-                GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/" + name, position, rotation, 0);
+                GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/AcousticFlare", position, rotation, 0);
                 BaseProjectile projectile;
                 projectile = go.GetComponent<BaseProjectile>();
 
