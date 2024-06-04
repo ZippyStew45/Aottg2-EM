@@ -21,6 +21,7 @@ namespace Projectiles
             if (_type == 1) 
             {
                 projectile.EnableLight();
+                projectile.EnableFlareBloom();
             }
             if (_type == 2)
             {
@@ -33,5 +34,8 @@ namespace Projectiles
             projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
             return projectile;
         }
+
+        
+        
     }
 }

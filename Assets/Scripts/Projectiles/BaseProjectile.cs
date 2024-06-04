@@ -63,8 +63,8 @@ namespace Projectiles
         public void EnableLight()
         {
             PhotonView photonView = this.GetComponent<PhotonView>();
-                if (photonView.IsMine)
-                    photonView.RPC("EnableLightRPC", RpcTarget.AllBuffered, new object[] {  });
+            if (photonView.IsMine)
+                photonView.RPC("EnableLightRPC", RpcTarget.AllBuffered, new object[] {  });
         }
 
         [PunRPC]
@@ -72,6 +72,20 @@ namespace Projectiles
         {
             Light light = this.GetComponentInChildren<Light>();
             light.enabled = true;
+        }
+
+        public void EnableFlareBloom()
+        {
+            PhotonView photonView = GetComponent<PhotonView>();
+            if (photonView.IsMine)
+                photonView.RPC("EnableFlareBloomRPC", RpcTarget.All, new object[] { });
+        }
+
+        [PunRPC]
+        public void EnableFlareBloomRPC()
+        {
+            FlareProjectile _script = this.GetComponent<FlareProjectile>();
+            _script.ProFlareBatch.GetComponent<ProFlareBatch>().GameCamera = ApplicationManagers.SceneLoader.CurrentCamera.Camera;
         }
 
         protected virtual void SetupSettings(object[] settings)
