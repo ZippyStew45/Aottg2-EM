@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using SimpleJSONFixed;
 using Utility;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Controllers
 {
@@ -25,6 +27,8 @@ namespace Controllers
         public bool IsRun;
         public bool IsTurn;
         public float TurnAngle;
+        public float InitialDelay = 2.0f; // For Stalker titan added by Snake 2 June 24
+        private float _initialDelayLeft;
         protected Vector3 _moveToPosition;
         protected float _moveAngle;
         protected bool _moveToActive;
@@ -54,6 +58,7 @@ namespace Controllers
         protected override void Start()
         {
             Idle();
+            _initialDelayLeft = InitialDelay; // For Stalker titan added by Snake 2 June 24
         }
 
         public void MoveTo(Vector3 position, float range, bool ignore)
@@ -95,6 +100,9 @@ namespace Controllers
             IsRun = data["IsRun"].AsBool;
             IsTurn = data["IsTurn"].AsBool;
             TurnAngle = data["TurnAngle"].AsFloat;
+
+
+
             foreach (string attack in data["Attacks"].Keys)
             {
                 float chance = data["Attacks"][attack];
@@ -154,15 +162,24 @@ namespace Controllers
             }
             if (_focusTimeLeft <= 0f || _enemy == null)
             {
-                var enemy = FindNearestEnemy();
-                if (enemy != null)
-                    _enemy = enemy;
-                else if (_enemy != null)
+                // For Stalker titan added by Snake 2 June 24
+                if (_titan.Name.Contains("[S]"))
                 {
+                    StalkerUpdate();
+                }
+                else
+                {
+                    var enemy = FindNearestEnemy();
+                    if (enemy != null)
+                        _enemy = enemy;
+                    else if (_enemy != null)
+                    {
                     if (Vector3.Distance(_titan.Cache.Transform.position, _enemy.Cache.Transform.position) > FocusRange)
                         _enemy = null;
+                    }
+                    _focusTimeLeft = FocusTime;
                 }
-                _focusTimeLeft = FocusTime;
+                
             }
             _titan.TargetEnemy = _enemy;
             if (_moveToActive && _moveToIgnoreEnemies)
@@ -406,6 +423,61 @@ namespace Controllers
                 }
             }
             return nearestCharacter;
+        }
+
+        private void StalkerUpdate()
+        {
+            _initialDelayLeft -= Time.deltaTime;
+            if (_initialDelayLeft > 0f) return; // For Stalker titan added by Snake 2 June 24
+
+            
+                if (_enemy == null)
+                {
+                    var randomEnemy = FindRandomEnemy();
+                    if (randomEnemy != null)
+                    {
+                        _enemy = randomEnemy;
+                    }
+                }
+        }
+
+        //added by Snake on 2 June for Stalker Titan
+        protected BaseCharacter FindRandomEnemy()
+        {
+            if (_detection.Enemies.Count == 0)
+                return null;
+
+            List<BaseCharacter> aliveEnemies = new List<BaseCharacter>();
+            List<BaseCharacter> wagonEnemies = new List<BaseCharacter>();
+
+            foreach (BaseCharacter character in _detection.Enemies)
+            {
+                if (character != null && !character.Dead)
+                {
+                    aliveEnemies.Add(character);
+                    // Check if the player has the "Wagon" property
+                    Player player = character.GetComponent<PhotonView>().Owner;
+                    if (player != null && player.CustomProperties.ContainsKey("Wagon"))
+                    {
+                        wagonEnemies.Add(character);
+                    }
+                }
+            }
+            if (aliveEnemies.Count == 0)
+                return null;
+            if (wagonEnemies.Count > 0 && UnityEngine.Random.value < .3f)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, wagonEnemies.Count);
+                BaseCharacter randomEnemy = wagonEnemies[randomIndex];
+                return randomEnemy;
+            }
+            else
+            {
+                int randomIndex = UnityEngine.Random.Range(0, aliveEnemies.Count);
+                BaseCharacter randomEnemy = aliveEnemies[randomIndex];
+                return randomEnemy;
+
+            }
         }
 
         private string GetRandomAttack()
