@@ -213,6 +213,8 @@
         "Graphics.BloodSplatterEnabled": "Blutspritzer",
         "Graphics.MipmapEnabled": "Mipmapping",
         "Graphics.MipmapEnabledTooltip": "Erh�ht Leistung, aber l�sst eigene Skins auf Distanz verschwommen erscheinen.",
+        "Graphics.FlashFlareBloom": "Blendenfleck",// added by Ata 4 June 2024 for Flash Flare //
+        "Graphics.FlashFlareBloomTooltip": "Bloom-Effekt für Blendenflecken aktivieren/deaktivieren.",// added by Ata 4 June 2024 for Flash Flare //
         "UI.UIScale": "UI Skalierung",
         "UI.Theme": "UI Thema",
         "UI.GameFeed": "Spielverlauf",

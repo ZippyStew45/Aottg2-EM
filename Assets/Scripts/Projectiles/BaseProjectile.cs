@@ -84,8 +84,10 @@ namespace Projectiles
         [PunRPC]
         public void EnableFlareBloomRPC()
         {
-            FlareProjectile _script = this.GetComponent<FlareProjectile>();
-            _script.ProFlareBatch.GetComponent<ProFlareBatch>().GameCamera = ApplicationManagers.SceneLoader.CurrentCamera.Camera;
+            if (SettingsManager.GraphicsSettings.FlashFlareBloom.Value) {
+                FlareProjectile _script = this.GetComponent<FlareProjectile>();
+                _script.ProFlareBatch.GetComponent<ProFlareBatch>().GameCamera = ApplicationManagers.SceneLoader.CurrentCamera.Camera;
+            }
         }
 
         protected virtual void SetupSettings(object[] settings)
