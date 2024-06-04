@@ -81,6 +81,18 @@ namespace Characters
             return 0f;
         }
 
+        public void SetHasPassenger(bool _passenger)
+        {
+            PhotonView photonView = gameObject.GetComponent<PhotonView>();
+            if (photonView.IsMine)
+                photonView.RPC("SetHasPassengerRPC", RpcTarget.AllBuffered, _passenger);
+        }
+
+        public void SetHasPassengerRPC(bool _passenger, PhotonMessageInfo info)
+        {
+            _hasPassenger = _passenger;
+        }
+
         private void UpdateIdle()
         {
             _idleTimeLeft -= Time.deltaTime;

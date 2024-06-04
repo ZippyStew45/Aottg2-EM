@@ -285,7 +285,7 @@ namespace Characters
                 if (MountState == HumanMountState.Passenger)
                 {
                     this.gameObject.transform.parent = null;
-                    PassengerHorse._hasPassenger = false;
+                    PassengerHorse.SetHasPassenger(false);
                 }
 
                 MountState = HumanMountState.None;
@@ -295,7 +295,7 @@ namespace Characters
                 if (MountState == HumanMountState.Passenger)
                 {
                     this.gameObject.transform.parent = null;
-                    PassengerHorse._hasPassenger = false;
+                    PassengerHorse.SetHasPassenger(false);
                 }
 
                 MountState = HumanMountState.None;
@@ -2306,14 +2306,14 @@ namespace Characters
             this.gameObject.transform.SetParent(PassengerHorse.PassengerSeat.transform);
             this.MountState = HumanMountState.Passenger;
             this.MountedTransform = PassengerHorse.PassengerSeat.transform;
-            PassengerHorse._hasPassenger = true;
+            PassengerHorse.SetHasPassenger(true);
         }
 
         public void UnmountHorseAsPassenger()
         {
             Unmount(false);
             this.gameObject.transform.parent = null;
-            PassengerHorse._hasPassenger = false;
+            PassengerHorse.SetHasPassenger(false);
         }
 
         public Horse FindClosestHorse()
