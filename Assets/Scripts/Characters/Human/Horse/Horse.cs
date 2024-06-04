@@ -20,6 +20,10 @@ namespace Characters
         private float _idleTimeLeft;
         private float _teleportTimeLeft;
         private float _jumpCooldownLeft;
+
+        [SerializeField]
+        public Transform PassengerSeat;
+        public bool _hasPassenger = false;
         
         public void Init(Human human)
         {
