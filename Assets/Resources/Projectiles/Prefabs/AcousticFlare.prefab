@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 11425754}
   - component: {fileID: 7621277342241976621}
   m_Layer: 14
-  m_Name: Flare
+  m_Name: AcousticFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
