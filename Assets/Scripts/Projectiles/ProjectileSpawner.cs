@@ -42,6 +42,8 @@ namespace Projectiles
                 AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
                 _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
 
+                PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/AcousticParticle", position, rotation, 0);
+
                 projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
                 return projectile;
             }    

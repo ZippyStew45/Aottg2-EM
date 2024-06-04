@@ -689,7 +689,7 @@ class ZippsUIManager : MonoBehaviour
         _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
         if (_human != null && selectedFlare != -1)
         {
-            _human.UseItem(selectedFlare);
+            _human.UseItem(selectedFlare, true);
             selectedFlare = -1;
         }
     }
