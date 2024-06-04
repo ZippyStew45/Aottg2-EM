@@ -2290,11 +2290,18 @@ namespace Characters
 
         public void MountHorseAsPassenger()
         {
-            PassengerHorse = FindClosestHorse();
+            Cache.PhotonView.RPC("MountHorseAsPassengerRPC", RpcTarget.AllBuffered);
+        }
 
+        [PunRPC]
+        public void MountHorseAsPassengerRPC(PhotonMessageInfo info)
+        {
+            if (info.Sender != photonView.Owner)
+                return;
+            
+            PassengerHorse = FindClosestHorse();
             if (PassengerHorse == null || PassengerHorse._hasPassenger)
                 return;
-
             PlayAnimation(HumanAnimations.PassengerMount);
             TargetAngle = Horse.transform.rotation.eulerAngles.y;
             PlaySound(HumanSounds.Dodge);
@@ -2302,6 +2309,14 @@ namespace Characters
 
         public void FinishMountHorseAsPassenger()
         {
+            Cache.PhotonView.RPC("FinishMountHorseAsPassengerRPC", RpcTarget.AllBuffered);
+        }
+
+        [PunRPC]
+        public void FinishMountHorseAsPassengerRPC(PhotonMessageInfo info)
+        {
+            if (info.Sender != photonView.Owner)
+                return;
             this.gameObject.transform.position = PassengerHorse.PassengerSeat.transform.position;
             this.gameObject.transform.SetParent(PassengerHorse.PassengerSeat.transform);
             this.MountState = HumanMountState.Passenger;
