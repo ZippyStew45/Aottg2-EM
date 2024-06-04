@@ -4924,6 +4924,7 @@ MonoBehaviour:
   Disabled: 0
   _correctCamera: {x: 0, y: 0, z: 0, w: 1}
   ProFlareBatch: {fileID: 1053414477557185419}
+  LensFlareObject: {fileID: 3666834486381234543}
 --- !u!114 &7621277342241976621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5151,7 +5152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2847383459358102837
 Transform:
   m_ObjectHideFlags: 0

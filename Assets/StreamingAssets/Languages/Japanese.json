@@ -222,8 +222,8 @@
 		"Graphics.BloodSplatterEnabled": "血しぶき",
 		"Graphics.MipmapEnabled": "ミップマッピング",
 		"Graphics.MipmapEnabledTooltip": "パフォーマンスは向上するが、一定距離以上からのカスタムスキンの品質が低下。",
-		"Graphics.FlashFlareBloom": "フラッシュフレアブルーム",// added by Ata 4 June 2024 for Flash Flare //
-		"Graphics.FlashFlareBloomTooltip": "フラッシュフレアのブルーム効果の有効/無効を切り替えます",// added by Ata 4 June 2024 for Flash Flare //
+		"Graphics.LensFlare": "レンズフレア",// added by Ata 4 June 2024 for Flash Flare //
+		"Graphics.LensFlareTooltip": "レンズフレア効果の有効化/無効化",// added by Ata 4 June 2024 for Flash Flare //
 		"UI.UIScale": "UIの大きさ",
 		"UI.Theme": "UIのテーマ",
 		"UI.GameFeed": "ゲームフィード",

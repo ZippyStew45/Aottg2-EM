@@ -222,9 +222,8 @@
         "Graphics.BloodSplatterEnabled": "血液滴溅",
         "Graphics.MipmapEnabled": "多级贴图纹理",
         "Graphics.MipmapEnabledTooltip": "提升帧率，但远处的自定义皮肤稍显模糊",
-        "Graphics.FlashFlareBloom": "闪光眩晕绽放", // added by Ata 4 June 2024 for Flash Flare //
-        "Graphics.FlashFlareBloomTooltip": "启用/禁用闪光眩晕的绽放效果", // added by Ata 4 June 2024 for Flash Flare //
-        "UI.UIScale": "UI缩放",
+        "Graphics.LensFlare": "镜头耀斑",// added by Ata 4 June 2024 for Flash Flare //
+        "Graphics.LensFlareTooltip": "启用/禁用镜头耀斑效果。",// added by Ata 4 June 2024 for Flash Flare //
         "UI.Theme": "UI主题",
         "UI.GameFeed": "游戏事件提示",
         "UI.GameFeedTooltip": "显示事件，如杀敌分数等",

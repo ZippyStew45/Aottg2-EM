@@ -266,8 +266,8 @@
 		"Graphics.NapeBloodEnabled": "Nape blood",
 		"Graphics.MipmapEnabled": "Mipmapping",
 		"Graphics.MipmapEnabledTooltip": "Improves performance but makes custom skins blurry at a distance.",
-		"Graphics.FlashFlareBloom": "Flash Bloom", // added by Ata 4 June 2024 for Flash Flare //
-		"Graphics.FlashFlareBloomTooltip": "Enable/disable bloom effect for flash flares.", // added by Ata 4 June 2024 for Flash Flare //
+		"Graphics.LensFlare": "Lens Flare", // added by Ata 4 June 2024 for Flash Flare //
+		"Graphics.LensFlareTooltip": "Enable/disable lens flare effects.", // added by Ata 4 June 2024 for Flash Flare //
 		"UI.UIScale": "UI scale",
 		"UI.Theme": "UI theme",
 		"UI.GameFeed": "Game feed",

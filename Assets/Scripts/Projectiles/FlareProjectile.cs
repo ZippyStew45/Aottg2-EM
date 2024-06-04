@@ -16,6 +16,8 @@ namespace Projectiles
 
         [SerializeField]
         public GameObject ProFlareBatch;
+        [SerializeField]
+        public GameObject LensFlareObject;
 
         protected override void SetupSettings(object[] settings)
         {

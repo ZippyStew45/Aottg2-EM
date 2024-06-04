@@ -74,19 +74,26 @@ namespace Projectiles
             light.enabled = true;
         }
 
-        public void EnableFlareBloom()
+        public void EnableLensFlare()
         {
             PhotonView photonView = GetComponent<PhotonView>();
             if (photonView.IsMine)
-                photonView.RPC("EnableFlareBloomRPC", RpcTarget.All, new object[] { });
+                photonView.RPC("EnableLensFlareRPC", RpcTarget.All, new object[] { });
         }
 
         [PunRPC]
-        public void EnableFlareBloomRPC()
+        public void EnableLensFlareRPC()
         {
-            if (SettingsManager.GraphicsSettings.FlashFlareBloom.Value) {
+            if (SettingsManager.GraphicsSettings.LensFlare.Value) 
+            {
                 FlareProjectile _script = this.GetComponent<FlareProjectile>();
+                _script.LensFlareObject.SetActive(true);
                 _script.ProFlareBatch.GetComponent<ProFlareBatch>().GameCamera = ApplicationManagers.SceneLoader.CurrentCamera.Camera;
+            }
+            else
+            {
+                FlareProjectile _script = this.GetComponent<FlareProjectile>();
+                _script.LensFlareObject.SetActive(false);
             }
         }
 

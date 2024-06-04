@@ -30,7 +30,7 @@ namespace Settings
         public BoolSetting BloodSplatterEnabled = new BoolSetting(true);
         public BoolSetting NapeBloodEnabled = new BoolSetting(true);
         public BoolSetting MipmapEnabled = new BoolSetting(true);
-        public BoolSetting FlashFlareBloom = new BoolSetting(true); // added by Ata for Flash Flare Settings //
+        public BoolSetting LensFlare = new BoolSetting(true); // added by Ata for Flash Flare Settings //
 
         public override void Apply()
         {

@@ -27,7 +27,7 @@ namespace Projectiles
                 GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/FlashFlare", position, rotation, 0);
                 BaseProjectile projectile;
                 projectile = go.GetComponent<BaseProjectile>();
-                projectile.EnableFlareBloom();
+                projectile.EnableLensFlare();
 
                 projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
                 return projectile;
