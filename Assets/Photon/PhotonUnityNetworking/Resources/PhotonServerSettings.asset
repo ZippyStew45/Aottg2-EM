@@ -124,6 +124,7 @@ MonoBehaviour:
   - moveToRPC
   - PlayChargeEffectRPC
   - StopChargeEffectRPC
+  - KeepSetRPC
   - UnMountCannoneer
   - EmSettingsRpc
   DisableAutoOpenWizard: 1

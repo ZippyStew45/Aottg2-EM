@@ -2232,7 +2232,8 @@ namespace Characters
             Setup.Weapon = Setup.Weapon_2;
             Setup.Weapon_2 = _tempSetupWeaponCache;
 
-            Setup.CreateParts();
+            Setup.CreateWeapon();
+            Setup.Create3dmg();
 
             if (Weapon is BladeWeapon)
             {
@@ -2246,6 +2247,8 @@ namespace Characters
                     SetThunderspears(false, false);
                 }
             }
+
+            ReloadGearSkin();
 
             HUDBottomHandler _hudBottomHandler = FindFirstObjectByType<HUDBottomHandler>();
             if (_hudBottomHandler != null)
@@ -2268,6 +2271,27 @@ namespace Characters
                 set.Skin.Value, set.Costume.Value, set.Logo.Value, set.GearL.Value, set.GearR.Value, set.Gas.Value, set.Hoodie.Value,
                     set.WeaponTrail.Value, set.ThunderspearL.Value, set.ThunderspearR.Value, set.HookLTiling.Value.ToString(), set.HookL.Value,
                     set.HookRTiling.Value.ToString(), set.HookR.Value });
+                    int viewID = -1;
+                    if (Horse != null)
+                    {
+                        viewID = Horse.gameObject.GetPhotonView().ViewID;
+                    }
+                    Cache.PhotonView.RPC("LoadSkinRPC", RpcTarget.AllBuffered, new object[] { viewID, url });
+                }
+            }
+        }
+
+       protected void ReloadGearSkin()
+        {
+            if (IsMine())
+            {
+                if (SettingsManager.CustomSkinSettings.Human.SkinsEnabled.Value)
+                {
+                    HumanCustomSkinSet set = (HumanCustomSkinSet)SettingsManager.CustomSkinSettings.Human.GetSelectedSet();
+                    string url = string.Join(",", new string[] { null, null, null, null, null,
+                    null, null, null, set.GearL.Value, set.GearR.Value, null, null,
+                    set.WeaponTrail.Value, set.ThunderspearL.Value, set.ThunderspearR.Value, null, null,
+                    null, null });
                     int viewID = -1;
                     if (Horse != null)
                     {
