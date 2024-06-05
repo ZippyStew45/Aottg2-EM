@@ -285,7 +285,7 @@ namespace Characters
                 if (MountState == HumanMountState.Passenger)
                 {
                     this.gameObject.transform.parent = null;
-                    PassengerHorse.SetHasPassenger(false);
+                    PassengerHorse.SetHasPassenger(false, PassengerHorse.photonView.ViewID);
                 }
 
                 MountState = HumanMountState.None;
@@ -295,7 +295,7 @@ namespace Characters
                 if (MountState == HumanMountState.Passenger)
                 {
                     this.gameObject.transform.parent = null;
-                    PassengerHorse.SetHasPassenger(false);
+                    PassengerHorse.SetHasPassenger(false, PassengerHorse.photonView.ViewID);
                 }
 
                 MountState = HumanMountState.None;
@@ -2288,50 +2288,123 @@ namespace Characters
 
         #region Horse Passenger
 
-        public void MountHorseAsPassenger()
+        public void StartMountingPassengerHorse()
         {
-            Cache.PhotonView.RPC("MountHorseAsPassengerRPC", RpcTarget.AllBuffered);
-        }
-
-        [PunRPC]
-        public void MountHorseAsPassengerRPC(PhotonMessageInfo info)
-        {
-            if (info.Sender != photonView.Owner)
-                return;
-            
-            PassengerHorse = FindClosestHorse();
+            FindClosestHorse();
             if (PassengerHorse == null || PassengerHorse._hasPassenger)
                 return;
+
             PlayAnimation(HumanAnimations.PassengerMount);
-            TargetAngle = Horse.transform.rotation.eulerAngles.y;
+            TargetAngle = PassengerHorse.PassengerSeat.transform.rotation.eulerAngles.y;
             PlaySound(HumanSounds.Dodge);
         }
 
         public void FinishMountHorseAsPassenger()
         {
-            Cache.PhotonView.RPC("FinishMountHorseAsPassengerRPC", RpcTarget.AllBuffered);
+            Cache.PhotonView.RPC("FinishMountHorseAsPassengerRPC", RpcTarget.AllBuffered, photonView.ViewID, PassengerHorse.photonView.ViewID);
+            //Has bug, will fix later//SyncOwnerPositionForPassenger(PassengerHorse.photonView.ViewID); 
         }
 
         [PunRPC]
-        public void FinishMountHorseAsPassengerRPC(PhotonMessageInfo info)
+        public void FinishMountHorseAsPassengerRPC(int _targetHumanID, int _targetHorseID, PhotonMessageInfo info)
         {
             if (info.Sender != photonView.Owner)
                 return;
-            this.gameObject.transform.position = PassengerHorse.PassengerSeat.transform.position;
-            this.gameObject.transform.SetParent(PassengerHorse.PassengerSeat.transform);
-            this.MountState = HumanMountState.Passenger;
-            this.MountedTransform = PassengerHorse.PassengerSeat.transform;
-            PassengerHorse.SetHasPassenger(true);
+
+            PhotonView _targetHumanPV = PhotonView.Find(_targetHumanID);
+            PhotonView _targetHorsePV = PhotonView.Find(_targetHorseID);
+
+            if (_targetHumanPV != null && _targetHorsePV != null)
+            {
+                Human _targetHuman = _targetHumanPV.GetComponent<Human>();
+                Horse _targetHorse = _targetHorsePV.GetComponent<Horse>();
+
+                _targetHuman.gameObject.transform.position = _targetHorse.PassengerSeat.transform.position;
+                _targetHuman.gameObject.transform.SetParent(_targetHorse.PassengerSeat.transform);
+                _targetHuman.MountState = HumanMountState.Passenger;
+                _targetHuman.MountedTransform = _targetHorse.PassengerSeat.transform;
+                _targetHorse.SetHasPassenger(true, PassengerHorse.photonView.ViewID);
+            } 
+        }
+
+        public void SyncOwnerPositionForPassenger(int targetHorseID)
+        {
+            PhotonView targetHorsePV = PhotonView.Find(targetHorseID);
+            if (targetHorsePV != null)
+            {
+                Horse targetHorse = targetHorsePV.GetComponent<Horse>();
+                if (targetHorse != null && targetHorse._owner != null)
+                {
+                    int ownerViewID = targetHorse._owner.photonView.ViewID;
+                    targetHorsePV.RPC("RequestHorsePosition", targetHorsePV.Owner, Cache.PhotonView.ViewID, targetHorseID);
+                }
+                else
+                {
+                    Debug.LogError("Target horse or its owner not found!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Horse with ViewID " + targetHorseID + " not found!");
+            }
+        }
+
+        [PunRPC]
+        public void RequestHorsePosition(int requesterViewID, int horseViewID)
+        {
+            PhotonView requesterPV = PhotonView.Find(requesterViewID);
+            PhotonView horsePV = PhotonView.Find(horseViewID);
+    
+            if (requesterPV != null && horsePV != null)
+            {
+                Horse horse = horsePV.GetComponent<Horse>();
+                if (horse != null)
+                {
+                    Vector3 horsePosition = horse.transform.position;
+                    requesterPV.RPC("RespondHorsePosition", RpcTarget.All, horseViewID, horsePosition);
+                }
+                else
+                {
+                    Debug.LogError("Horse with ViewID " + horseViewID + " not found!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Requester with ViewID " + requesterViewID + " or Horse with ViewID " + horseViewID + " not found!");
+            }
+        }
+    
+        [PunRPC]
+        public void RespondHorsePosition(int horseViewID, Vector3 position)
+        {
+            PhotonView horsePV = PhotonView.Find(horseViewID);
+    
+            if (horsePV != null)
+            {
+                Horse horse = horsePV.GetComponent<Horse>();
+                if (horse != null && horse._owner != null)
+                {
+                    horse._owner.gameObject.transform.position = position;
+                }
+                else
+                {
+                    Debug.LogError("Horse with ViewID " + horseViewID + " not found or does not have an owner!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Horse with ViewID " + horseViewID + " not found!");
+            }
         }
 
         public void UnmountHorseAsPassenger()
         {
             Unmount(false);
             this.gameObject.transform.parent = null;
-            PassengerHorse.SetHasPassenger(false);
+            PassengerHorse.SetHasPassenger(false, PassengerHorse.photonView.ViewID);
         }
 
-        public Horse FindClosestHorse()
+        private void FindClosestHorse()
         {
             Horse[] allHorses = FindObjectsByType<Horse>(FindObjectsSortMode.None);
             float radius = 15f;
@@ -2358,7 +2431,27 @@ namespace Characters
                 }
             }
 
-            return horse;
+            SetPassengerHorse(horse);
+        }
+
+        public void SetPassengerHorse(Horse _horse)
+        {
+            Cache.PhotonView.RPC("SetPassengerHorseRPC", RpcTarget.AllBuffered, photonView.ViewID, _horse.photonView.ViewID );
+        }
+
+        [PunRPC]
+        public void SetPassengerHorseRPC(int targetHumanID, int targetHorseID, PhotonMessageInfo info)
+        {
+            PhotonView _targetHumanPV = PhotonView.Find(targetHumanID);
+            PhotonView _targetHorsePV = PhotonView.Find(targetHorseID);
+
+            if (_targetHumanPV != null && _targetHorsePV != null)
+            {
+                Human _targetHuman = _targetHumanPV.GetComponent<Human>();
+                Horse _targetHorse = _targetHorsePV.GetComponent<Horse>();
+
+                _targetHuman.PassengerHorse = _targetHorse;
+            }
         }
 
         #endregion
