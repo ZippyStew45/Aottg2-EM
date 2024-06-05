@@ -10,8 +10,9 @@ using Utility;
 using System.Resources;
 using GameManagers;
 using CustomLogic;
+using UnityEngine.XR;
 
-class ZippsUIManager : MonoBehaviour
+class ZippsUIManager : MonoBehaviourPunCallbacks
 {
     protected Human _human;
     private void Start()
@@ -44,6 +45,12 @@ class ZippsUIManager : MonoBehaviour
         }
     }
 
+    public override void OnJoinedRoom()
+    {
+        EmVariables.SelectedPlayer = PhotonNetwork.LocalPlayer;
+        base.OnJoinedRoom();
+    }
+
     #region EM Menu
 
     [SerializeField]
@@ -62,6 +69,37 @@ class ZippsUIManager : MonoBehaviour
         CanvasObj.SetActive(true);
     }
 
+    #region Settings
+
+    public void NonLethalCannon_OnClick(bool B)
+    {
+        EmVariables.NonLethalCannon = B;
+        SendSettingsRPC();
+    }
+
+    public void SendSettingsRPC() /////     IF YOU EDIT, EDIT THE RPC TOO (int RpcManager)     \\\\\
+    {
+        string[] StrSettings = {
+            null //temp null cuz no settings set
+        };
+
+        int[] IntSettings = {
+            0 //temp 0 cuz no settings yet
+        };
+
+        float[] FloatSettings = {
+            0 //temp 0 cuz no settings yet
+        };
+
+        bool[] BoolSettings = {
+            EmVariables.NonLethalCannon // 0
+        };
+
+        RPCManager.PhotonView.RPC("EmSettingsRpc", RpcTarget.AllBuffered, StrSettings, BoolSettings, IntSettings, FloatSettings);
+    }
+
+    #endregion
+    #region PlayerList
     public void OnTPPlayerButtonClick(int setting)
     {
         GameObject TargetplayerGameObject = PhotonExtensions.GetPlayerFromID(EmVariables.SelectedPlayer.ActorNumber);
@@ -125,8 +163,9 @@ class ZippsUIManager : MonoBehaviour
             playerProps.Add(RoleName, true);
         EmVariables.SelectedPlayer.SetCustomProperties(playerProps);
     }
-
     #endregion
+
+#endregion
 
     #region Logistician Menu
 
@@ -319,8 +358,11 @@ class ZippsUIManager : MonoBehaviour
 
         if (_humanInput.CannoneerSpawn.GetKeyDown())
         {
+            _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+            if (!_human.Grounded) return;
+
             GameObject hero = PhotonExtensions.GetMyHuman();
-            Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f) + new Vector3(0, 1.5f, 0);
+            Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f);
             if (CannonObj != null)
             {
                 CannonObj.GetComponent<CannoneerCannon>().UnMount();
@@ -331,7 +373,6 @@ class ZippsUIManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region Ability Wheel
     [Header("Ability Wheel")]

@@ -1,8 +1,16 @@
+using ApplicationManagers;
+using Characters;
+using GameManagers;
+using Map;
 using Photon.Pun;
 using Settings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Projectiles;
+using Effects;
+using UnityEngine.UIElements;
 
 class CannoneerCannon : MonoBehaviourPun
 {
@@ -15,22 +23,26 @@ class CannoneerCannon : MonoBehaviourPun
     private PhotonView PV;
 
     private GameObject Hero;
+    private Human _human;
 
     protected GeneralInputSettings _input;
     protected HumanInputSettings _humanInput;
     protected InteractionInputSettings _interactionInput;
 
     private float currentRot = 0f;
-    private float RotateSpeed = 30f;
-    private float SmoothingDelay = 5f;
-    private Quaternion correctBarrelRot = Quaternion.identity;
+    private float RotateSpeed = 20f;
+    private float BallSpeed = 300f;
+
+    public float interval = 3.0f; // Time interval in seconds
+    private float timer; // Timer to track time
+
     public LineRenderer myCannonLine;
 
     private void Awake()
     {
         PV = gameObject.GetComponent<PhotonView>();
         Hero = PhotonExtensions.GetPlayerFromID(PV.Owner.ActorNumber);
-        this.correctBarrelRot = this.Barrel.rotation;
+        _human = Hero.GetComponent<Human>();
         this.myCannonLine = this.BarrelEnd.GetComponent<LineRenderer>();
     }
 
@@ -38,6 +50,8 @@ class CannoneerCannon : MonoBehaviourPun
     {
         Hero.transform.position = HumanMount.transform.position;
         Hero.transform.SetParent(HumanMount.transform);
+        _human.MountState = HumanMountState.MapObject;
+        _human.MountedTransform = HumanMount.transform;
 
         if (PV.IsMine)
         {
@@ -45,29 +59,37 @@ class CannoneerCannon : MonoBehaviourPun
             _humanInput = SettingsManager.InputSettings.Human;
             _interactionInput = SettingsManager.InputSettings.Interaction;
         }
+
+        timer = 3.0f;
     }
 
     void Shoot()
     {
+        if(timer >= interval)
+        {
+            timer = 0.0f;
 
+            Vector3 position = BarrelEnd.transform.position;
+            Vector3 velocity = Barrel.forward.normalized * BallSpeed;
+            Vector3 gravity = new Vector3(0, -20, 0);
+
+            EffectSpawner.Spawn(EffectPrefabs.Boom2, position, gameObject.transform.rotation, 0.5f);
+            ProjectileSpawner.Spawn(ProjectilePrefabs.CannonBall, position, Quaternion.Euler(Vector3.zero), velocity, gravity, 6.0f, _human.GetComponent<PhotonView>().ViewID, _human.Team);
+        }
     }
 
     public void UnMount() //Gotta Send RPC Here
     {
-        Hero.transform.parent = null; //RPC
-        PhotonNetwork.Destroy(gameObject);
+        RPCManager.PhotonView.RPC("UnMountCannoneer", RpcTarget.All, _human, Hero, gameObject, HumanMount.transform);
     }
 
     void FixedUpdate()
     {
-        if (!PV.IsMine)
-        {
-            this.Barrel.rotation = Quaternion.Lerp(this.Barrel.rotation, this.correctBarrelRot, Time.deltaTime * this.SmoothingDelay);
-            return;
-        }
+        timer += Time.fixedDeltaTime;
 
         DrawLine();
-        Controls();
+        Controls(); 
+        CheckHuman();
     }
 
     private void Controls()
@@ -114,23 +136,11 @@ class CannoneerCannon : MonoBehaviourPun
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    private void CheckHuman()
     {
-        if (stream.IsWriting)
+        if (Hero == null)
         {
-            stream.SendNext(base.transform.position);
-            stream.SendNext(base.transform.rotation);
-            stream.SendNext(this.Barrel.rotation);
-        }
-        else
-        {
-            //this.correctPlayerPos = (Vector3)stream.ReceiveNext();
-            //this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
-            this.correctBarrelRot = (Quaternion)stream.ReceiveNext();
-
-
-            //float lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
-            //rigidbody.position += rigidbody.velocity * lag;
+            Destroy(gameObject);
         }
     }
 }

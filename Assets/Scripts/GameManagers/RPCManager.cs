@@ -245,6 +245,32 @@ namespace GameManagers
             ChatManager.AddLine($"Scene {SceneName} Loaded!");
         }
 
+        [PunRPC]
+        public void UnMountCannoneer(Human human, GameObject hero, GameObject cannon, Transform humanMount, PhotonMessageInfo info)
+        {
+            hero.transform.parent = null; //RPC
+            human.MountState = HumanMountState.None;
+            human.MountedTransform = humanMount;
+            Destroy(cannon);
+        }
+
+        [PunRPC]
+        public void EmSettingsRpc(string[] StrSettings, bool[] BoolSettings, int[] IntSettings, float[] FloatSettings, PhotonMessageInfo info)
+        {
+            ///// Strings \\\\\
+
+
+            ///// Bools \\\\\
+            EmVariables.NonLethalCannon = BoolSettings[0];
+
+
+            ///// Ints \\\\\
+
+
+            ///// Floats \\\\\
+
+        }
+
         #endregion
 
         void Awake()

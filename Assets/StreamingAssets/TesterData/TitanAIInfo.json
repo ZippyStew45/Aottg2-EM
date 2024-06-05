@@ -272,7 +272,7 @@
 	"Thrower": {
 		"Default": {
 			"Name": "Thrower",
-			"IsRun": true,
+			"IsRun": false,
 			"FarAttackRange": 150,
 			"Attacks": {
 				"AttackGrab": 0.1,

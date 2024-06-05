@@ -19,6 +19,13 @@ public static class EmVariables
     public static int DetailDensity;  // Added by Snake for Terrain Detail Slider 27 may 24
 
 
+
     public static List<string> sceneNames = new List<string>();
     public static bool IsSceneInBuild(string sceneName) { return sceneNames.Contains(sceneName); }
+
+    #region Settings Sent By RPC
+
+    public static bool NonLethalCannon = false; //Added by Zipp, hell yea 
+
+    #endregion
 }

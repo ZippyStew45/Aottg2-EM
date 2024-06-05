@@ -144,4 +144,23 @@ static class MiscExtensions
             return InGameManager.AllPlayerInfo[player.ActorNumber];
         return null;
     }
+
+    public static Transform FindChildByName(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+            {
+                return child;
+            }
+
+            // Recursively search through children
+            Transform result = FindChildByName(child, name);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+        return null;
+    }
 }
