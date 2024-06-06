@@ -9,7 +9,8 @@ namespace Characters
 {
     class Horse: BaseCharacter
     {
-        public Human _owner;
+        Human _owner;
+        public int OwnerNetworkID;
         HorseComponentCache HorseCache;
         public HorseState State;
         private float WalkSpeed = 15f;
@@ -29,6 +30,13 @@ namespace Characters
         {
             base.Init(true, human.Team);
             _owner = human;
+            photonView.RPC("SetOwnerRPC", RpcTarget.AllBuffered, human.photonView.ViewID);
+        }
+
+        [PunRPC]
+        public void SetOwnerRPC(int ownerID, PhotonMessageInfo info)
+        {
+            OwnerNetworkID = ownerID;
         }
 
         protected override void CreateCache(BaseComponentCache cache)
@@ -79,20 +87,6 @@ namespace Characters
                 return hit.point.y;
             }
             return 0f;
-        }
-
-        public void SetHasPassenger(bool _passenger, int passengerHorseID)
-        {
-            PhotonView photonView = gameObject.GetComponent<PhotonView>();
-            if (photonView.IsMine)
-                photonView.RPC("SetHasPassengerRPC", RpcTarget.AllBuffered, _passenger, passengerHorseID);
-        }
-
-        [PunRPC]
-        public void SetHasPassengerRPC(bool _passenger, int passengerHorseID, PhotonMessageInfo info)
-        {
-            Horse _horse = PhotonView.Find(passengerHorseID).GetComponent<Horse>();
-            _horse._hasPassenger = _passenger;
         }
 
         private void UpdateIdle()

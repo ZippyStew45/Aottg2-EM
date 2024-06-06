@@ -133,6 +133,8 @@ MonoBehaviour:
   - SetHasPassengerRPC
   - RequestHorsePosition
   - RespondHorsePosition
+  - SetOwnerRPC
+  - UnmountHorseAsPassengerRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
