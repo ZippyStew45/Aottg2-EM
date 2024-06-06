@@ -353,7 +353,7 @@ namespace Controllers
                 else if (_humanInput.HorseJump.GetKeyDown())
                     _human.Horse.Jump();
             }
-            else if (_humanInput.PassengerMount.GetKeyDown() && _human.MountState == HumanMountState.Passenger)
+            else if ((_humanInput.PassengerMount.GetKeyDown() || _humanInput.HorseMount.GetKeyDown()) && _human.MountState == HumanMountState.Passenger)
                 _human.UnmountHorseAsPassenger();
         }
 

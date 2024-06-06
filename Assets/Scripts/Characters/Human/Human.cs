@@ -2353,9 +2353,15 @@ namespace Characters
             }
         }
 
-        public void UnmountHorseAsPassenger()
+        public void UnmountHorseAsPassenger(bool immediate = false)
         {
             photonView.RPC("UnmountHorseAsPassengerRPC", RpcTarget.AllBuffered, photonView.ViewID, PassengerHorse.photonView.ViewID);
+
+            if (!immediate)
+            {
+                PlayAnimation(HumanAnimations.HorseDismount);
+                Cache.Rigidbody.AddForce((((Vector3.up * 10f) - (Cache.Transform.forward * 2f)) - (Cache.Transform.right * 1f)), ForceMode.VelocityChange);
+            }
         }
 
         [PunRPC]
