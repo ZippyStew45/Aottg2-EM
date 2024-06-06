@@ -55,9 +55,9 @@ namespace Characters
 
             var human = (Human)_owner;
             
-            Vector3 target = human.GetAimPoint(human.transform.position, SceneLoader.CurrentCamera.Camera.transform.forward * 30f);
+            Vector3 target = human.GetAimPoint(human.transform.position, SceneLoader.CurrentCamera.Camera.transform.forward * 30f + Vector3.up * 5f);
 
-            Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 2f;
+            Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 5f;
             Vector3 direction = (target - start).normalized;
             
             if (_type == 2)
