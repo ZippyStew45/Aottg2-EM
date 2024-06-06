@@ -21,6 +21,7 @@ namespace Characters
         {
             if (key && CanUse())
             {
+                Debug.Log("Cooldown: " + Cooldown);
                 if (!fromWheel) // added/modified by Ata 4 June 2024 for Flare Wheel //
                     Activate();
                 else

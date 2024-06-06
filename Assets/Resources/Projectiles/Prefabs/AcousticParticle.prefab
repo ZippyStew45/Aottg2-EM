@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 738966968590910931}
   - component: {fileID: -7937464854363833602}
+  - component: {fileID: -5854741734873861292}
   m_Layer: 0
   m_Name: AcousticParticle
   m_TagString: Untagged
@@ -56,6 +57,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-5854741734873861292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6542469350911436079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc27ff39ac87ce429244ca306ad26d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7637840139272274606
 GameObject:
   m_ObjectHideFlags: 0

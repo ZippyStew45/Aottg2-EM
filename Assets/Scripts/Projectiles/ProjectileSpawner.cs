@@ -32,21 +32,6 @@ namespace Projectiles
                 projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
                 return projectile;
             }
-            else if (_type == 2)
-            {
-                GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/AcousticFlare", position, rotation, 0);
-                BaseProjectile projectile;
-                projectile = go.GetComponent<BaseProjectile>();
-
-                GameObject marker = PhotonNetwork.Instantiate(ResourcePaths.UI + "/Prefabs/AtasFolder/AcousticFlareMarker", position, rotation, 0);
-                AcousticFlare _settings = marker.GetComponent<AcousticFlare>();
-                _settings.Setup(marker.transform, PhotonNetwork.LocalPlayer);
-
-                PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/AcousticParticle", position, rotation, 0);
-
-                projectile.Setup(liveTime, velocity, gravity, charViewId, team, settings);
-                return projectile;
-            }    
             else
             {
                 GameObject go = PhotonNetwork.Instantiate(ResourcePaths.Projectiles + "/" + name, position, rotation, 0);

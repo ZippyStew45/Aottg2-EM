@@ -31,6 +31,14 @@ namespace Characters
             Vector3 target = human.GetAimPoint();
             Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 2f;
             Vector3 direction = (target - start).normalized;
+
+            if (_type == 2)
+            {
+                AcousticFlareController.FireAcousticFlare(start, Quaternion.identity);
+                human.PlaySound(HumanSounds.FlareLaunch);
+                return;
+            }
+
             ProjectileSpawner.Spawn(ProjectilePrefabs.Flare, start, Quaternion.identity, direction * Speed, Gravity, 6.5f, _owner.Cache.PhotonView.ViewID,
                 "", new object[] { _color }, _type); // flash added by Ata 26 May 2024 for flash flare //
             human.PlaySound(HumanSounds.FlareLaunch);
@@ -51,6 +59,14 @@ namespace Characters
 
             Vector3 start = human.Cache.Transform.position + human.Cache.Transform.up * 2f;
             Vector3 direction = (target - start).normalized;
+            
+            if (_type == 2)
+            {
+                AcousticFlareController.FireAcousticFlare(start, Quaternion.identity);
+                human.PlaySound(HumanSounds.FlareLaunch);
+                return;
+            }
+            
             ProjectileSpawner.Spawn(ProjectilePrefabs.Flare, start, Quaternion.identity, direction * Speed, Gravity, 6.5f, _owner.Cache.PhotonView.ViewID,
                 "", new object[] { _color }, _type); // flash added by Ata 26 May 2024 for flash flare //
             human.PlaySound(HumanSounds.FlareLaunch);

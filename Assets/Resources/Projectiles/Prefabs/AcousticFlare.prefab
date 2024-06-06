@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 425752}
   - component: {fileID: 5425752}
   - component: {fileID: 13525752}
-  - component: {fileID: 11425754}
   - component: {fileID: 7621277342241976621}
   m_Layer: 14
   m_Name: AcousticFlare
@@ -84,22 +83,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11425754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff519cf52fc6c2478e7a5d17ccc4e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Disabled: 0
-  _correctCamera: {x: 0, y: 0, z: 0, w: 1}
-  ProFlareBatch: {fileID: 0}
-  LensFlareObject: {fileID: 0}
 --- !u!114 &7621277342241976621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +101,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 11425754}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
