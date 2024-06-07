@@ -468,9 +468,10 @@ namespace Controllers
                 //added by Snake for Forward Dash Boost 31 may 24
                 if (currentDirection == HumanDashDirection.Forward && !SettingsManager.InputSettings.Human.ForwardDashBoost.Value)
                 {
-                    _human.DashForward();
+                    _human.DashForward(GetDashAngle(currentDirection));
                 }
-                else if (currentDirection != HumanDashDirection.None)
+                else
+                if (currentDirection != HumanDashDirection.None)
                 {
                     _human.Dash(GetDashAngle(currentDirection));
                 }
