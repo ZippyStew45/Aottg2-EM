@@ -191,6 +191,8 @@
 		"General.SnapshotsEnabled": "スナップショット有効化",
 		"General.SnapshotsShowInGame": "ゲーム中スナップショット",
 		"General.SnapshotsMinimumDamage": "スナップショット最低ダメージ",
+		"General.CameraShakeEnabled": "カメラシェイクオン",
+		"General.CameraShakeIntensity": "手ブレの強さ",		
 		"Graphics.PresetQuality": "品質プリセット",
 		"Graphics.PresetQualityOptions": [ "最低", "低", "普", "高", "最高" ],
 		"Graphics.Fullscreen": "全画面",
