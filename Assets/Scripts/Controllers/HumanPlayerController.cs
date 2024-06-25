@@ -319,6 +319,8 @@ namespace Controllers
                     else if (_humanInput.HorseMount.GetKeyDown() && _human.Horse != null && _human.MountState == HumanMountState.None &&
                     Vector3.Distance(_human.Horse.Cache.Transform.position, _human.Cache.Transform.position) < 15f)
                         _human.MountHorse();
+                    else if (_humanInput.PassengerMount.GetKeyDown() && _human.MountState == HumanMountState.None)
+                        _human.StartMountingPassengerHorse();
                     else if (_humanInput.Dodge.GetKeyDown())
                     {
                         if (_human.HasDirection)
@@ -351,6 +353,8 @@ namespace Controllers
                 else if (_humanInput.HorseJump.GetKeyDown())
                     _human.Horse.Jump();
             }
+            else if ((_humanInput.PassengerMount.GetKeyDown() || _humanInput.HorseMount.GetKeyDown()) && _human.MountState == HumanMountState.Passenger)
+                _human.UnmountHorseAsPassenger();
         }
 
         private void PlayHorseAutoSwitchSoundFromKeybind() // added by Snake May 25 2024 for Horse Auto //

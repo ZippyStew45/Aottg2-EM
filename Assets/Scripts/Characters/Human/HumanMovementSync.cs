@@ -19,7 +19,7 @@ namespace Characters
             if (!Disabled && !_photonView.IsMine)
             {
                 _rigidbody.velocity = Vector3.zero;
-                if (_human.MountState == HumanMountState.MapObject && _human.MountedTransform != null)
+                if ((_human.MountState == HumanMountState.MapObject || _human.MountState == HumanMountState.Passenger) && _human.MountedTransform != null)
                 {
                     _transform.position = _human.MountedTransform.TransformPoint(_human.MountedPositionOffset);
                     _transform.rotation = Quaternion.Euler(_human.MountedTransform.rotation.eulerAngles + _human.MountedRotationOffset);

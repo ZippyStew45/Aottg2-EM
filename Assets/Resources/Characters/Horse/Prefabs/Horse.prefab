@@ -89,7 +89,10 @@ MonoBehaviour:
   JustGrounded: 0
   TargetAngle: 0
   HasDirection: 0
+  OwnerNetworkID: 0
   State: 0
+  PassengerSeat: {fileID: 372353568634854882}
+  _hasPassenger: 0
 --- !u!54 &5456738
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 156618}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071069, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.2529693, y: 4.2529693, z: 4.2529693}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -259,7 +262,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.23512986, y: 0.23512986, z: 0.23512986}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 372353568634854882}
   m_Father: {fileID: 456616}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13756738
@@ -2523,7 +2527,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -2576,7 +2580,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -2629,7 +2633,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -2682,7 +2686,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -7002,3 +7006,34 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &6830296993477808385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 372353568634854882}
+  m_Layer: 17
+  m_Name: PassengerSeat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &372353568634854882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6830296993477808385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.76, z: -3.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 456622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
