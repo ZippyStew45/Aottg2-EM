@@ -6,6 +6,7 @@
         public static string BladeHit = "BladeHit";
         public static string OldBladeHit = "OldBladeHit";
         public static string NapeHit = "NapeHit";
+        public static string OneKNapeHit = "1KNapeHit";
         public static string LimbHit = "LimbHit";
         public static string OldNapeHit = "OldNapeHit";
         public static string BladeReloadAir = "BladeReloadAir";
@@ -48,5 +49,8 @@
         public static string GunExplode = "GunExplode";
         public static string GunExplodeLoud = "GunExplodeLoud";
         public static string WaterSplash = "WaterSplash";
+        public static string HitChant1 = "HitChant1";
+        public static string HitChant2 = "HitChant2";
+        public static string HitChant3 = "HitChant3";
     }
 }
