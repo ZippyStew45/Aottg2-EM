@@ -49,6 +49,9 @@ namespace UI
             ElementFactory.CreateInputSetting(DoublePanelRight, style, settings.SnapshotsMinimumDamage, UIManager.GetLocale(cat, sub, "SnapshotsMinimumDamage"),
                 elementWidth: 100f);
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.SkipCutscenes, UIManager.GetLocale(cat, sub, "SkipCutscenes"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.CameraShakeEnabled, UIManager.GetLocale(cat, sub, "CameraShakeEnabled"));
+            ElementFactory.CreateSliderSetting(DoublePanelLeft, style, settings.CameraShakeIntensity, UIManager.GetLocale(cat, sub, "CameraShakeIntensity"),
+               elementWidth: 135f);
         }
     }
 }

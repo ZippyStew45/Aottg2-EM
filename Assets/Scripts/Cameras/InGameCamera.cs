@@ -31,11 +31,15 @@ namespace Cameras
         private bool _napeLock;
         private BaseTitan _napeLockTitan;
         private SnapshotHandler _snapshotHandler;
-        private const float ShakeDistance = 10f;
+        private float _lastShakeTime;
+        private float _shakeCooldown = 0.65f;
+        private bool _currentShakeEnabled;
+        private const float ShakeDistance = 3f;
         private const float ShakeDuration = 1f;
-        private const float ShakeDecay = 0.15f;
+        private const float ShakeDecay = 0.1f;
         private bool _shakeFlip;
         private float _shakeTimeLeft;
+        private Vector3 originalPosition;
         private float _currentShakeDistance;
         private static LayerMask _clipMask = PhysicsLayer.GetMask(PhysicsLayer.MapObjectAll, PhysicsLayer.MapObjectEntities);
         private bool _freeCam = false;
@@ -48,17 +52,35 @@ namespace Cameras
 
         public void ApplyGeneralSettings()
         {
+            var settings = SettingsManager.GeneralSettings;
             _cameraDistance = SettingsManager.GeneralSettings.CameraDistance.Value + 0.3f;
             if (SettingsManager.GeneralSettings.CameraDistance.Value == 0f)
                 _cameraDistance = 0f;
             CurrentCameraMode = (CameraInputMode)SettingsManager.GeneralSettings.CameraMode.Value;
+            _currentShakeDistance = settings.CameraShakeIntensity.Value;
+            _currentShakeEnabled = settings.CameraShakeEnabled.Value;
         }
 
         public void StartShake()
         {
-            _shakeTimeLeft = ShakeDuration;
-            _currentShakeDistance = ShakeDistance;
-            _shakeFlip = false;
+            if (Time.time - _lastShakeTime < _shakeCooldown)
+            {
+                return;
+            }
+
+            _lastShakeTime = Time.time;
+            var titan = GetNearestTitan();
+            float distance = Vector3.Distance(_follow.Cache.Transform.position, titan.Cache.Transform.position);
+            if (distance <= 570f)
+            {
+                _shakeTimeLeft = ShakeDuration;
+                _currentShakeDistance = SettingsManager.GeneralSettings.CameraShakeIntensity.Value * ShakeDistance;
+                _shakeFlip = false;
+            }
+            else
+            {
+                return;
+            }
         }
 
         protected override void SetDefaultCameraPosition()

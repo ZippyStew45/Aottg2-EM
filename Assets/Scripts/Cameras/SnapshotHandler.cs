@@ -32,6 +32,10 @@ namespace UI
         private IEnumerator TakeSnapshotCoroutine(Vector3 position, int damage)
         {
             yield return new WaitForEndOfFrame();
+            if (InGameCamera != null)
+            {
+                InGameCamera.StartShake();
+            }
             SnapshotCamera.gameObject.SetActive(true);
             SetSnapshotPosition(position);
             Texture2D snapshot = RTImage();
