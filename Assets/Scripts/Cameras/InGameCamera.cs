@@ -34,9 +34,9 @@ namespace Cameras
         private float _lastShakeTime;
         private float _shakeCooldown = 0.65f;
         private bool _currentShakeEnabled;
-        private const float ShakeDistance = 2.3f;
-        private const float ShakeDuration = 0.4f;
-        private const float ShakeDecay = 0.15f;
+        private const float ShakeDistance = 3f;
+        private const float ShakeDuration = 1f;
+        private const float ShakeDecay = 0.1f;
         private bool _shakeFlip;
         private float _shakeTimeLeft;
         private Vector3 originalPosition;
