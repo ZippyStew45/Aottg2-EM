@@ -3887,6 +3887,8 @@ MonoBehaviour:
   RockThrow1Speed: 200
   TargetViewId: -1
   HeadPrefab: 0
+  inGameCamera: {fileID: 0}
+  inGameManager: {fileID: 0}
 --- !u!111 &11165016
 Animation:
   m_ObjectHideFlags: 0

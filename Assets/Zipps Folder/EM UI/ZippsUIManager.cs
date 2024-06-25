@@ -770,6 +770,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
         HorseAutoRunAudioObject.SetActive(false);
         //atas mom
     }
+    #endregion
     #region Flares 
 
     [Header("Flares")]
