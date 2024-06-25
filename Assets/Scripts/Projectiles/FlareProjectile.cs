@@ -14,6 +14,11 @@ namespace Projectiles
     {
         protected override float DestroyDelay => 10f;
 
+        [SerializeField]
+        public GameObject ProFlareBatch;
+        [SerializeField]
+        public GameObject LensFlareObject;
+
         protected override void SetupSettings(object[] settings)
         {
             GetComponent<ParticleSystem>().startColor = (Color)settings[0];

@@ -181,6 +181,9 @@
         "General.CameraMode": "Kameramodus",
         "General.MinimapEnabled": "Minimap an",
         "General.MinimapHeight": "Minimap H he",
+        "General.FlareMarkers": "Fackelmarkierungen", // added by Ata 31 May 2024 for Flare Markers //
+        "General.FlareMarkersTooltip": "Sichtbarkeit der Fackelmarkierungen im Spiel umschalten",
+        "General.MinimapHeight": "Minimap H he",
         "General.SnapshotsEnabled": "Snapshots an",
         "General.SnapshotsShowInGame": "Snapshots im Spiel anzeigen",
         "General.SnapshotsMinimumDamage": "Snapshots Mindestschaden",
@@ -219,6 +222,9 @@
         "Graphics.BloodSplatterEnabled": "Blutspritzer",
         "Graphics.MipmapEnabled": "Mipmapping",
         "Graphics.MipmapEnabledTooltip": "Erh ht Leistung, aber l sst eigene Skins auf Distanz verschwommen erscheinen.",
+        "Graphics.MipmapEnabledTooltip": "Erh ht Leistung, aber l sst eigene Skins auf Distanz verschwommen erscheinen.",
+        "Graphics.LensFlare": "Objektivreflexion",// added by Ata 4 June 2024 for Flash Flare //
+        "Graphics.LensFlareTooltip": "Lens-Flare-Effekte aktivieren/deaktivieren.",// added by Ata 4 June 2024 for Flash Flare //
         "UI.UIScale": "UI Skalierung",
         "UI.Theme": "UI Thema",
         "UI.GameFeed": "Spielverlauf",
@@ -281,7 +287,8 @@
         "Keybinds.Human.Ability1": "Fähigkeit 1", // added by Ata 20 May 24
         "Keybinds.Human.Ability2": "Fähigkeit 2", // added by Ata 20 May 24
         "Keybinds.Human.Ability3": "Fähigkeit 3", // added by Ata 20 May 24
-        "Keybinds.Human.LoadoutSwap": "Ausrüstung wechseln",
+        "Keybinds.Human.LoadoutSwap": "Ausrüstung wechseln", // added by Ata 20 May 24
+        "Keybinds.Human.FlareWheelMenu": "Signalrad", // added by Ata 20 May 24
         "Keybinds.Human.ReelIn": "Seil heranziehen",
         "Keybinds.Human.ReelOut": "Seil verl ngern",
         "Keybinds.Human.Dodge": "Ausweichen",

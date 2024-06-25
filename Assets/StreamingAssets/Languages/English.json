@@ -206,6 +206,8 @@
 		"General.CameraClipping": "Camera clipping",
 		"General.CameraClippingTooltip": "Allow camera to clip through walls and objects.",
 		"General.MinimapEnabled": "Minimap on",
+		"General.FlareMarkers": "Flare Markers", // added by Ata 31 May 2024 for Flare Markers //
+		"General.FlareMarkersTooltip": "Toggle visibility of flare markers ingame",
 		"General.MinimapHeight": "Minimap height",
 		"General.SnapshotsEnabled": "Snapshots on",
 		"General.SnapshotsShowInGame": "Snapshots in-game",
@@ -273,6 +275,8 @@
 		"Graphics.NapeBloodEnabled": "Nape blood",
 		"Graphics.MipmapEnabled": "Mipmapping",
 		"Graphics.MipmapEnabledTooltip": "Improves performance but makes custom skins blurry at a distance.",
+		"Graphics.LensFlare": "Lens Flare", // added by Ata 4 June 2024 for Flash Flare //
+		"Graphics.LensFlareTooltip": "Enable/disable lens flare effects.", // added by Ata 4 June 2024 for Flash Flare //
 		"UI.UIScale": "UI scale",
 		"UI.Theme": "UI theme",
 		"UI.GameFeed": "Game feed",
@@ -352,6 +356,7 @@
 		"Keybinds.Human.Ability2": "Ability 2", // added by Ata 20 May 24
 		"Keybinds.Human.Ability3": "Ability 3", // added by Ata 20 May 24
 		"Keybinds.Human.LoadoutSwap": "Swap Loadout", // added by Ata 20 May 24
+		"Keybinds.Human.FlareWheelMenu": "Flare Wheel", // added by Ata 25 May 24
 		"Keybinds.Human.ReelIn": "Reel in",
 		"Keybinds.Human.ReelOut": "Reel out",
 		"Keybinds.Human.Dodge": "Dodge",

@@ -46,6 +46,8 @@ namespace UI
                 elementWidth: 100f);
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.SnapshotsEnabled, UIManager.GetLocale(cat, sub, "SnapshotsEnabled"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.SnapshotsShowInGame, UIManager.GetLocale(cat, sub, "SnapshotsShowInGame"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.FlareMarkers, UIManager.GetLocale(cat, sub, "FlareMarkers"), tooltip: 
+                UIManager.GetLocale(cat, sub, "FlareMarkersTooltip")); // added by Ata 31 May 2024 for Flare Markers //
             ElementFactory.CreateInputSetting(DoublePanelRight, style, settings.SnapshotsMinimumDamage, UIManager.GetLocale(cat, sub, "SnapshotsMinimumDamage"),
                 elementWidth: 100f);
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.SkipCutscenes, UIManager.GetLocale(cat, sub, "SkipCutscenes"));

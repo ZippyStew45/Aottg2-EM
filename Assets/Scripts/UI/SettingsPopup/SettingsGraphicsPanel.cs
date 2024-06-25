@@ -59,6 +59,7 @@ namespace UI
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.WeaponTrailEnabled, UIManager.GetLocale(cat, sub, "WeaponTrailEnabled"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.WindEffectEnabled, UIManager.GetLocale(cat, sub, "WindEffectEnabled"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.BloodSplatterEnabled, UIManager.GetLocale(cat, sub, "BloodSplatterEnabled"));
+            ElementFactory.CreateToggleSetting(DoublePanelLeft, style, settings.LensFlare, UIManager.GetLocale(cat, sub, "LensFlare"), tooltip: UIManager.GetLocale(cat, sub, "LensFlareTooltip"));
         }
 
         protected void OnSelectPreset()

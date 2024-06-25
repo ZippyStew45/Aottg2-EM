@@ -230,7 +230,6 @@ namespace Controllers
                 if (SettingsManager.InputSettings.General.HideCursor.GetKeyDown())
                     HideCursor = !HideCursor;
             }
-
             
             var states = new HashSet<HumanState>() { HumanState.Grab, HumanState.SpecialAction, HumanState.EmoteAction, HumanState.Reload,
             HumanState.SpecialAttack, HumanState.Stun};

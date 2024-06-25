@@ -11,6 +11,10 @@ using System.Resources;
 using GameManagers;
 using CustomLogic;
 using UnityEngine.XR;
+using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+using System;
+
 
 class ZippsUIManager : MonoBehaviourPunCallbacks
 {
@@ -33,6 +37,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
         CannoneerUpdate();
         AbilityWheelUpdate();
         EmHUDUpdate();
+        UpdateFlareMenu();
     }
 
     private void OnApplicationFocus(bool focus)
@@ -764,6 +769,83 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
         }
         HorseAutoRunAudioObject.SetActive(false);
         //atas mom
+    }
+    #region Flares 
+
+    [Header("Flares")]
+
+    [SerializeField]
+    private GameObject FlaresMenu;
+    [SerializeField]
+    private GameObject FlaresCanvas;
+    [SerializeField]
+    private RawImage[] FlareSelectors = new RawImage[8];
+    [SerializeField]
+    private Image[] FlareRounds = new Image[8];
+
+    [SerializeField]
+    private GameObject[] FlareColliders = new GameObject[8];
+    private int selectedFlare;
+
+    public void OnFlareEnter(int index)
+    {
+        FlareSelectors[index].color = new Color(0.525f, 0.164f, 0.227f);
+        FlareRounds[index].color = new Color(0.525f, 0.164f, 0.227f);
+        selectedFlare = index;
+    }
+
+    public void OnFlareExit(int index)
+    {
+        FlareSelectors[index].color = Color.white;
+        FlareRounds[index].color = Color.white;
+        selectedFlare = -1;
+    }
+    
+    private void OpenFlareMenu()
+    {
+        FlaresMenu.SetActive(true);
+        FlaresCanvas.SetActive(true);
+        EmVariables.FlareWheelOpen = true;
+    }
+
+    private void CloseFlareMenu()
+    {
+        FlaresMenu.SetActive(false);
+        FlaresCanvas.SetActive(false);
+        EmVariables.FlareWheelOpen = false;
+
+        for (int i = 0; i < FlareSelectors.Length; i++) 
+        {
+            FlareSelectors[i].color = Color.white;
+            FlareRounds[i].color = Color.white;
+        }
+
+        ShootFlare();
+    }
+
+    private void ShootFlare()
+    {
+        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        if (_human != null && selectedFlare != -1)
+        {
+            _human.UseItem(selectedFlare, true);
+            selectedFlare = -1;
+        }
+    }
+
+    private void UpdateFlareMenu()
+    {
+        bool inMenu = InGameMenu.InMenu() || ChatManager.IsChatActive() || CustomLogicManager.Cutscene;
+            
+        if (!inMenu && _humanInput.FlareWheelMenu.GetKeyDown()) 
+        {
+            OpenFlareMenu();
+        }
+        
+        if (_humanInput.FlareWheelMenu.GetKeyUp())
+        {
+            CloseFlareMenu();
+        }
     }
     #endregion
 }

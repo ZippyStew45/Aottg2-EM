@@ -16,6 +16,8 @@ namespace UI
         private Transform _cameraTransform;
         private float _scaleOffset;
         private bool _isStatic;
+        private Transform _staticTransform; // added by ata 31 May 2024 for Flare Marker //
+        private bool _isMarker; // added by ata 31 May 2024 for Flare Marker //
 
         public void Init(Transform camera, BaseCharacter character)
         {
@@ -24,10 +26,12 @@ namespace UI
             _isStatic = false;
         }
 
-        public void Init(Transform camera, Transform staticTransform)
+        public void Init(Transform camera, Transform staticTransform, bool isMarker = false)
         {
             Setup(camera);
             _isStatic = true;
+            _staticTransform = staticTransform; // added by ata 31 May 2024 for Flare Marker //
+            _isMarker = isMarker; // added by ata 31 May 2024 for Flare Marker //
             var position = staticTransform.position;
             transform.position = new Vector3(position.x, _cameraTransform.position.y - _scaleOffset * 0.5f - 10, position.z);
         }
@@ -50,6 +54,11 @@ namespace UI
                     return;
                 }
                 var position = _character.Cache.Transform.position;
+                transform.position = new Vector3(position.x, _cameraTransform.position.y - _scaleOffset * 0.5f - 10, position.z);
+            }
+            else if (_isStatic && _isMarker) // added by ata 31 May 2024 for Flare Marker //
+            {
+                var position = _staticTransform.position;
                 transform.position = new Vector3(position.x, _cameraTransform.position.y - _scaleOffset * 0.5f - 10, position.z);
             }
             transform.rotation = _cameraTransform.rotation;

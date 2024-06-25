@@ -189,6 +189,8 @@
         "General.CameraTilt": "视角摇晃",
         "General.CameraMode": "视角模式",
         "General.MinimapEnabled": "打开小地图",
+        "General.FlareMarkers": "闪光标记", // added by Ata 31 May 2024 for Flare Markers //
+        "General.FlareMarkersTooltip": "切换游戏中闪光标记的可见性",
         "General.MinimapHeight": "小地图尺寸",
         "General.SnapshotsEnabled": "开启击杀截屏",
         "General.SnapshotsShowInGame": "游戏内显示击杀截屏",
@@ -227,7 +229,8 @@
         "Graphics.BloodSplatterEnabled": "血液滴溅",
         "Graphics.MipmapEnabled": "多级贴图纹理",
         "Graphics.MipmapEnabledTooltip": "提升帧率，但远处的自定义皮肤稍显模糊",
-        "UI.UIScale": "UI缩放",
+        "Graphics.LensFlare": "镜头耀斑",// added by Ata 4 June 2024 for Flash Flare //
+        "Graphics.LensFlareTooltip": "启用/禁用镜头耀斑效果。",// added by Ata 4 June 2024 for Flash Flare //
         "UI.Theme": "UI主题",
         "UI.GameFeed": "游戏事件提示",
         "UI.GameFeedTooltip": "显示事件，如杀敌分数等",
@@ -289,7 +292,8 @@
         "Keybinds.Human.Ability1": "能力 1", // added by Ata 20 May 24
         "Keybinds.Human.Ability2": "能力 2", // added by Ata 20 May 24
         "Keybinds.Human.Ability3": "能力 3", // added by Ata 20 May 24
-        "Keybinds.Human.LoadoutSwap": "更换装备",
+        "Keybinds.Human.LoadoutSwap": "更换装备", // added by Ata 20 May 24
+        "Keybinds.Human.FlareWheelMenu": "信号轮", // added by Ata 20 May 24
         "Keybinds.Human.ReelIn": "收绳",
         "Keybinds.Human.ReelOut": "放绳",
         "Keybinds.Human.Dodge": "闪避",
