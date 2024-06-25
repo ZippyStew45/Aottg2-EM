@@ -182,6 +182,8 @@
         "General.SnapshotsEnabled": "Snapshots an",
         "General.SnapshotsShowInGame": "Snapshots im Spiel anzeigen",
         "General.SnapshotsMinimumDamage": "Snapshots Mindestschaden",
+        "General.CameraShakeEnabled": "Kamera verwackelt",
+        "General.CameraShakeIntensity": "Intensität der Kameraverwacklung",
         "Graphics.PresetQuality": "Qualit�tsvoreinstellung",
         "Graphics.PresetQualityOptions": [ "Sehr niedrig", "Niedrig", "Mittel", "Hoch", "Sehr hoch" ],
         "Graphics.Fullscreen": "Vollbild",

@@ -206,6 +206,8 @@
 		"General.SnapshotsEnabled": "Snapshots on",
 		"General.SnapshotsShowInGame": "Snapshots in-game",
 		"General.SnapshotsMinimumDamage": "Snapshots min damage",
+		"General.CameraShakeEnabled": "Camera shake on",
+		"General.CameraShakeIntensity": "Camera shake intensity",
 		"General.FOVMin": "FOV min",
 		"General.FOVMinTooltip": "Field of view when not moving.",
 		"General.FOVMax": "FOV max",

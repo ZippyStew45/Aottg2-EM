@@ -836,6 +836,11 @@ namespace Characters
                 EffectSpawner.Spawn(EffectPrefabs.GroundShatter, hit.point + Vector3.up * 0.1f, Quaternion.identity, Size * SizeMultiplier);
             }
         }
+
+        internal int GetHitRPC(object damage)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum TitanState

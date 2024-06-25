@@ -4,6 +4,7 @@ using ApplicationManagers;
 using GameManagers;
 using UnityEngine.UI;
 using Utility;
+using Cameras;
 using Controllers;
 using CustomSkins;
 using System.Collections.Generic;
@@ -39,6 +40,9 @@ namespace Characters
         protected float _originalCapsuleValue;
         public int TargetViewId = -1;
         public int HeadPrefab;
+        public InGameCamera inGameCamera;
+        public InGameManager inGameManager;
+        private int lastDamageReceived;
 
         public override List<string> EmoteActions => new List<string>() { "Laugh", "Nod", "Shake", "Roar" };
 
@@ -389,6 +393,19 @@ namespace Characters
             Dead = true;
             if (SettingsManager.GraphicsSettings.NapeBloodEnabled.Value)
                 BasicCache.NapeBlood.Play(true);
+
+            if (inGameCamera == null)
+            inGameCamera = FindFirstObjectByType<InGameCamera>();
+            //toggleMaterial = FindFirstObjectByType<ToggleMaterial>();
+            /*if (toggleMaterial != null)
+            {
+                toggleMaterial.ChangeMaterial();
+            }*/
+
+            if (inGameCamera != null && lastDamageReceived >= 1000 && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
+            {
+                inGameCamera.StartShake();
+            }
         }
 
         protected override IEnumerator WaitAndDie()
@@ -423,6 +440,8 @@ namespace Characters
         {
             if (Dead)
                 return;
+
+            lastDamageReceived = damage;  
             var settings = SettingsManager.InGameCurrent.Titan;
             if (type == "CannonBall")
             {
