@@ -124,6 +124,7 @@ MonoBehaviour:
   - moveToRPC
   - PlayChargeEffectRPC
   - StopChargeEffectRPC
+  - KeepSetRPC
   - UnMountCannoneer
   - FinishMountHorseAsPassengerRPC
   - MountHorseAsPassgengerRPC
@@ -135,6 +136,8 @@ MonoBehaviour:
   - RespondHorsePosition
   - SetOwnerRPC
   - UnmountHorseAsPassengerRPC
+  - EmSettingsRpc
+
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

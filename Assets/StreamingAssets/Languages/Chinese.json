@@ -112,6 +112,8 @@
     "Titans.Jumper": "跳跃奇行种",
     "Titans.Crawler": "爬行奇行种",
     "Titans.Punk": "朋克奇行种",
+    "Titans.Stalker": "尾随者", // added by FederalChicken 1 June 24
+    "Titans.Faker": "假装者", // added by FederalChicken 1 June 24
     "Titans.SizeEnabled": "自定义尺寸",
     "Titans.MinSize": "最小尺寸",
     "Titans.MaxSize": "最大尺寸",
@@ -191,6 +193,8 @@
         "General.SnapshotsEnabled": "开启击杀截屏",
         "General.SnapshotsShowInGame": "游戏内显示击杀截屏",
         "General.SnapshotsMinimumDamage": "最低击杀分数",
+        "General.CameraShakeEnabled": "相机抖动开启",
+        "General.CameraShakeIntensity": "相机抖动强度",
         "Graphics.PresetQuality": "预设质量",
         "Graphics.PresetQualityOptions": [ "极低", "低", "中等", "高", "极高" ],
         "Graphics.Fullscreen": "全屏",

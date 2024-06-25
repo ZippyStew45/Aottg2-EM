@@ -112,6 +112,8 @@
 		"Titans.Jumper": "跳躍種",
 		"Titans.Crawler": "四足歩行種",
 		"Titans.Punk": "投擲種",
+		"Titans.Stalker": "追跡者", // added by FederalChicken 1 June 24
+		"Titans.Faker": "偽装者", // added by FederalChicken 1 June 24
 		"Titans.SizeEnabled": "カスタムサイズ",
 		"Titans.MinSize": "最小",
 		"Titans.MaxSize": "最大",
@@ -191,6 +193,8 @@
 		"General.SnapshotsEnabled": "スナップショット有効化",
 		"General.SnapshotsShowInGame": "ゲーム中スナップショット",
 		"General.SnapshotsMinimumDamage": "スナップショット最低ダメージ",
+		"General.CameraShakeEnabled": "カメラシェイクオン",
+		"General.CameraShakeIntensity": "手ブレの強さ",		
 		"Graphics.PresetQuality": "品質プリセット",
 		"Graphics.PresetQualityOptions": [ "最低", "低", "普", "高", "最高" ],
 		"Graphics.Fullscreen": "全画面",
