@@ -434,7 +434,7 @@ namespace Characters
             _maxTurnTime = Cache.Animation[animation].length * 0.71f / Cache.Animation[animation].speed;
             StateActionWithTime(TitanState.Turn, animation, _maxTurnTime, 0.1f);
         }
-
+        
         [PunRPC]
         public override void MarkDeadRPC(PhotonMessageInfo info)
         {

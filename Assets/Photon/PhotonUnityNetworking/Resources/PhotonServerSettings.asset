@@ -125,6 +125,10 @@ MonoBehaviour:
   - PlayChargeEffectRPC
   - StopChargeEffectRPC
   - KeepSetRPC
+  - EmSettingsRpc
+  - EnableLensFlareRPC
+  - EnableLightRPC
+  - UnMountCannoneer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

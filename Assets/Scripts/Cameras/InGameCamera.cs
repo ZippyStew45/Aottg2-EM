@@ -32,7 +32,7 @@ namespace Cameras
         private BaseTitan _napeLockTitan;
         private SnapshotHandler _snapshotHandler;
         private float _lastShakeTime;
-        private float _shakeCooldown = 0.65f;
+        private float _shakeCooldown = 0.95f;
         private bool _currentShakeEnabled;
         private const float ShakeDistance = 3f;
         private const float ShakeDuration = 1f;
@@ -70,6 +70,11 @@ namespace Cameras
 
             _lastShakeTime = Time.time;
             var titan = GetNearestTitan();
+            if (titan == null)
+            {
+                return;
+            }
+            
             float distance = Vector3.Distance(_follow.Cache.Transform.position, titan.Cache.Transform.position);
             if (distance <= 570f)
             {
