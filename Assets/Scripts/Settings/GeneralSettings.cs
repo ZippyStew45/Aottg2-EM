@@ -27,6 +27,7 @@ namespace Settings
         public BoolSetting CameraClipping = new BoolSetting(false);
         public BoolSetting CameraShakeEnabled = new BoolSetting(false);
         public FloatSetting CameraShakeIntensity = new FloatSetting(0.5f, minValue: 0.01f, maxValue: 1f);
+        public BoolSetting ColorScoreFeed = new BoolSetting(true);
         public FloatSetting FOVMin = new FloatSetting(50f, minValue: 1f, maxValue: 120f);
         public FloatSetting FOVMax = new FloatSetting(100f, minValue: 1f, maxValue: 120f);
         public FloatSetting FPSFOVMin = new FloatSetting(80f, minValue: 1f, maxValue: 120f);

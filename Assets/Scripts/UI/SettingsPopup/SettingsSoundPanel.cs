@@ -49,6 +49,8 @@ namespace UI
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldHookEffect, UIManager.GetLocale(cat, sub, "OldHookEffect"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldBladeEffect, UIManager.GetLocale(cat, sub, "OldBladeEffect"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldNapeEffect, UIManager.GetLocale(cat, sub, "OldNapeEffect"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.onekSlices, UIManager.GetLocale(cat, sub, "onekSlices"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.ChantHit, UIManager.GetLocale(cat, sub, "ChantHit"));
         }
 
         protected void OnButtonClick(string name)

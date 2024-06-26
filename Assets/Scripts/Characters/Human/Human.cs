@@ -941,12 +941,16 @@ namespace Characters
                         if (type == "Blade" && SettingsManager.GraphicsSettings.BloodSplatterEnabled.Value)
                             ((InGameMenu)UIManager.CurrentMenu).ShowBlood();
                         if (type == "Blade" || type == "AHSS" || type == "APG")
-                        {
-                            if (SettingsManager.SoundSettings.OldNapeEffect.Value)
-                                PlaySound(HumanSounds.OldNapeHit);
-                            else if (damage >= 1000)
+                        {                            
+                            if (damage >= 1000 && SettingsManager.SoundSettings.onekSlices.Value)
                             {
-                                PlaySound(HumanSounds.OneKNapeHit);
+                                if (SettingsManager.SoundSettings.onekSlices.Value)
+                                {
+                                    PlaySound(HumanSounds.OneKNapeHit);
+                                }                                    
+                            }
+                            if (damage >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
+                            {
                                 switch (RandomHit)
                                 {
                                     case 1:
@@ -958,12 +962,17 @@ namespace Characters
                                     case 3:
                                         PlaySound(HumanSounds.HitChant3);
                                         break;
-                                }                                
-                            }                           
-                            else
-                                PlaySound(HumanSounds.NapeHit);                                
-                        }
-                        _lastNapeHitTimes[titan] = Time.time;
+                                }
+                            }
+                            if (!SettingsManager.SoundSettings.onekSlices.Value)
+                            {
+                                if (SettingsManager.SoundSettings.OldNapeEffect.Value)
+                                    PlaySound(HumanSounds.OldNapeHit);                           
+                                else
+                                    PlaySound(HumanSounds.NapeHit);
+                                _lastNapeHitTimes[titan] = Time.time;
+                            }    
+                        }                                            
                     }
                     if (titan.BaseTitanCache.Hurtboxes.Contains(collider))
                     {

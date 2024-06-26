@@ -55,7 +55,7 @@ namespace UI
     Color scoreColorLow = new Color32(0xFF, 0x00, 0x00, 0xFF); // FF0000
     Color backgroundColorLow = new Color32(0xFF, 0xFF, 0x00, 0xFF); // FFFF00
 
-    if (score >= 1000)
+    if (score >= 1000 && SettingsManager.GeneralSettings.ColorScoreFeed.Value)
     {
         _scoreLabel.color = scoreColorHigh;
         _backgroundLabel.color = backgroundColorHigh;
