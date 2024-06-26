@@ -34,24 +34,43 @@ namespace UI
         public void Show(int score)
         {
             _shakeTimeLeft = 0f;
-            float currentTime = Time.time;
-            ElementFactory.SetAnchor(gameObject, TextAnchor.MiddleCenter, TextAnchor.MiddleCenter, Vector3.up * DefaultOffset);
-            if (currentTime - _lastShowTime < 1.5f)
-            {
-                _shakeTimeLeft = ShakeDuration;
-                _currentShakeDistance = ShakeDistance;
-                _shakeFlip = false;
-            }
-            else
-                IsActive = false;
-            _lastShowTime = currentTime;
-            _scoreLabel.text = score.ToString();
-            _backgroundLabel.text = score.ToString();
-            int fontSize = 40 + (int)(60f * Mathf.Min(score / 3000f, 1f));
-            fontSize = (int)(fontSize * SettingsManager.UISettings.KillScoreScale.Value);
-            _scoreLabel.fontSize = fontSize;
-            _backgroundLabel.fontSize = fontSize;
-            base.Show();
+    float currentTime = Time.time;
+    ElementFactory.SetAnchor(gameObject, TextAnchor.MiddleCenter, TextAnchor.MiddleCenter, Vector3.up * DefaultOffset);
+    if (currentTime - _lastShowTime < 1.5f)
+    {
+        _shakeTimeLeft = ShakeDuration;
+        _currentShakeDistance = ShakeDistance;
+        _shakeFlip = false;
+    }
+    else
+    {
+        IsActive = false;
+    }
+    _lastShowTime = currentTime;
+    _scoreLabel.text = score.ToString();
+    _backgroundLabel.text = score.ToString();
+
+    Color scoreColorHigh = new Color32(0x33, 0x14, 0x17, 0xFF); // 331417
+    Color backgroundColorHigh = new Color32(0xFF, 0x16, 0x00, 0xFF); // FF1600
+    Color scoreColorLow = new Color32(0xFF, 0x00, 0x00, 0xFF); // FF0000
+    Color backgroundColorLow = new Color32(0xFF, 0xFF, 0x00, 0xFF); // FFFF00
+
+    if (score >= 1000)
+    {
+        _scoreLabel.color = scoreColorHigh;
+        _backgroundLabel.color = backgroundColorHigh;
+    }
+    else
+    {
+        _scoreLabel.color = scoreColorLow;
+        _backgroundLabel.color = backgroundColorLow;
+    }
+
+    int fontSize = 40 + (int)(60f * Mathf.Min(score / 3000f, 1f));
+    fontSize = (int)(fontSize * SettingsManager.UISettings.KillScoreScale.Value);
+    _scoreLabel.fontSize = fontSize;
+    _backgroundLabel.fontSize = fontSize;
+    base.Show();
         }
 
         public void ShowSnapshotViewer(int score)

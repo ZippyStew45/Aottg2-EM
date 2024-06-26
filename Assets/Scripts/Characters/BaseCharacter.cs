@@ -165,9 +165,9 @@ namespace Characters
             yield break;
         }
 
-        public virtual void UseItem(int item)
+        public virtual void UseItem(int item, bool fromWheel = false) // added/modified by Ata 4 June 2024 for Flare Wheel //
         {
-            Items[item].SetInput(true);
+            Items[item].SetInput(true, fromWheel);
         }
 
         public override void OnPlayerEnteredRoom(Player player)

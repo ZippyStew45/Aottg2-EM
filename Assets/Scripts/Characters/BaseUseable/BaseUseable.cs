@@ -79,6 +79,10 @@ namespace Characters
         {
         }
 
+        protected virtual void ActivateFromWheel() // added/modified by Ata 4 June 2024 for Flare Wheel //
+        {   
+        }
+
         protected virtual void Deactivate()
         {
         }
@@ -87,7 +91,7 @@ namespace Characters
         {
         }
 
-        public virtual void SetInput(bool key)
+        public virtual void SetInput(bool key, bool fromWheel = false) // added/modified by Ata 4 June 2024 for Flare Wheel //
         {
         }
 

@@ -25,7 +25,7 @@ namespace Characters
             SetInput(keybind.GetKeyDown());
         }
 
-        public override void SetInput(bool key)
+        public override void SetInput(bool key, bool fromWheel = false) // added/modified by Ata 4 June 2024 for Flare Wheel //
         {
             if (key && CanUse() && !IsActive)
             {

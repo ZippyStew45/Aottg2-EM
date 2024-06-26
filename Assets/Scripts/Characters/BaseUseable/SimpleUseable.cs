@@ -17,13 +17,21 @@ namespace Characters
             SetInput(keybind.GetKeyDown());
         }
 
-        public override void SetInput(bool key)
+        public override void SetInput(bool key, bool fromWheel = false)// added/modified by Ata 4 June 2024 for Flare Wheel //
         {
             if (key && CanUse())
             {
-                Activate();
+                Debug.Log("Cooldown: " + Cooldown);
+                if (!fromWheel) // added/modified by Ata 4 June 2024 for Flare Wheel //
+                    Activate();
+                else
+                    ActivateFromWheel();
                 OnUse();
             }
+        }
+
+        protected override void ActivateFromWheel() // added/modified by Ata 4 June 2024 for Flare Wheel //
+        {
         }
     }
 }

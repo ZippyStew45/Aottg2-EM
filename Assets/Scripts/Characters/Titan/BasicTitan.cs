@@ -27,6 +27,7 @@ namespace Characters
         protected BasicTitanAnimations BasicAnimations;
         public bool IsCrawler;
         protected string _runAnimation;
+        protected string _walkAnimation; //added by Snake for Faker Titan 1 june 24
         public BasicTitanSetup Setup;
         public Quaternion _oldHeadRotation;
         public float BellyFlopTime = 5.5f;
@@ -70,6 +71,40 @@ namespace Characters
                 else
                     _runAnimation = BasicAnimations.Runs[runAnimationType - 1];
             }
+            
+            
+            #region Faker-Stalker Titan added by Snake on 2 June 24
+           
+            if (data != null && data.HasKey("WalkAnimation"))
+            {
+                _walkAnimation = data["WalkAnimation"];
+            }
+            else
+            {
+                _walkAnimation = BasicAnimations.Walk;
+            }
+
+            if (UnityEngine.Random.value *100f  <= SettingsManager.InGameCurrent.Titan.TitanChanceFaker.Value)
+            {               
+                if (Name == "Punk" || Name == "Thrower")
+                {
+                    _runAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Walk : BasicAnimations.Runs[0];
+                }
+                else if (Name == "Abnormal" || Name == "Jumper")
+                {   
+                    _runAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Walk : BasicAnimations.Runs[1];
+                }
+                else if (Name == "Titan")
+                {   
+                    _walkAnimation = UnityEngine.Random.value > 0.5f ? BasicAnimations.Runs[0] : BasicAnimations.Runs[1];
+                }
+                Name = Name + "<color=#772732> [F]</color>";
+            }
+            
+            #endregion
+            if (UnityEngine.Random.value * 100f <= SettingsManager.InGameCurrent.Titan.TitanChanceStalker.Value)
+                Name = Name + "<color=#274D77> [S]</color>";
+
             Cache.PhotonView.RPC("SetCrawlerRPC", RpcTarget.AllBuffered, new object[] { IsCrawler });
             base.Init(ai, team, data);
             
@@ -283,6 +318,21 @@ namespace Characters
                 BasicCache.BodyHitbox.Activate();
         }
 
+        //Faker Titan added by Snake on 1 June 24
+        public override void Walk()
+        {   
+            if (!string.IsNullOrEmpty(_walkAnimation))
+            {
+                _stepPhase = 0;
+                StateActionWithTime(TitanState.Walk, _walkAnimation, 0f, 0.5f);
+            }
+            else
+            {
+                Debug.LogError("Walk animation not set for BasicTitan");
+            }
+        }
+                
+
         public override void WallClimb()
         {
             _stepPhase = 0;
@@ -443,11 +493,14 @@ namespace Characters
 
             lastDamageReceived = damage;  
             var settings = SettingsManager.InGameCurrent.Titan;
-            if (type == "CannonBall")
+            /*if (type == "CannonBall")
             {
-                base.GetHitRPC(viewId, name, damage, type, collider);
+                if (EmVariables.NonLethalCannon) //added by zipp, titan sit from floppy cannon 
+                    Cripple(2f);
+                else
+                    base.GetHitRPC(viewId, name, damage, type, collider);
                 return;
-            }
+            }*/
             if (settings.TitanArmorEnabled.Value && (!IsCrawler || settings.TitanArmorCrawlerEnabled.Value))
             {
                 if (damage < settings.TitanArmor.Value)

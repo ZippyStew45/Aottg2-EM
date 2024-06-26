@@ -916,6 +916,8 @@ namespace Characters
                 return;
             }
             var victimChar = (BaseCharacter)victim;
+            System.Random random = new System.Random();
+            int RandomHit = random.Next(1, 4);
             if (!victimChar.Dead)
             {
                 if (victimChar is BaseTitan)
@@ -942,8 +944,24 @@ namespace Characters
                         {
                             if (SettingsManager.SoundSettings.OldNapeEffect.Value)
                                 PlaySound(HumanSounds.OldNapeHit);
+                            else if (damage >= 1000)
+                            {
+                                PlaySound(HumanSounds.OneKNapeHit);
+                                switch (RandomHit)
+                                {
+                                    case 1:
+                                        PlaySound(HumanSounds.HitChant1);
+                                        break;
+                                    case 2:
+                                        PlaySound(HumanSounds.HitChant2);
+                                        break;
+                                    case 3:
+                                        PlaySound(HumanSounds.HitChant3);
+                                        break;
+                                }                                
+                            }                           
                             else
-                                PlaySound(HumanSounds.NapeHit);
+                                PlaySound(HumanSounds.NapeHit);                                
                         }
                         _lastNapeHitTimes[titan] = Time.time;
                     }
@@ -2134,6 +2152,8 @@ namespace Characters
             Items.Add(new FlareItem(this, "Purple", new Color(195f / 255f, 69f / 255f, 1f, 0.7f), 10f));
             Items.Add(new FlareItem(this, "Blue", new Color(27 / 255f, 96 / 255f, 1f, 0.7f), 10f));
             Items.Add(new FlareItem(this, "Yellow", new Color(1f, 158 / 255f, 23 / 255f, 0.7f), 10f));
+            Items.Add(new FlareItem(this, "Flash", Color.white, 30f)); // added by Ata 26 May 2024 //
+            Items.Add(new FlareItem(this, "Acoustic", new Color(1f, 158 / 255f, 23 / 255f, 0.7f), 30f)); // added by Ata 26 May 2024 //
         }
 
         public void SetSpecial(string special)
