@@ -26,14 +26,14 @@ namespace Projectiles
             {
                 var character = collision.collider.gameObject.transform.root.GetComponent<BaseCharacter>();
                 var handler = GetComponent<Collider>().gameObject.GetComponent<CustomLogicCollisionHandler>();
-                if (handler != null)
+                /*if (handler != null)
                 {
                     if (EmVariables.NonLethalCannon)
                         handler.GetHit(_owner, "CannonBall", 0, "CannonBall"); //added by zipp, semi hard damage
                     else
                         handler.GetHit(_owner, "CannonBall", 100, "CannonBall");
                     return;
-                }
+                }*/
                 if (character != null && !TeamInfo.SameTeam(character, _team))
                 {
                     if (_owner == null || !(_owner is Human))

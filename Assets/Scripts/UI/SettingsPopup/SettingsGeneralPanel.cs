@@ -54,6 +54,7 @@ namespace UI
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.CameraShakeEnabled, UIManager.GetLocale(cat, sub, "CameraShakeEnabled"));
             ElementFactory.CreateSliderSetting(DoublePanelLeft, style, settings.CameraShakeIntensity, UIManager.GetLocale(cat, sub, "CameraShakeIntensity"),
                elementWidth: 135f);
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.ColorScoreFeed, UIManager.GetLocale(cat, sub, "ColorScoreFeed"));
         }
     }
 }

@@ -261,7 +261,11 @@ namespace GameManagers
 
 
             ///// Bools \\\\\
+
             EmVariables.NonLethalCannon = BoolSettings[0];
+
+            //EmVariables.NonLethalCannon = BoolSettings[0];
+
 
 
             ///// Ints \\\\\

@@ -43,7 +43,8 @@ namespace Characters
         public int HeadPrefab;
         public InGameCamera inGameCamera;
         public InGameManager inGameManager;
-        private int lastDamageReceived;
+        public Human Human;
+        public bool isDead;
 
         public override List<string> EmoteActions => new List<string>() { "Laugh", "Nod", "Shake", "Roar" };
 
@@ -161,6 +162,8 @@ namespace Characters
 
         protected override void Start()
         {
+            if (Human == null)
+                Human = FindFirstObjectByType<Human>();
             _inGameManager.Titans.Add(this);
             base.Start();
             if (IsMine())
@@ -434,28 +437,32 @@ namespace Characters
             _maxTurnTime = Cache.Animation[animation].length * 0.71f / Cache.Animation[animation].speed;
             StateActionWithTime(TitanState.Turn, animation, _maxTurnTime, 0.1f);
         }
-
+        
         [PunRPC]
         public override void MarkDeadRPC(PhotonMessageInfo info)
         {
+            isDead = false;
             if (info.Sender != Cache.PhotonView.Owner)
                 return;
+
             Dead = true;
+            isDead = Dead;
             if (SettingsManager.GraphicsSettings.NapeBloodEnabled.Value)
                 BasicCache.NapeBlood.Play(true);
-
-            if (inGameCamera == null)
-            inGameCamera = FindFirstObjectByType<InGameCamera>();
-            //toggleMaterial = FindFirstObjectByType<ToggleMaterial>();
+            /*if (Dead)
+            {
+                Debug.Log("Titan Kill");
+                isDead = true;
+            }            
+            else
+            {
+                Debug.Log("Titan no dead...");
+                isDead = false;
+            }
             /*if (toggleMaterial != null)
             {
                 toggleMaterial.ChangeMaterial();
             }*/
-
-            if (inGameCamera != null && lastDamageReceived >= 1000 && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
-            {
-                inGameCamera.StartShake();
-            }
         }
 
         protected override IEnumerator WaitAndDie()
@@ -491,16 +498,15 @@ namespace Characters
             if (Dead)
                 return;
 
-            lastDamageReceived = damage;  
             var settings = SettingsManager.InGameCurrent.Titan;
-            if (type == "CannonBall")
+            /*if (type == "CannonBall")
             {
                 if (EmVariables.NonLethalCannon) //added by zipp, titan sit from floppy cannon 
                     Cripple(2f);
                 else
                     base.GetHitRPC(viewId, name, damage, type, collider);
                 return;
-            }
+            }*/
             if (settings.TitanArmorEnabled.Value && (!IsCrawler || settings.TitanArmorCrawlerEnabled.Value))
             {
                 if (damage < settings.TitanArmor.Value)

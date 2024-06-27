@@ -36,7 +36,7 @@ namespace UI
             ElementFactory.CreateToggleSetting(DoublePanelLeft, style, settings.CrashLandEffect, UIManager.GetLocale(cat, sub, "CrashLandEffect"));
             _currentSongLabel = ElementFactory.CreateDefaultLabel(DoublePanelRight, style, "", alignment: TextAnchor.MiddleLeft).GetComponent<Text>();
             ElementFactory.CreateDropdownSetting(DoublePanelRight, dropdownStyle, settings.ForcePlaylist, UIManager.GetLocale(cat, sub, "ForcePlaylist"),
-                new string[] { "Default", "Custom", "Menu", "Peaceful", "Battle", "Boss", "Racing" }, elementWidth: 160f);
+                new string[] { "Default", "Custom", "Menu", "Peaceful", "Battle", "AnimeBattle", "Preparation" ,"TitanThreat" ,"TheDefeated" ,"TheRoad" ,"Lost" ,"Boss", "Racing" }, elementWidth: 160f);
             string custom = settings.CustomPlaylist.Value;
             if (custom == "")
                 custom = "None";
@@ -49,6 +49,8 @@ namespace UI
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldHookEffect, UIManager.GetLocale(cat, sub, "OldHookEffect"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldBladeEffect, UIManager.GetLocale(cat, sub, "OldBladeEffect"));
             ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.OldNapeEffect, UIManager.GetLocale(cat, sub, "OldNapeEffect"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.onekSlices, UIManager.GetLocale(cat, sub, "onekSlices"));
+            ElementFactory.CreateToggleSetting(DoublePanelRight, style, settings.ChantHit, UIManager.GetLocale(cat, sub, "ChantHit"));
         }
 
         protected void OnButtonClick(string name)

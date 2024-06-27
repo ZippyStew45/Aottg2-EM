@@ -107,6 +107,7 @@ namespace Characters
         // actions
         public string StandAnimation;
         public string AttackAnimation;
+        public InGameCamera inGameCamera;
         public bool _gunArmAim;
         public string RunAnimation;
         public bool _attackRelease;
@@ -818,6 +819,8 @@ namespace Characters
 
         protected override void Start()
         {
+            if (inGameCamera == null)
+            inGameCamera = FindFirstObjectByType<InGameCamera>();
             _inGameManager.Humans.Add(this);
             base.Start();
             SetInterpolation(true);
@@ -916,6 +919,8 @@ namespace Characters
                 return;
             }
             var victimChar = (BaseCharacter)victim;
+            System.Random random = new System.Random();
+            int RandomHit = random.Next(1, 4);
             if (!victimChar.Dead)
             {
                 if (victimChar is BaseTitan)
@@ -939,13 +944,46 @@ namespace Characters
                         if (type == "Blade" && SettingsManager.GraphicsSettings.BloodSplatterEnabled.Value)
                             ((InGameMenu)UIManager.CurrentMenu).ShowBlood();
                         if (type == "Blade" || type == "AHSS" || type == "APG")
-                        {
-                            if (SettingsManager.SoundSettings.OldNapeEffect.Value)
-                                PlaySound(HumanSounds.OldNapeHit);
-                            else
-                                PlaySound(HumanSounds.NapeHit);
-                        }
-                        _lastNapeHitTimes[titan] = Time.time;
+                        {   
+                            if (damage >= 1000)
+                            {
+                                
+                                if (inGameCamera != null && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
+                                    inGameCamera.StartShake();
+                                if (damage >= 1000 && SettingsManager.SoundSettings.onekSlices.Value)
+                                    PlaySound(HumanSounds.OneKNapeHit);                                   
+                                else
+                                {
+                                    if (SettingsManager.SoundSettings.OldNapeEffect.Value)
+                                        PlaySound(HumanSounds.OldNapeHit);                      
+                                    else
+                                        PlaySound(HumanSounds.NapeHit);
+                                }
+                                if (damage >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
+                                {
+                                    switch (RandomHit)
+                                    {
+                                        case 1:
+                                            PlaySound(HumanSounds.HitChant1);
+                                            break;
+                                        case 2:
+                                            PlaySound(HumanSounds.HitChant2);
+                                            break;
+                                        case 3:
+                                            PlaySound(HumanSounds.HitChant3);
+                                            break;
+                                    }
+                                }
+                            }
+                            else 
+                            {
+                                if (SettingsManager.SoundSettings.OldNapeEffect.Value)
+                                    PlaySound(HumanSounds.OldNapeHit);                           
+                                else
+                                    PlaySound(HumanSounds.NapeHit); 
+                            }
+                            _lastNapeHitTimes[titan] = Time.time;                                            
+                        }                                            
                     }
                     if (titan.BaseTitanCache.Hurtboxes.Contains(collider))
                     {

@@ -24,6 +24,8 @@ namespace Settings
         public BoolSetting OldNapeEffect = new BoolSetting(false);
         public StringSetting ForcePlaylist = new StringSetting("Default");
         public StringSetting CustomPlaylist = new StringSetting("");
+        public BoolSetting onekSlices = new BoolSetting(true);
+        public BoolSetting ChantHit = new BoolSetting(true);
 
         public override void Apply()
         {
