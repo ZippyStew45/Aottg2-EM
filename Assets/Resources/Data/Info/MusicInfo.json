@@ -26,23 +26,20 @@
 		{"Name": "dakros_battle_chant", "Volume": 1},
 		{"Name": "dakros_colossal", "Volume": 1}
 	],
-	"AnimeBattle": [
-		{"Name": "hiroyuki_suspense", "Volume": 1}
-	],
 	"Preparation": [
 		{"Name": "", "Volume": 1},
 		{"Name": "", "Volume": 1}
 	],
 	"TitanThreat": [
-		{"Name": "ayako_roadtovictory", "Volume": 1}
+		{"Name": "ayako_roadtovictory", "Volume": 1},
+		{"Name": "ayako_approachingfear", "Volume": 1}
 	],
 	"TheDefeated": [
 		{"Name": "", "Volume": 1},
 		{"Name": "", "Volume": 1}
 	],
-	"TheRoad": [
-		{"Name": "", "Volume": 1},
-		{"Name": "", "Volume": 1}
+	"OnTheRoad": [
+		{"Name": "ayako_flyordie", "Volume": 1}
 	],
 	"Lost": [
 		{"Name": "", "Volume": 1},
