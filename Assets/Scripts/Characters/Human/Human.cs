@@ -107,6 +107,7 @@ namespace Characters
         // actions
         public string StandAnimation;
         public string AttackAnimation;
+        public InGameCamera inGameCamera;
         public bool _gunArmAim;
         public string RunAnimation;
         public bool _attackRelease;
@@ -818,6 +819,8 @@ namespace Characters
 
         protected override void Start()
         {
+            if (inGameCamera == null)
+            inGameCamera = FindFirstObjectByType<InGameCamera>();
             _inGameManager.Humans.Add(this);
             base.Start();
             SetInterpolation(true);
@@ -941,37 +944,45 @@ namespace Characters
                         if (type == "Blade" && SettingsManager.GraphicsSettings.BloodSplatterEnabled.Value)
                             ((InGameMenu)UIManager.CurrentMenu).ShowBlood();
                         if (type == "Blade" || type == "AHSS" || type == "APG")
-                        {                            
-                            if (damage >= 1000 && SettingsManager.SoundSettings.onekSlices.Value)
+                        {   
+                            if (damage >= 1000)
                             {
-                                if (SettingsManager.SoundSettings.onekSlices.Value)
+                                
+                                if (inGameCamera != null && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
+                                    inGameCamera.StartShake();
+                                if (damage >= 1000 && SettingsManager.SoundSettings.onekSlices.Value)
+                                    PlaySound(HumanSounds.OneKNapeHit);                                   
+                                else
                                 {
-                                    PlaySound(HumanSounds.OneKNapeHit);
-                                }                                    
-                            }
-                            if (damage >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
-                            {
-                                switch (RandomHit)
+                                    if (SettingsManager.SoundSettings.OldNapeEffect.Value)
+                                        PlaySound(HumanSounds.OldNapeHit);                      
+                                    else
+                                        PlaySound(HumanSounds.NapeHit);
+                                }
+                                if (damage >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
                                 {
-                                    case 1:
-                                        PlaySound(HumanSounds.HitChant1);
-                                        break;
-                                    case 2:
-                                        PlaySound(HumanSounds.HitChant2);
-                                        break;
-                                    case 3:
-                                        PlaySound(HumanSounds.HitChant3);
-                                        break;
+                                    switch (RandomHit)
+                                    {
+                                        case 1:
+                                            PlaySound(HumanSounds.HitChant1);
+                                            break;
+                                        case 2:
+                                            PlaySound(HumanSounds.HitChant2);
+                                            break;
+                                        case 3:
+                                            PlaySound(HumanSounds.HitChant3);
+                                            break;
+                                    }
                                 }
                             }
-                            if (!SettingsManager.SoundSettings.onekSlices.Value)
+                            else 
                             {
                                 if (SettingsManager.SoundSettings.OldNapeEffect.Value)
                                     PlaySound(HumanSounds.OldNapeHit);                           
                                 else
-                                    PlaySound(HumanSounds.NapeHit);
-                                _lastNapeHitTimes[titan] = Time.time;
-                            }    
+                                    PlaySound(HumanSounds.NapeHit); 
+                            }
+                            _lastNapeHitTimes[titan] = Time.time;                                            
                         }                                            
                     }
                     if (titan.BaseTitanCache.Hurtboxes.Contains(collider))
