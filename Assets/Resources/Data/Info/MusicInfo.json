@@ -26,6 +26,29 @@
 		{"Name": "dakros_battle_chant", "Volume": 1},
 		{"Name": "dakros_colossal", "Volume": 1}
 	],
+	"AnimeBattle": [
+		{"Name": "hiroyuki_suspense", "Volume": 1}
+	],
+	"Preparation": [
+		{"Name": "", "Volume": 1},
+		{"Name": "", "Volume": 1}
+	],
+	"TitanThreat": [
+		{"Name": "", "Volume": 1},
+		{"Name": "", "Volume": 1}
+	],
+	"TheDefeated": [
+		{"Name": "", "Volume": 1},
+		{"Name": "", "Volume": 1}
+	],
+	"TheRoad": [
+		{"Name": "", "Volume": 1},
+		{"Name": "", "Volume": 1}
+	],
+	"Lost": [
+		{"Name": "", "Volume": 1},
+		{"Name": "", "Volume": 1}
+	],
 	"Boss": [
 		{"Name": "dakros_shrill_voices", "Volume": 1},
 		{"Name": "meownist_combat", "Volume": 1},
