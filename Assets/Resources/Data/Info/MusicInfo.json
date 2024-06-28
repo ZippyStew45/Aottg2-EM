@@ -32,7 +32,8 @@
 	],
 	"TitanThreat": [
 		{"Name": "ayako_roadtovictory", "Volume": 1},
-		{"Name": "ayako_approachingfear", "Volume": 1}
+		{"Name": "ayako_approachingfear", "Volume": 1},
+		{"Name": "ayako_thousandwings", "Volume": 1},
 	],
 	"TheDefeated": [
 		{"Name": "", "Volume": 1},
