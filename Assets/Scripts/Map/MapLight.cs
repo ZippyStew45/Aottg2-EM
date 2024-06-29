@@ -1,33 +1,70 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun;
+﻿using Settings;
 
 namespace Map
 {
-    public class MapLight //TODO: Wait untill rc actually adds this, this is only temporary 
+    class MapLight
     {
-        public Light Light { get; private set; }
-
-        public float cullingDistance = 10.0f; // The distance at which the light will be culled
+        public Light Light;
+        public float MaxIntensity;
+        private Transform _transform;
 
         public MapLight(Light light)
         {
-            this.Light = light;
+            Light = light;
+            MaxIntensity = light.intensity;
+            _transform = light.transform;
         }
 
-        public void UpdateCull(Transform targetTransform)
+        public void UpdateCull(Transform cameraPosition)
         {
-            // Calculate the distance between the light and the target transform
-            float distance = Vector3.Distance(Camera.main.transform.position, targetTransform.position);
+            if (_transform == null || Light == null)
+                return;
+            float distance = Vector3.Distance(cameraPosition.position, _transform.position);
+            float lightDistance = SettingsManager.GraphicsSettings.LightDistance.Value;
+            if (distance >= lightDistance || lightDistance <= 0f)
+                UpdateIntensity(0f);
+            else
+            {
+                float intensity = Mathf.Clamp(2f - (2 * distance / lightDistance), 0f, 1f) * MaxIntensity;
+                UpdateIntensity(intensity);
+            }
+        }
 
-            // If the distance is greater than the culling distance, disable the light
-            if (distance > cullingDistance)
+        public bool MinimapDisableLight()
+        {
+            if (_transform == null || Light == null)
+                return false;
+            if (Light.enabled)
             {
                 Light.enabled = false;
+                return true;
+            }
+            return false;
+        }
+
+        public void MinimapEnableLight()
+        {
+            if (_transform == null || Light == null)
+                return;
+            Light.enabled = true;
+        }
+
+        private void UpdateIntensity(float intensity)
+        {
+            if (intensity == 0f)
+            {
+                if (Light.enabled)
+                    Light.enabled = false;
             }
             else
             {
-                Light.enabled = true;
+                if (!Light.enabled)
+                    Light.enabled = true;
+                if (Light.intensity != intensity)
+                    Light.intensity = intensity;
             }
         }
     }

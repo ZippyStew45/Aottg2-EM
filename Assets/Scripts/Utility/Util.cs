@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Globalization;
+using UnityEngine.AI;
+using System.Collections.Specialized;
 
 namespace Utility
 {
@@ -33,6 +35,11 @@ namespace Utility
             bool y = (v.y >= start.y && v.y <= end.y) || (v.y >= end.y && v.y <= start.y);
             bool z = (v.z >= start.z && v.z <= end.z) || (v.z >= end.z && v.z <= start.z);
             return x && y && z;
+        }
+
+        public static float LinearMap(float x, float inMin, float inMax, float outMin, float outMax)
+        {
+            return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
         }
 
         public static BaseCharacter FindCharacterByViewId(int viewId)
@@ -276,6 +283,21 @@ namespace Utility
 
             return paginatedCommands;
         }
+
+        public static string ColorText(string text, string color)
+        {
+            return $"<color={color}>{text}</color>";
+        }
+
+        public static string SizeText(string text, int size)
+        {
+            return $"<size={size}>{text}</size>";
+        }
+
+        public static string RichTextTag(string text, string tag, string value)
+        {
+            return $"<{tag}={value}>{text}</{tag}>";
+        }
         
         public static Quaternion ConstrainedToX(Quaternion rotation) =>
             Quaternion.Euler(rotation.eulerAngles.x, 0f,  0f);
@@ -285,5 +307,83 @@ namespace Utility
         
         public static Quaternion ConstrainedToZ(Quaternion rotation) =>
             Quaternion.Euler(0f, 0f,  rotation.eulerAngles.z);
+
+        public static List<KeyValuePair<float, string>> _titanSizes = new List<KeyValuePair<float, string>>()
+        {
+            //new KeyValuePair<float, string>(0.5f, "minTitan"),
+            new KeyValuePair<float, string>(1f, "smallTitan"),
+            new KeyValuePair<float, string>(2f, "avgTitan"),
+            new KeyValuePair<float, string>(3f, "maxTitan")
+        };
+        
+        public static List<int> GetAllTitanAgentIds()
+        {
+            // for each _titanSize in _titanSizes, return GetNavMeshAgentID(_titanSize.Value), if its null, remove
+            return _titanSizes.Select(titanSize => GetNavMeshAgentID(titanSize.Value)).Where(agentId => agentId != null).Select(agentId => agentId.Value).ToList();
+        }
+
+        public static int GetNavMeshAgentIDBySize(float size)
+        {
+            // determine the size to use based on if the size is greater than the current size but less than the next
+            string name = "minTitan";
+            for (int i = 0; i < _titanSizes.Count; i++)
+            {
+                if (size >= _titanSizes[i].Key)
+                    name = _titanSizes[i].Value;
+            }
+
+            return GetNavMeshAgentID(name) ?? 0;
+        }
+
+        public static NavMeshBuildSettings GetAgentSettingsCorrected(float size)
+        {
+            string name = "minTitan";
+            float sizeToUse = 0.5f;
+            for (int i = 0; i < _titanSizes.Count; i++)
+            {
+                if (size >= _titanSizes[i].Key)
+                {
+                    sizeToUse = _titanSizes[i].Key;
+                    name = _titanSizes[i].Value;
+                }
+                    
+            }
+
+            int agentId = GetNavMeshAgentID(name).Value;
+
+            // log titan size
+            var agentSettings = NavMesh.GetSettingsByID(agentId);
+            agentSettings.agentRadius /= sizeToUse;
+            agentSettings.agentHeight /= sizeToUse;
+            return agentSettings;
+        }
+
+        public static int? GetNavMeshAgentID(string name)
+        {
+            for (int i = 0; i < NavMesh.GetSettingsCount(); i++)
+            {
+                NavMeshBuildSettings settings = NavMesh.GetSettingsByIndex(index: i);
+                if (name == NavMesh.GetSettingsNameFromID(agentTypeID: settings.agentTypeID))
+                {
+                    return settings.agentTypeID;
+                }
+            }
+            return null;
+        }
+
+        public static Vector3 Abs(Vector3 v)
+        {
+            return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+        }
+
+        public static T EnumMax<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().Max();
+        }
+
+        public static int EnumMaxValue<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<int>().Max();
+        }
     }
 }

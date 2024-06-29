@@ -15,6 +15,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
 using System.Linq;
+using Controllers;
 
 namespace GameManagers
 {
@@ -735,6 +736,17 @@ namespace GameManagers
             PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         }
 
+        public static void ResetPlayerKD(Player player)
+        {
+            var kdrProperties = new Dictionary<string, object>
+            {
+                { PlayerProperty.Kills, 0 },
+                { PlayerProperty.Deaths, 0 },
+                { PlayerProperty.HighestDamage, 0 },
+                { PlayerProperty.TotalDamage, 0 }
+            };
+            player.SetCustomProperties(kdrProperties);
+        }
         private static void ResetRoundPlayerProperties()
         {
             if (SettingsManager.InGameCurrent.Misc.ClearKDROnRestart.Value)
@@ -914,9 +926,9 @@ namespace GameManagers
             else
             {
                 if (_generalInputSettings.ToggleScoreboard.GetKey())
-                    _inGameMenu.SetScoreboardMenu(true);
+                    _inGameMenu.SetScoreboardMenu(true, false);
                 else
-                    _inGameMenu.SetScoreboardMenu(false);
+                    _inGameMenu.SetScoreboardMenu(false, false);
             }
             if (SettingsManager.InputSettings.General.HideUI.GetKeyDown() && !InGameMenu.InMenu() && !CustomLogicManager.Cutscene)
             {

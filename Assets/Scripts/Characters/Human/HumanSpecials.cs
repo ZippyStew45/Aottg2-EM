@@ -8,10 +8,10 @@ namespace Characters
 {
     class HumanSpecials
     {
-        public static string[] AnySpecials = new string[] {"Potato", "Escape", "Dance", "Distract", "Supply", "SmokeBomb", "Carry" };
+        public static string[] AnySpecials = new string[] {"Potato", "Escape", "Dance", "Distract", "Smell", "Supply", "SmokeBomb", "Carry", "Switchback" };
         public static string[] AHSSSpecials = new string[] { "AHSSTwinShot" };
         public static string[] BladeSpecials = new string[] { "DownStrike", "Spin1", "Spin2", "Spin3", "BladeThrow" };
-        public static string[] ShifterSpecials = new string[] { "Eren", "Annie", "Armored" };
+        public static string[] ShifterSpecials = new string[] { "Eren", "Annie" };
 
         public static List<string> GetSpecialNames(string loadout, bool includeShifters) // add abilities to specific loadouts from here //
         {
@@ -47,6 +47,8 @@ namespace Characters
                 return new EscapeSpecial(owner);
             else if (special == "Dance")
                 return new DanceSpecial(owner);
+            else if (special == "Smell")
+                return new SmellSpecial(owner);
             else if (special == "Potato")
                 return new PotatoSpecial(owner);
             else if (special == "DownStrike")
@@ -77,6 +79,8 @@ namespace Characters
                 return new ShifterTransformSpecial(owner, "Annie");
             else if (special == "Armored")
                 return new ShifterTransformSpecial(owner, "Armored");
+            else if (special == "Switchback")
+                return new SwitchbackSpecial(owner);
             return null;
         }
 

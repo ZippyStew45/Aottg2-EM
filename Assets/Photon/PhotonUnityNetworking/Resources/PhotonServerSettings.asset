@@ -137,6 +137,7 @@ MonoBehaviour:
   - EnableLensFlareRPC
   - EnableLightRPC
   - UnMountCannoneer
+  - ResetKDRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

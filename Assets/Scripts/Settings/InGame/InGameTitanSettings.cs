@@ -21,5 +21,6 @@
         public BoolSetting TitanArmorCrawlerEnabled = new BoolSetting(false);
         public IntSetting TitanArmor = new IntSetting(1000, minValue: 0);
         public BoolSetting TitanStandardModels = new BoolSetting(false);
+        public BoolSetting TitanSmartMovement = new BoolSetting(true);
     }
 }

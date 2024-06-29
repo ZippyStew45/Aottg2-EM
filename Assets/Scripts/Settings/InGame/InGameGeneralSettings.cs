@@ -24,6 +24,7 @@ namespace Settings
         Training,
         Easy,
         Normal,
-        Hard
+        Hard,
+        Abnormal,
     }
 }

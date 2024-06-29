@@ -218,6 +218,8 @@ namespace Characters
             DestroyIfExists(_part_upper_body);
             DestroyIfExists(_part_arm_l);
             DestroyIfExists(_part_arm_r);
+            DestroyIfExists(_part_hand_l);
+            DestroyIfExists(_part_hand_r);
             DestroyIfExists(_part_brand_1);
             DestroyIfExists(_part_brand_2);
             DestroyIfExists(_part_brand_3);
@@ -384,7 +386,7 @@ namespace Characters
             DestroyIfExists(_part_hand_l);
             DestroyIfExists(_part_arm_r);
             DestroyIfExists(_part_hand_r);
-            Material skinMaterial = HumanSetupMaterials.GetPartMaterial(_textures.GetSkinTexture());
+            Material skinMaterial = HumanSetupMaterials.GetSkinMaterial(_textures.GetSkinTexture(), CustomSet.SkinColor.Value.ToColor());
             _part_arm_l = GenerateCloth(_meshes.GetArmMesh(left: true));
             SetMaterial(_part_arm_l.GetComponent<Renderer>(), bodyMaterial);
             _part_hand_l = GenerateCloth(_meshes.GetHandMesh(left: true));
@@ -402,6 +404,8 @@ namespace Characters
 
         public void CreateLowerBody(Material bodyMaterial)
         {
+            var bootsRef = ((GameObject)ResourceManager.LoadAsset(ResourcePaths.Characters, _meshes.GetBootsMesh(CustomSet.Boots.Value), true)).transform;
+            _part_leg.GetComponent<SkinnedMeshRenderer>().sharedMesh = bootsRef.GetComponent<SkinnedMeshRenderer>().sharedMesh;
             SetMaterial(_part_leg.GetComponent<SkinnedMeshRenderer>(), bodyMaterial);
         }
 
@@ -452,7 +456,7 @@ namespace Characters
                 _part_brand_4 = GenerateCloth(_meshes.GetBrandMesh(4));
                 _part_brand_4.GetComponent<Renderer>().material = brandMaterial;
             }
-            Material skinMaterial = HumanSetupMaterials.GetPartMaterial(_textures.GetSkinTexture());
+            Material skinMaterial = HumanSetupMaterials.GetSkinMaterial(_textures.GetSkinTexture(), CustomSet.SkinColor.Value.ToColor());
             _part_head.GetComponent<Renderer>().material = skinMaterial;
             _part_chest.GetComponent<Renderer>().material = skinMaterial;
         }
@@ -469,15 +473,6 @@ namespace Characters
             }
             else
                 go.GetComponent<Renderer>().material = MaterialCache.TransparentMaterial;
-        }
-
-        public void SetSkin()
-        {
-            Material material = HumanSetupMaterials.GetPartMaterial(_textures.GetSkinTexture());
-            _part_head.GetComponent<Renderer>().material = material;
-            _part_chest.GetComponent<Renderer>().material = material;
-            _part_hand_l.GetComponent<Renderer>().material = material;
-            _part_hand_r.GetComponent<Renderer>().material = material;
         }
 
         private GameObject CreateMount(string transformPath)

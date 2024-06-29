@@ -5,7 +5,37 @@
 			"ExcludedModes": ["Racing"],
 			"Maps": [
 				{
-					"Name": "Forest"
+					"Name": "Forest1"
+				},
+				{
+					"Name": "Forest2"
+				},
+				{
+					"Name": "Forest3"
+				},
+				{
+					"Name": "City1"
+				},
+				{
+					"Name": "City2"
+				},
+				{
+					"Name": "Utgard1"
+				},
+				{
+					"Name": "Utgard2"
+				},
+				{
+					"Name": "Cave1"
+				},
+				{
+					"Name": "Lake"
+				},
+				{
+					"Name": "Plaza"
+				},
+				{
+					"Name": "Grandmaster"
 				},
 				{
 					"Name": "ForestFlooded"
@@ -14,10 +44,7 @@
 					"Name": "ForestLava"
 				},
 				{
-					"Name": "City"
-				},
-				{
-					"Name": "Utgard"
+					"Name": "Deforest1"
 				},
 				{
 					"Name": "Birth of Levi"
@@ -35,10 +62,28 @@
 					"Name": "Trost"
 				},
 				{
-					"Name": "Dany's Outside"
+					"Name": "Futuristic Forest"
+				}
+			]
+		},
+		{
+			"Name": "Mission",
+			"IncludedModes": ["Map Logic"],
+			"Maps": [
+				{
+					"Name": "Annie",
+					"MiscSettings": {
+						"AllowThunderspears": false,
+						"AllowShifterSpecials": false
+					}
 				},
 				{
-					"Name": "Futuristic Forest"
+					"Name": "Outside The Walls",
+					"MiscSettings": {
+						"Horses": true,
+						"AllowPlayerTitans": false,
+						"AllowShifters": false
+					}
 				}
 			]
 		},
@@ -48,19 +93,23 @@
 			"Maps": [
 				{
 					"Category": "General",
-					"Name": "Forest"
+					"Name": "Forest1"
 				},
 				{
 					"Category": "General",
-					"Name": "ForestFlooded"
+					"Name": "Deforest1"
 				},
 				{
 					"Category": "General",
-					"Name": "ForestLava"
+					"Name": "Forest2"
 				},
 				{
 					"Category": "General",
-					"Name": "City"
+					"Name": "City1"
+				},
+				{
+					"Category": "General",
+					"Name": "Cave1"
 				},
 				{
 					"Name": "House"
@@ -98,6 +147,24 @@
 			]
 		},
 		{
+			"Name": "Cage Fight",
+			"IncludedModes": ["Cage Fight", "None"],
+			"Maps": [
+				{
+					"Name": "Veneration"
+				},
+				{
+					"Name": "Refuge"
+				},
+				{
+					"Name": "Crystalline"
+				},
+				{
+					"Name": "En Passant"
+				}
+			]
+		},
+		{
 			"Name": "Racing Basic",
 			"IncludedModes": ["Racing"],
 			"Maps": [
@@ -112,6 +179,9 @@
 				},
 				{
 					"Name": "Another Brick in the Wall"
+				},
+				{
+					"Name": "Racing City"
 				},
 				{
 					"Name": "Winter Speed"
@@ -177,29 +247,6 @@
 					"Name": "Inferno I"
 				}
 			]
-		},
-		{
-			"Name": "Boss",
-			"IncludedModes": ["Map Logic"],
-			"Maps": [
-				{
-					"Name": "Annie",
-					"MiscSettings": {
-						"AllowThunderspears": false,
-						"AllowShifterSpecials": false
-					}
-				},
-				{
-					"Name": "Armored",
-					"MiscSettings": {
-						"AllowThunderspears": true,
-						"AllowShifterSpecials": false,
-						"AllowBlades": false,
-						"AllowAHSS": false,
-						"AllowAPG": false
-					}
-				}
-			]
 		}
 	],
 	"GameModes": [
@@ -231,6 +278,14 @@
 				"AllowAPG": false,
 				"AllowPlayerTitans": false,
 				"ThunderspearPVP": true,
+				"AllowShifterSpecials": false
+			}
+		},
+		{
+			"Name": "Cage Fight",
+			"MiscSettings": {
+				"PVP": 2,
+				"AllowPlayerTitans": false,
 				"AllowShifterSpecials": false
 			}
 		},

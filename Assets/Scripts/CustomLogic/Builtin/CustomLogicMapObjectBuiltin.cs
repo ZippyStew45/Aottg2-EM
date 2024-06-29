@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Map;
 using Utility;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
+using UnityEngine.AI;
 
 namespace CustomLogic
 {
@@ -48,6 +50,7 @@ namespace CustomLogic
                     light.range = parameters[3].UnboxToFloat();
                     light.shadows = LightShadows.None;
                     light.renderMode = LightRenderMode.ForcePixel;
+                    light.bounceIntensity = 0f;
                     MapLoader.RegisterMapLight(light);
                 }
                 else if (name == "Tag")
@@ -76,6 +79,28 @@ namespace CustomLogic
                     var customPhysicsMaterial = Value.GameObject.AddComponent<CustomPhysicsMaterial>();
                     customPhysicsMaterial.Setup((bool)parameters[1]);
                 }
+                else if (name == "NavMeshObstacle")
+                {
+                    // Add a navmesh obstacle and size to the objects bounds
+                    bool carveOnlyStationary = (bool)parameters[1];
+                    var navMeshObstacleGo = new GameObject("NavMeshObstacle");
+                    navMeshObstacleGo.transform.parent = Value.GameObject.transform;
+
+                    var navMeshObstacle = navMeshObstacleGo.AddComponent<NavMeshObstacle>();
+                    navMeshObstacle.carving = true;
+                    navMeshObstacle.carveOnlyStationary = carveOnlyStationary;
+
+                    // Value.ColliderCache contains the colliders of the object, merge all colliders to find the bounds
+                    Bounds bounds = Value.colliderCache[0].bounds;
+                    foreach (var collider in Value.colliderCache)
+                    {
+                        bounds.Encapsulate(collider.bounds);
+                    }
+
+                    // Set size and center based on bounds
+                    navMeshObstacle.size = bounds.size;
+                    navMeshObstacle.center = bounds.center;
+                }
                 return null;
             }
             if (methodName == "UpdateBuiltinComponent")
@@ -93,28 +118,60 @@ namespace CustomLogic
                     else if (param == "AddForce")
                     {
                         Vector3 force = ((CustomLogicVector3Builtin)parameters[2]).Value;
-                        string forceMode = "Acceleration";
-                        if (parameters.Count > 2)
-                        {
-                            forceMode = (string)parameters[1];
-                        }
                         ForceMode mode = ForceMode.Acceleration;
-                        switch (forceMode)
+                        if (parameters.Count >= 4)
                         {
-                            case "Force":
-                                mode = ForceMode.Force;
-                                break;
-                            case "Acceleration":
-                                mode = ForceMode.Acceleration;
-                                break;
-                            case "Impulse":
-                                mode = ForceMode.Impulse;
-                                break;
-                            case "VelocityChange":
-                                mode = ForceMode.VelocityChange;
-                                break;
+                            string forceMode = (string)parameters[3];
+                            switch (forceMode)
+                            {
+                                case "Force":
+                                    mode = ForceMode.Force;
+                                    break;
+                                case "Acceleration":
+                                    mode = ForceMode.Acceleration;
+                                    break;
+                                case "Impulse":
+                                    mode = ForceMode.Impulse;
+                                    break;
+                                case "VelocityChange":
+                                    mode = ForceMode.VelocityChange;
+                                    break;
+                            }
                         }
-                        rigidbody.AddForce(force, mode);
+                        if (parameters.Count >= 5)
+                        {
+                            Vector3 position = ((CustomLogicVector3Builtin)parameters[4]).Value;
+                            rigidbody.AddForceAtPosition(force, position, mode);
+                        }
+                        else
+                        {
+                            rigidbody.AddForce(force, mode);
+                        }
+                    }
+                    else if (param == "AddTorque")
+                    {
+                        Vector3 force = ((CustomLogicVector3Builtin)parameters[2]).Value;
+                        ForceMode mode = ForceMode.Acceleration;
+                        if (parameters.Count >= 4)
+                        {
+                            string forceMode = (string)parameters[3];
+                            switch (forceMode)
+                            {
+                                case "Force":
+                                    mode = ForceMode.Force;
+                                    break;
+                                case "Acceleration":
+                                    mode = ForceMode.Acceleration;
+                                    break;
+                                case "Impulse":
+                                    mode = ForceMode.Impulse;
+                                    break;
+                                case "VelocityChange":
+                                    mode = ForceMode.VelocityChange;
+                                    break;
+                            }
+                        }
+                        rigidbody.AddTorque(force, mode);
                     }
                 }
                 else if (name == "CustomPhysicsMaterial")
@@ -164,6 +221,10 @@ namespace CustomLogic
                     if (param == "Velocity")
                     {
                         return new CustomLogicVector3Builtin(rigidbody.velocity);
+                    }
+                    else if (param == "AngularVelocity")
+                    {
+                        return new CustomLogicVector3Builtin(rigidbody.angularVelocity);
                     }
                 }
                 return null;
@@ -281,6 +342,100 @@ namespace CustomLogic
                     r.material.color = color;
                 }
                 return null;
+            }
+            if (methodName == "InBounds")
+            {
+                // Iterate over colliders and check if the param position is within the bounds
+                Vector3 position = ((CustomLogicVector3Builtin)parameters[0]).Value;
+                
+                // Check all colliders on the object and on its children
+                foreach (var collider in Value.colliderCache)
+                {
+                    if (collider.bounds.Contains(position))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            if (methodName == "GetBoundsAverageCenter")
+            {
+                // Check all colliders on the object and on its children
+                Vector3 center = Vector3.zero;
+                int count = 0;
+                foreach (var collider in Value.colliderCache)
+                {
+                    center += collider.bounds.center;
+                    count++;
+                }
+
+                if (count > 0)
+                {
+                    return new CustomLogicVector3Builtin(center / count);
+                }
+                return new CustomLogicVector3Builtin(Value.GameObject.transform.position);
+            }
+            if (methodName == "GetBoundsCenter")
+            {
+                if (Value.colliderCache.Length == 0)
+                {
+                    return null;
+                }
+                return new CustomLogicVector3Builtin(Value.colliderCache[0].bounds.center);
+            }
+            if (methodName == "GetBoundsMin")
+            {
+                if (Value.colliderCache.Length == 0)
+                {
+                    return null;
+                }
+                return new CustomLogicVector3Builtin(Value.colliderCache[0].bounds.min);
+            }
+            if (methodName == "GetBoundsMax")
+            {
+                if (Value.colliderCache.Length == 0)
+                {
+                    return null;
+                }
+                return new CustomLogicVector3Builtin(Value.colliderCache[0].bounds.max);
+            }
+            if (methodName == "GetCorners")
+            {
+                if (Value.colliderCache.Length == 0)
+                {
+                    return null;
+                }
+                var firstCollider = Value.colliderCache[0];
+                if (firstCollider is BoxCollider == false)
+                {
+                    // Return the bounds corners
+                    var bounds = firstCollider.bounds;
+                    var corners = new Vector3[8];
+                    corners[0] = bounds.min;
+                    corners[1] = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
+                    corners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+                    corners[3] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
+                    corners[4] = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
+                    corners[5] = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
+                    corners[6] = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
+                    corners[7] = bounds.max;
+                    var clCorners = new CustomLogicListBuiltin();
+                    clCorners.List.AddRange(corners.Select(v => new CustomLogicVector3Builtin(v)));
+                    return clCorners;
+                }
+                BoxCollider boxCollider = (BoxCollider)firstCollider;
+                Vector3 size = boxCollider.size;
+                var result = new CustomLogicListBuiltin();
+                List<Vector3> list = new();
+                var signs = new List<int> { -1, 1 };
+                signs.ForEach(signX =>
+                    signs.ForEach(signY =>
+                        signs.ForEach(signZ => {
+                            var vector = new Vector3(size.x * signX, size.y * signY, size.z * signZ);
+                            result.List.Add(new CustomLogicVector3Builtin(boxCollider.transform.TransformPoint(boxCollider.center + vector * 0.5f)));
+                        })));                
+                return result;
             }
             return base.CallMethod(methodName, parameters);
         }
@@ -437,6 +592,11 @@ namespace CustomLogic
                 return false;
             var other = ((CustomLogicMapObjectBuiltin)obj).Value;
             return Value == other;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value.GameObject.name} (MapObject)";
         }
     }
 }

@@ -93,6 +93,7 @@ namespace CustomLogic
                 classInstance.OnCollisionExit(builtin);
         }
 
+
         public static CustomLogicBaseBuiltin GetBuiltin(Collider other)
         {
             if (other == null || other.transform == null)
@@ -112,9 +113,9 @@ namespace CustomLogic
                     builtin = new CustomLogicShifterBuiltin((BaseShifter)character);
                 return builtin;
             }
-            else if (MapLoader.GoToMapObject.ContainsKey(other.gameObject))
+            else if (MapLoader.GoToMapObject.ContainsKey(root.gameObject))
             {
-                var mapObject = MapLoader.GoToMapObject[other.gameObject];
+                var mapObject = MapLoader.GoToMapObject[root.gameObject];
                 var builtin = new CustomLogicMapObjectBuiltin(mapObject);
                 return builtin;
             }

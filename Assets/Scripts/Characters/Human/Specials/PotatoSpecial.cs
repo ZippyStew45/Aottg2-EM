@@ -6,8 +6,8 @@ namespace Characters
     class PotatoSpecial : BaseEmoteSpecial
     {
         protected override float ActiveTime => 20f;
-        private float _oldSpeed;
         protected override bool GroundedOnly => false;
+        private float _oldSpeed;
 
         public PotatoSpecial(BaseCharacter owner): base(owner)
         {
@@ -16,15 +16,15 @@ namespace Characters
 
         protected override void Activate()
         {
-            _oldSpeed = _human.RunSpeed;
-            _human.RunSpeed = _oldSpeed * 4f;
+            _oldSpeed = _human.Stats.RunSpeed;
+            _human.Stats.RunSpeed = _oldSpeed + 40f;
             _human.RunAnimation = HumanAnimations.RunBuffed;
             _human.EmoteAnimation(HumanAnimations.SpecialSasha);
         }
 
         protected override void Deactivate()
         {
-            _human.RunSpeed = _oldSpeed;
+            _human.Stats.RunSpeed = _oldSpeed;
             _human.RunAnimation = _human.Weapon is ThunderspearWeapon? HumanAnimations.RunTS : HumanAnimations.Run;
             if (_human.Cache.Animation.IsPlaying(HumanAnimations.RunBuffed))
                 _human.CrossFade(_human.RunAnimation, 0.1f);

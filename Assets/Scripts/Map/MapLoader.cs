@@ -1,12 +1,18 @@
 ﻿using ApplicationManagers;
 using Events;
+using Photon.Pun;
 using Settings;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UI;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using Utility;
 using Weather;
+using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 
 namespace Map
 {
@@ -29,6 +35,10 @@ namespace Map
         public static bool HasWeather;
         public static WeatherSet Weather;
         private static GameObject _background;
+        private static bool _hasNavMeshData;
+        private static List<NavMeshBuildSource> _navMeshSources = new List<NavMeshBuildSource>();
+        private static Bounds _navMeshBounds = new Bounds(Vector3.zero, Vector3.zero);
+        private static Dictionary<int, NavMeshData> _navMeshData = new Dictionary<int, NavMeshData>();
 
         public static void Init()
         {
@@ -210,13 +220,27 @@ namespace Map
                     Errors.Add("Failed to load bundle: " + customAsset);
                 }
             }
+
+            bool gamemodeNeedsNav = SettingsManager.InGameCurrent.General.GameMode.Value != "Racing"
+                && SettingsManager.InGameCurrent.General.GameMode.Value != "Thunderspear PVP"
+                && SettingsManager.InGameCurrent.General.GameMode.Value != "Blade PVP"
+                && SettingsManager.InGameCurrent.General.GameMode.Value != "APG PVP"
+                && SettingsManager.InGameCurrent.General.GameMode.Value != "AHSS PVP";
+
+            bool willLoadNavMesh = (MapManager.NeedsNavMeshUpdate || _hasNavMeshData == false)
+                && PhotonNetwork.IsMasterClient
+                && SettingsManager.InGameCurrent.Titan.TitanSmartMovement.Value
+                && gamemodeNeedsNav;
+
             int count = 0;
+
+            float multiplier = willLoadNavMesh ? 0.25f : 0.5f;
             foreach (MapScriptBaseObject obj in objects)
             {
                 LoadObject(obj, editor);
                 if (count % 100 == 0 && SceneLoader.SceneName == SceneName.InGame)
                 {
-                    UIManager.LoadingMenu.UpdateLoading(0.9f + 0.1f * ((float)count / (float)objects.Count));
+                    UIManager.LoadingMenu.UpdateLoading(0.5f + multiplier * ((float)count / (float)objects.Count));
                     yield return new WaitForEndOfFrame();
                 }
                 count++;
@@ -231,7 +255,186 @@ namespace Map
             }
             if (!editor)
                 Batch();
+
+            
+
+            if (MapManager.NeedsNavMeshUpdate || _hasNavMeshData == false)
+            {
+                NavMesh.RemoveAllNavMeshData();
+                _hasNavMeshData = false;
+                if (PhotonNetwork.IsMasterClient && SettingsManager.InGameCurrent.Titan.TitanSmartMovement.Value && gamemodeNeedsNav)
+                {
+                    ResetSources();
+
+                    List<int> agentIDs = Util.GetAllTitanAgentIds();
+                    List<AsyncOperation> operations = new List<AsyncOperation>();
+                    foreach (int agentID in agentIDs)
+                    {
+                        AsyncOperation createOp = CreateNavMeshSurfaceAsyncOperation(agentID, _navMeshSources, _navMeshBounds);
+                        operations.Add(createOp);
+                    }
+
+                    // Check progress of the operations and use the min progress
+                    while (operations.Count > 0)
+                    {
+                        float minProgress = 1f;
+                        for (int i = 0; i < operations.Count; i++)
+                        {
+                            if (operations[i].isDone)
+                            {
+                                operations.RemoveAt(i);
+                                i--;
+                            }
+                            else
+                                minProgress = Mathf.Min(minProgress, operations[i].progress);
+                        }
+                        UIManager.LoadingMenu.UpdateLoading(0.75f + 0.25f * minProgress);
+                        yield return new WaitForEndOfFrame();
+                    }
+
+                    _hasNavMeshData = true;
+                }
+            }
+
             MapManager.MapLoaded = true;
+        }
+
+        static Bounds GetWorldBounds(Matrix4x4 mat, Bounds bounds)
+        {
+            var absAxisX = Util.Abs(mat.MultiplyVector(Vector3.right));
+            var absAxisY = Util.Abs(mat.MultiplyVector(Vector3.up));
+            var absAxisZ = Util.Abs(mat.MultiplyVector(Vector3.forward));
+            var worldPosition = mat.MultiplyPoint(bounds.center);
+            var worldSize = absAxisX * bounds.size.x + absAxisY * bounds.size.y + absAxisZ * bounds.size.z;
+            return new Bounds(worldPosition, worldSize);
+        }
+
+        Bounds CalculateWorldBounds(List<NavMeshBuildSource> sources)
+        {
+            // Use the unscaled matrix for the NavMeshSurface
+            Matrix4x4 worldToLocal = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+            worldToLocal = worldToLocal.inverse;
+
+            var result = new Bounds();
+            foreach (var src in sources)
+            {
+                switch (src.shape)
+                {
+                    case NavMeshBuildSourceShape.Mesh:
+                        {
+                            var m = src.sourceObject as Mesh;
+                            result.Encapsulate(GetWorldBounds(worldToLocal * src.transform, m.bounds));
+                            break;
+                        }
+                    case NavMeshBuildSourceShape.Terrain:
+                        {
+                            var t = src.sourceObject as TerrainData;
+                            result.Encapsulate(GetWorldBounds(worldToLocal * src.transform, new Bounds(0.5f * t.size, t.size)));
+                            break;
+/*#if NMC_CAN_ACCESS_TERRAIN
+                            // Terrain pivot is lower/left corner - shift bounds accordingly
+                            var t = src.sourceObject as TerrainData;
+                            result.Encapsulate(GetWorldBounds(worldToLocal * src.transform, new Bounds(0.5f * t.size, t.size)));
+#else
+                            Debug.LogWarning("The NavMesh cannot be properly baked for the terrain because the necessary functionality is missing. Add the com.unity.modules.terrain package through the Package Manager.");
+#endif
+                            break;*/
+                        }
+                    case NavMeshBuildSourceShape.Box:
+                    case NavMeshBuildSourceShape.Sphere:
+                    case NavMeshBuildSourceShape.Capsule:
+                    case NavMeshBuildSourceShape.ModifierBox:
+                        result.Encapsulate(GetWorldBounds(worldToLocal * src.transform, new Bounds(Vector3.zero, src.size)));
+                        break;
+                }
+            }
+            // Inflate the bounds a bit to avoid clipping co-planar sources
+            result.Expand(0.1f);
+            return result;
+        }
+
+        private void ResetSources()
+        {
+            // Clear previous sources and bounds
+            _navMeshSources.Clear();
+            _navMeshData.Clear();
+            _navMeshBounds = new Bounds(Vector3.zero, Vector3.zero);
+
+            // Create sources and bounds
+            var mask = PhysicsLayer.GetMask(PhysicsLayer.MapObjectEntities);
+            List<NavMeshBuildMarkup> modifiers = new List<NavMeshBuildMarkup>();
+
+            // Collect sources of physics colliders, exclude components with NavMeshObstacles
+            NavMeshBuilder.CollectSources(null, mask, NavMeshCollectGeometry.PhysicsColliders, 0, modifiers, _navMeshSources);
+            _navMeshBounds = CalculateWorldBounds(_navMeshSources);
+            _navMeshBounds.size = Vector3.Min(_navMeshBounds.size, new Vector3(15000, 15000, 15000));
+        }
+
+        /// <summary>
+        /// Use NavMeshBuilder to create a navmesh surface for the given agent id.
+        /// This should be called asynchronously and sync progress back to the main thread.
+        /// </summary>
+        /// <param name="agentID">An integer representing the agent.</param>
+        private AsyncOperation CreateNavMeshSurfaceAsyncOperation(int agentID, List<NavMeshBuildSource> sources, Bounds bounds)
+        {
+            // Create a new navmeshsurface object
+            NavMeshData data = new NavMeshData();
+            NavMeshBuildSettings settings = NavMesh.GetSettingsByID(agentID);
+            settings.maxJobWorkers = 3;
+            settings.overrideTileSize = true;
+            settings.tileSize = 256;
+            settings.overrideVoxelSize = true;
+            settings.voxelSize = 4f;
+            settings.minRegionArea = 100;
+            settings.buildHeightMesh = true;
+            _navMeshData.Add(agentID, data);
+            NavMesh.AddNavMeshData(data);
+            return NavMeshBuilder.UpdateNavMeshDataAsync(data, settings, sources, bounds);
+        }
+
+        private async Task CreateNavMeshSurfaceAsync(int agentID, List<NavMeshBuildSource> sources, Bounds bounds)
+        {
+            // Create a new navmeshsurface object
+            NavMeshData data = new NavMeshData();
+            NavMeshBuildSettings settings = NavMesh.GetSettingsByID(agentID);
+            settings.maxJobWorkers = 6;
+            settings.overrideTileSize = true;
+            settings.tileSize = 256;
+            settings.overrideVoxelSize = true;
+            settings.voxelSize = 4f;
+            settings.minRegionArea = 100;
+            settings.buildHeightMesh = true;
+            _navMeshData.Add(agentID, data);
+            NavMesh.AddNavMeshData(data);
+            await NavMeshBuilder.UpdateNavMeshDataAsync(data, settings, sources, bounds);
+        }
+
+        public static async Task UpdateNavMesh()
+        {
+            await _instance.UpdateAllNavMeshes();
+        }
+
+        public async Task UpdateAllNavMeshes()
+        {
+            NavMesh.RemoveAllNavMeshData();
+            _hasNavMeshData = false;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                await GenerateNavMesh();
+                _hasNavMeshData = true;
+            }
+        }
+
+        private async Task GenerateNavMesh()
+        {
+            ResetSources();
+            List<int> agentIDs = Util.GetAllTitanAgentIds();
+            List<Task> tasks = new List<Task>();
+            foreach (int agentID in agentIDs)
+            {
+                tasks.Add(CreateNavMeshSurfaceAsync(agentID, _navMeshSources, _navMeshBounds));
+            }
+            await Task.WhenAll(tasks);
         }
 
         private void Batch()
@@ -496,15 +699,15 @@ namespace Map
                 material = (PhysicMaterial)LoadAssetCached("Physics", physicsMaterial);
             int layer = GetColliderLayer(collideWith);
             Collider[] colliders = go.GetComponentsInChildren<Collider>();
+            go.layer = layer;
             foreach (Collider c in colliders)
             {
+                c.gameObject.layer = layer;
                 c.isTrigger = collideMode == MapObjectCollideMode.Region;
                 c.enabled = collideMode != MapObjectCollideMode.None;
                 if (material != null)
                     c.material = material;
-                c.gameObject.layer = layer;
             }
-            go.layer = layer;
             return colliders.Length;
         }
 

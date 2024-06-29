@@ -14,6 +14,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CustomLogic;
 using NUnit.Framework.Internal.Commands;
+using UnityStandardAssets.ImageEffects;
 
 namespace Cameras
 {
@@ -27,6 +28,7 @@ namespace Cameras
         public float _cameraDistance;
         private float _heightDistance;
         private float _anchorDistance;
+        private float _headOffset;
         private const float DistanceMultiplier = 10f;
         private bool _napeLock;
         private BaseTitan _napeLockTitan;
@@ -48,6 +50,9 @@ namespace Cameras
         {
             SetTerrainDetails(SettingsManager.GraphicsSettings.DetailDistance.Value, SettingsManager.GraphicsSettings.DetailDensity.Value, SettingsManager.GraphicsSettings.TreeDistance.Value);
             Camera.farClipPlane = SettingsManager.GraphicsSettings.RenderDistance.Value;
+            var antiAliasing = Camera.GetComponent<Antialiasing>();
+            antiAliasing.enabled = SettingsManager.GraphicsSettings.AntiAliasing.Value > 0;
+
         }
 
         public void ApplyGeneralSettings()
@@ -114,11 +119,18 @@ namespace Cameras
             if (character is Human)
             {
                 _anchorDistance = _heightDistance = 0.64f;
+                _headOffset = 0f;
             }
-            else if (character is BaseTitan || character is BaseShifter)
+            else if (character is BaseShifter)
             {
                 _anchorDistance = Vector3.Distance(character.GetCameraAnchor().position, character.Cache.Transform.position) * 0.25f;
                 _heightDistance = Vector3.Distance(character.GetCameraAnchor().position, character.Cache.Transform.position) * 0.35f;
+            }
+            else if (character is BasicTitan)
+            {
+                Transform head = ((BasicTitan)character).BasicCache.Head;
+                _anchorDistance = Vector3.Distance(head.position, character.Cache.Transform.position) * 0.25f;
+                _heightDistance = Vector3.Distance(head.position, character.Cache.Transform.position) * 1.39f;
             }
             else
                 _anchorDistance = _heightDistance = 1f;
@@ -126,8 +138,8 @@ namespace Cameras
                 Cache.Transform.rotation = character.IsMine()
                     ? Util.ConstrainedToY(_follow.Cache.Transform.rotation)
                     : Quaternion.Euler(0f, 0f, 0f);
-            if (character is Human && character.IsMine())
-                _menu.HUDBottomHandler.SetBottomHUD((Human)character);
+            if (character.IsMine())
+                _menu.HUDBottomHandler.SetBottomHUD(character);
             else
                 _menu.HUDBottomHandler.SetBottomHUD();
         }
@@ -170,10 +182,14 @@ namespace Cameras
                 mapLight.UpdateCull(transform);
             }
         }
-        
-        protected override void LateUpdate()
+
+        protected void FixedUpdate()
         {
             UpdateMapLights();
+        }
+
+        protected override void LateUpdate()
+        {
             if (CustomLogicManager.Cutscene || CustomLogicManager.ManualCamera)
             {
                 SyncCustomPosition();
@@ -186,7 +202,7 @@ namespace Cameras
                     SetFollow(_inGameManager.CurrentCharacter);
                 if (_inGameManager.CurrentCharacter == null)
                 {
-                    if (_input.ChangeCamera.GetKeyDown())
+                    if (!ChatManager.IsChatActive() && !InGameMenu.InMenu() && _input.ChangeCamera.GetKeyDown())
                         _freeCam = !_freeCam;
                 }
                 else

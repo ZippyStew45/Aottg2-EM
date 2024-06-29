@@ -22,7 +22,7 @@ namespace Cameras
         protected virtual void Awake()
         {
             Camera = gameObject.GetComponent<Camera>();
-            Camera.depthTextureMode = DepthTextureMode.Depth;
+            Camera.depthTextureMode |= DepthTextureMode.Depth;
             // BackgroundCamera = gameObject.transform.Find("BackgroundCamera").GetComponent<Camera>();
             // Skybox = BackgroundCamera.gameObject.GetComponent<Skybox>();
             Skybox = gameObject.GetComponent<Skybox>();
