@@ -16591,6 +16591,7 @@ MonoBehaviour:
   _targetRotation: {x: 0, y: 0, z: 0, w: 0}
   StandAnimation: 
   AttackAnimation: 
+  inGameCamera: {fileID: 0}
   _gunArmAim: 0
   RunAnimation: 
   _attackRelease: 0
