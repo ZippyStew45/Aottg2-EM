@@ -16560,6 +16560,8 @@ MonoBehaviour:
   Setup: {fileID: 0}
   FinishSetup: 0
   CurrentSpecial: 
+  SideSpecial_1: 
+  SideSpecial_2: 
   Grabber: {fileID: 0}
   GrabHand: {fileID: 0}
   Carrier: {fileID: 0}
@@ -16580,11 +16582,13 @@ MonoBehaviour:
   _targetRotation: {x: 0, y: 0, z: 0, w: 0}
   StandAnimation: 
   AttackAnimation: 
+  inGameCamera: {fileID: 0}
   _gunArmAim: 0
   RunAnimation: 
   _attackRelease: 0
   _attackButtonRelease: 0
   _reelInWaitForRelease: 0
+  LogisticianBackPack: {fileID: 0}
 --- !u!114 &11414280
 MonoBehaviour:
   m_ObjectHideFlags: 0

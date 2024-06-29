@@ -361,10 +361,10 @@ namespace Characters
 
         public void DashUpwards()
         {
-            if (_dashTimeLeft <= 0f && CurrentGas > 0 && MountState == HumanMountState.None &&
+            if (_dashTimeLeft <= 0f && Stats.CurrentGas > 0 && MountState == HumanMountState.None &&
                 State != HumanState.Grab && CarryState != HumanCarryState.Carry && _dashCooldownLeft <= 0f)
             {
-                UseGas(Mathf.Min(MaxGas * 0.06f, 10));
+                Stats.UseGas(Mathf.Min(Stats.MaxGas * 0.06f, 10));
                 EffectSpawner.Spawn(EffectPrefabs.GasBurst, Cache.Transform.position, Cache.Transform.rotation);
                 PlaySound(HumanSounds.GasBurst);
                 _originalDashSpeed = Cache.Rigidbody.velocity.magnitude;
@@ -383,10 +383,10 @@ namespace Characters
 
         public void DashDownwards()
         {
-            if (_dashTimeLeft <= 0f && CurrentGas > 0 && MountState == HumanMountState.None &&
+            if (_dashTimeLeft <= 0f && Stats.CurrentGas > 0 && MountState == HumanMountState.None &&
                 State != HumanState.Grab && CarryState != HumanCarryState.Carry && _dashCooldownLeft <= 0f)
             {
-                UseGas(Mathf.Min(MaxGas * 0.04f, 10));
+                Stats.UseGas(Mathf.Min(Stats.MaxGas * 0.04f, 10));
                 EffectSpawner.Spawn(EffectPrefabs.GasBurst, Cache.Transform.position, Cache.Transform.rotation);
                 PlaySound(HumanSounds.GasBurst);
                 _originalDashSpeed = Cache.Rigidbody.velocity.magnitude;
@@ -722,7 +722,7 @@ namespace Characters
             if (Weapon_2 != null)
                 Weapon_2.Reset(); // conditions added by Ata 23 May 2024 for Veteran Role //
 
-            CurrentGas = MaxGas;
+            Stats.CurrentGas = Stats.MaxGas;
             MaxOutLogisticianSupplies(); // added (modified) by Ata for reusability on different scripts //
         }
 

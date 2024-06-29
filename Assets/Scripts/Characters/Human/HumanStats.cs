@@ -88,7 +88,7 @@ namespace Characters
             UseGas(100f * CharacterData.HumanWeaponInfo["Thunderspear"]["StunGasPenalty"].AsFloat);
         }
 
-        private void UseGas(float amount)
+        public void UseGas(float amount)
         {
             CurrentGas -= amount;
             CurrentGas = Mathf.Max(CurrentGas, 0f);

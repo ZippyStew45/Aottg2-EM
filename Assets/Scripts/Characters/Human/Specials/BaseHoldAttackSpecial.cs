@@ -15,7 +15,7 @@ namespace Characters
             _human = (Human)owner;
         }
 
-        public override void SetInput(bool key)
+        public override void SetInput(bool key, bool fromWheel = false)
         {
             if (key)
             {

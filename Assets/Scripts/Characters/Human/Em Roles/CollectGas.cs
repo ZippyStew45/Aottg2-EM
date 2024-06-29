@@ -49,11 +49,11 @@ public class CollectGas : MonoBehaviour
 
                 if (DroppedByDead)
                 {
-                    HumanComp.CurrentGas = HumanComp.MaxGas * 0.3f;
+                    HumanComp.Stats.CurrentGas = HumanComp.Stats.MaxGas * 0.3f;
                 }
                 else
                 {
-                    HumanComp.CurrentGas = HumanComp.MaxGas;
+                    HumanComp.Stats.CurrentGas = HumanComp.Stats.MaxGas;
                 }
             }
             Die = true;

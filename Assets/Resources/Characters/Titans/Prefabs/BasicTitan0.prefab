@@ -229,6 +229,8 @@ MonoBehaviour:
   HeadPrefab: 0
   inGameCamera: {fileID: 0}
   inGameManager: {fileID: 0}
+  Human: {fileID: 0}
+  isDead: 0
 --- !u!111 &11101006
 Animation:
   m_ObjectHideFlags: 0

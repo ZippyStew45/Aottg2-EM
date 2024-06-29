@@ -468,7 +468,7 @@ namespace Controllers
                         if (_human.Stats.Perks["OmniDash"].CurrPoints == 1)
                         {
                             Vector3 direction = SceneLoader.CurrentCamera.Camera.ScreenPointToRay(Input.mousePosition).direction.normalized;
-                            _human.DashVertical(GetTargetAngle(direction), direction);
+                            _human.DashUpwards();
                         }
                         else if (_human.Stats.Perks["VerticalDash"].CurrPoints == 1)
                         {
@@ -479,9 +479,9 @@ namespace Controllers
                                 angle -= 360f;
                             Vector3 direction = SceneLoader.CurrentCamera.Camera.ScreenPointToRay(Input.mousePosition).direction.normalized;
                             if (angle > 0f && angle < 180f)
-                                _human.DashVertical(GetTargetAngle(direction), Vector3.down);
+                                _human.DashUpwards();
                             else
-                                _human.DashVertical(GetTargetAngle(direction), Vector3.up);
+                                _human.DashUpwards();
                         }
                     }
                 }
