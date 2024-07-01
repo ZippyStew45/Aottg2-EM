@@ -16561,6 +16561,9 @@ MonoBehaviour:
   Horse: {fileID: 0}
   Setup: {fileID: 0}
   FinishSetup: 0
+  hitDamage: 0
+  basicTitan: {fileID: 0}
+  isDead: 0
   CurrentGas: -1
   MaxGas: -1
   GasUsage: 0.2
@@ -16591,6 +16594,7 @@ MonoBehaviour:
   _targetRotation: {x: 0, y: 0, z: 0, w: 0}
   StandAnimation: 
   AttackAnimation: 
+  inGameCamera: {fileID: 0}
   _gunArmAim: 0
   RunAnimation: 
   _attackRelease: 0

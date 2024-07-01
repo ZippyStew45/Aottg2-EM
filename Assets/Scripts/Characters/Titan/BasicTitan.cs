@@ -41,10 +41,10 @@ namespace Characters
         protected float _originalCapsuleValue;
         public int TargetViewId = -1;
         public int HeadPrefab;
-        public InGameCamera inGameCamera;
-        public InGameManager inGameManager;
-        public Human Human;
-        public bool isDead;
+        public Human humanOBJ;
+        public float damageKill = 0;
+        private GameObject H;
+        public static GameObject DeadTitanGameObject { get; private set; }
 
         public override List<string> EmoteActions => new List<string>() { "Laugh", "Nod", "Shake", "Roar" };
 
@@ -162,8 +162,6 @@ namespace Characters
 
         protected override void Start()
         {
-            if (Human == null)
-                Human = FindFirstObjectByType<Human>();
             _inGameManager.Titans.Add(this);
             base.Start();
             if (IsMine())
@@ -441,28 +439,24 @@ namespace Characters
         [PunRPC]
         public override void MarkDeadRPC(PhotonMessageInfo info)
         {
-            isDead = false;
-            if (info.Sender != Cache.PhotonView.Owner)
-                return;
+        if (info.Sender != Cache.PhotonView.Owner)
+            return;
 
-            Dead = true;
-            isDead = Dead;
-            if (SettingsManager.GraphicsSettings.NapeBloodEnabled.Value)
-                BasicCache.NapeBlood.Play(true);
-            /*if (Dead)
-            {
-                Debug.Log("Titan Kill");
-                isDead = true;
-            }            
-            else
-            {
-                Debug.Log("Titan no dead...");
-                isDead = false;
-            }
-            /*if (toggleMaterial != null)
-            {
-                toggleMaterial.ChangeMaterial();
-            }*/
+        if (H == null)
+        {
+            GameObject H = GameObject.FindWithTag("Player");
+            humanOBJ = H.GetComponent<Human>();
+            damageKill = humanOBJ.hitDamage;
+        }
+
+        Dead = true;
+
+        if (Dead && damageKill > 1000 && SettingsManager.SoundSettings.ChantHit.Value)
+        {
+            humanOBJ.ChantHit();
+        }
+        if (SettingsManager.GraphicsSettings.NapeBloodEnabled.Value)
+            BasicCache.NapeBlood.Play(true);
         }
 
         protected override IEnumerator WaitAndDie()

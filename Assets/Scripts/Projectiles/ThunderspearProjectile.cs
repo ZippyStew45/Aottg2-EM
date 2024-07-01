@@ -32,6 +32,7 @@ namespace Projectiles
         GameObject attachParent = null;
         Collider attachCollider = null;
         Vector3 relativeAttachPoint = new Vector3(0f, 0f, 0f);
+        public InGameCamera inGameCamera;
         AudioSource tsCharge;
 
         protected override void SetupSettings(object[] settings)
@@ -145,10 +146,23 @@ namespace Projectiles
                             titan.GetHit(_owner, damage, "Thunderspear", collider.name); //removed by Sysyfus Dec 20 2023 to accommodate accuracy tier damage
                         }
                         killedTitan = true;
+                        var dmg = CalculateDamage4(titan, radius, collider);
+                        if (inGameCamera == null && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
+                        {
+                            inGameCamera = FindFirstObjectByType<InGameCamera>();
+                            inGameCamera.StartShake();
+                        }
+                        if(titan.Dead && dmg >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
+                        {                            
+                            Human human = _owner.GetComponent<Human>();
+                            human.ChantHit();
+                        }
+                        
                     }
                 }
             }
             return killedTitan;
+            
         }
 
         bool KillPlayersInRadius(float radius)

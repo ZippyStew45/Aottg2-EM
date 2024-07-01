@@ -48,6 +48,11 @@ namespace Characters
            PhysicsLayer.MapObjectEntities, PhysicsLayer.MapObjectAll);
         public static LayerMask ClipMask = PhysicsLayer.GetMask(PhysicsLayer.MapObjectAll, PhysicsLayer.MapObjectCharacters,
             PhysicsLayer.MapObjectEntities);
+        public float hitDamage;
+        public BasicTitan basicTitan;
+        public InGameCamera inGameCamara;
+        private float scoreDamage;
+        public BaseTitan nearestTitan;
 
         // state
         private HumanState _state = HumanState.Idle;
@@ -819,8 +824,10 @@ namespace Characters
 
         protected override void Start()
         {
+            if (IsMine() && !Dead)
+                nearestTitan = FindNearestTitan();
             if (inGameCamera == null)
-            inGameCamera = FindFirstObjectByType<InGameCamera>();
+                inGameCamera = FindFirstObjectByType<InGameCamera>();
             _inGameManager.Humans.Add(this);
             base.Start();
             SetInterpolation(true);
@@ -876,7 +883,7 @@ namespace Characters
             else
                 base.GetHitRPC(viewId, name, damage, type, collider);
         }
-
+        
         public override void OnHit(BaseHitbox hitbox, object victim, Collider collider, string type, bool firstHit)
         {
             if (hitbox != null)
@@ -888,9 +895,11 @@ namespace Characters
                 else if (hitbox == HumanCache.APGHit)
                     type = "APG";
             }
+
             int damage = (CarryState == HumanCarryState.Carry && Carrier != null)
                 ? Mathf.Max((int)(Carrier.CarryVelocity.magnitude * 10f), 10)
                 : Mathf.Max((int)(Cache.Rigidbody.velocity.magnitude * 10f), 10);
+
             if (type == "Blade")
             {
                 EffectSpawner.Spawn(EffectPrefabs.Blood1, hitbox.transform.position, Quaternion.Euler(270f, 0f, 0f));
@@ -898,6 +907,7 @@ namespace Characters
                     PlaySound(HumanSounds.OldBladeHit);
                 else
                     PlaySound(HumanSounds.BladeHit);
+
                 var weapon = (BladeWeapon)Weapon;
                 weapon.UseDurability(2f);
                 if (weapon.CurrentDurability == 0f)
@@ -905,27 +915,31 @@ namespace Characters
                     ToggleBlades(false);
                     PlaySound(HumanSounds.BladeBreak);
                 }
+
                 damage = (int)(damage * CharacterData.HumanWeaponInfo["Blade"]["DamageMultiplier"].AsFloat);
             }
             else if (type == "AHSS")
                 damage = (int)(damage * CharacterData.HumanWeaponInfo["AHSS"]["DamageMultiplier"].AsFloat);
             else if (type == "APG")
                 damage = (int)(damage * CharacterData.HumanWeaponInfo["APG"]["DamageMultiplier"].AsFloat);
+
             if (CustomDamageEnabled)
                 damage = CustomDamage;
+
             if (victim is CustomLogicCollisionHandler)
             {
                 (victim as CustomLogicCollisionHandler).GetHit(this, Name, damage, type);
                 return;
             }
+
             var victimChar = (BaseCharacter)victim;
-            System.Random random = new System.Random();
-            int RandomHit = random.Next(1, 4);
             if (!victimChar.Dead)
             {
                 if (victimChar is BaseTitan)
                 {
                     var titan = (BaseTitan)victimChar;
+                    if(nearestTitan != null)
+                    basicTitan = nearestTitan.GetComponent<BasicTitan>();
                     if (titan.BaseTitanCache.NapeHurtbox == collider)
                     {
                         if (type == "Blade" && !CheckTitanNapeAngle(hitbox.transform.position, titan.BaseTitanCache.Head.transform,
@@ -939,52 +953,41 @@ namespace Characters
                             return;
                         if (type != "APG" && _lastNapeHitTimes.ContainsKey(titan) && (_lastNapeHitTimes[titan] + 0.2f) > Time.time)
                             return;
+
                         ((InGameMenu)UIManager.CurrentMenu).ShowKillScore(damage);
                         ((InGameCamera)SceneLoader.CurrentCamera).TakeSnapshot(titan.BaseTitanCache.Neck.position, damage);
+                        scoreDamage = damage;
+                        hitDamage = scoreDamage;
                         if (type == "Blade" && SettingsManager.GraphicsSettings.BloodSplatterEnabled.Value)
                             ((InGameMenu)UIManager.CurrentMenu).ShowBlood();
+
                         if (type == "Blade" || type == "AHSS" || type == "APG")
-                        {   
+                        {
                             if (damage >= 1000)
                             {
-                                
                                 if (inGameCamera != null && SettingsManager.GeneralSettings.CameraShakeEnabled.Value)
                                     inGameCamera.StartShake();
                                 if (damage >= 1000 && SettingsManager.SoundSettings.onekSlices.Value)
-                                    PlaySound(HumanSounds.OneKNapeHit);                                   
+                                    PlaySound(HumanSounds.OneKNapeHit);
                                 else
                                 {
                                     if (SettingsManager.SoundSettings.OldNapeEffect.Value)
-                                        PlaySound(HumanSounds.OldNapeHit);                      
+                                        PlaySound(HumanSounds.OldNapeHit);
                                     else
                                         PlaySound(HumanSounds.NapeHit);
                                 }
-                                if (damage >= 1000 && SettingsManager.SoundSettings.ChantHit.Value)
-                                {
-                                    switch (RandomHit)
-                                    {
-                                        case 1:
-                                            PlaySound(HumanSounds.HitChant1);
-                                            break;
-                                        case 2:
-                                            PlaySound(HumanSounds.HitChant2);
-                                            break;
-                                        case 3:
-                                            PlaySound(HumanSounds.HitChant3);
-                                            break;
-                                    }
-                                }
                             }
-                            else 
+                            else
                             {
                                 if (SettingsManager.SoundSettings.OldNapeEffect.Value)
-                                    PlaySound(HumanSounds.OldNapeHit);                           
+                                    PlaySound(HumanSounds.OldNapeHit);
                                 else
-                                    PlaySound(HumanSounds.NapeHit); 
+                                    PlaySound(HumanSounds.NapeHit);
                             }
-                            _lastNapeHitTimes[titan] = Time.time;                                            
-                        }                                            
+                            _lastNapeHitTimes[titan] = Time.time;
+                        }
                     }
+
                     if (titan.BaseTitanCache.Hurtboxes.Contains(collider))
                     {
                         EffectSpawner.Spawn(EffectPrefabs.CriticalHit, hitbox.transform.position, Quaternion.Euler(270f, 0f, 0f));
@@ -998,7 +1001,26 @@ namespace Characters
                     ((InGameMenu)UIManager.CurrentMenu).ShowKillScore(damage);
                     ((InGameCamera)SceneLoader.CurrentCamera).TakeSnapshot(victimChar.Cache.Transform.position, damage);
                     victimChar.GetHit(this, damage, type, collider.name);
-                }
+                    PlaySound(HumanSounds.HitChant1);
+                }               
+            }
+        }
+
+        public void ChantHit()
+        {
+            System.Random random = new System.Random();
+            int RandomHit = random.Next(1, 4);
+            switch (RandomHit)
+            {
+                case 1:
+                    PlaySound(HumanSounds.HitChant1);
+                    break;
+                case 2:
+                    PlaySound(HumanSounds.HitChant2);
+                    break;
+                case 3:
+                    PlaySound(HumanSounds.HitChant3);
+                    break;
             }
         }
 
@@ -1009,7 +1031,7 @@ namespace Characters
         }
 
         protected void Update()
-        {
+        {                  
             if (IsMine() && !Dead)
             {
                 SetupVeteran(); // added by Ata 22 May 2024 for Veteran Role //
