@@ -18,7 +18,14 @@ using System;
 
 class ZippsUIManager : MonoBehaviourPunCallbacks
 {
-    protected Human _human;
+    protected Human _human; 
+    
+    /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /* IMPORTANT NOTE ABOUT "_human" BY ATA: */
+    /* After merging with upstream, PhotonExtensions.GetMyHuman() seems to be breaking the code as it always returns null.*/
+    /* To fix this, I've opted to FindFirstObjectByType<Human>() */
+    /* Feel free to change this to a more performant option as I'm not too sure how good this is */
+    /* 3rd of July, 2024 */
     private void Start()
     {
         _humanInput = SettingsManager.InputSettings.Human;
@@ -108,7 +115,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
     public void OnTPPlayerButtonClick(int setting)
     {
         GameObject TargetplayerGameObject = PhotonExtensions.GetPlayerFromID(EmVariables.SelectedPlayer.ActorNumber);
-        Vector3 Mypos = PhotonExtensions.GetMyPlayer().transform.position;
+        Vector3 Mypos = FindFirstObjectByType<Human>().gameObject.transform.position;
 
         switch (setting)
         {
@@ -122,7 +129,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
                 TargetplayerGameObject.GetComponent<Human>().photonView.RPC("moveToRPC", EmVariables.SelectedPlayer, new object[] { Mypos.x, Mypos.y, Mypos.z });
                 break;
             case 2: //TP me to player
-                GameObject ME = PhotonExtensions.GetMyPlayer();
+                GameObject ME = FindFirstObjectByType<Human>().gameObject;
                 ME.transform.position = TargetplayerGameObject.transform.position;
                 break;
             case 3: //TP player to coords
@@ -229,7 +236,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
         if (BladeSelected && EmVariables.LogisticianBladeSupply > 0)
         {
-            GameObject hero = PhotonExtensions.GetMyHuman();
+            GameObject hero = FindFirstObjectByType<Human>().gameObject;
             Vector3 Pos = hero.transform.position + (hero.transform.forward * 4f) + new Vector3(0,1.5f,0);
             GameObject obj = PhotonNetwork.Instantiate("Momos Folder/Functionality/Logistician/Prefabs/SpinningSupplyBladePrefab", Pos, Quaternion.identity );
 
@@ -241,7 +248,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
         }
         if (GasSelected && EmVariables.LogisticianGasSupply > 0)
         {
-            GameObject hero = PhotonExtensions.GetMyHuman();
+            GameObject hero = FindFirstObjectByType<Human>().gameObject;
             Vector3 Pos = hero.transform.position + (hero.transform.forward * 4f) + new Vector3(0, 1.5f, 0);
             GameObject obj = PhotonNetwork.Instantiate("Momos Folder/Functionality/Logistician/Prefabs/SpinningSupplyGasPrefab", Pos, Quaternion.identity);
 
@@ -259,7 +266,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
     private Color green = new Color(39f / 255f, 116f / 255f, 46f / 255f);
     private void LogisticianUpdate()
     {
-        if (PhotonExtensions.GetMyPlayer() == null)
+        if (FindFirstObjectByType<Human>() == null)
         {
             EmVariables.LogisticianBladeSupply = EmVariables.LogisticianMaxSupply;
             EmVariables.LogisticianGasSupply = EmVariables.LogisticianMaxSupply;
@@ -269,7 +276,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        _human = FindFirstObjectByType<Human>();
         if (_human.Dead)
         {
             _human.MaxOutLogisticianSupplies();
@@ -363,10 +370,10 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
         if (_humanInput.CannoneerSpawn.GetKeyDown())
         {
-            _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+            _human = FindFirstObjectByType<Human>();
             if (!_human.Grounded) return;
 
-            GameObject hero = PhotonExtensions.GetMyHuman();
+            GameObject hero = FindFirstObjectByType<Human>().gameObject;
             Vector3 Pos = hero.transform.position + (hero.transform.forward * 5f);
             if (CannonObj != null)
             {
@@ -541,7 +548,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
     private void HideAbilityWheel()
     {
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        _human = FindFirstObjectByType<Human>();
         if (Ability1Selected && _human.CurrentSpecial != SettingsManager.InGameCharacterSettings.Special.Value)
         {
             _human.SwitchCurrentSpecial(SettingsManager.InGameCharacterSettings.Special.Value, 1);
@@ -593,7 +600,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
     public void KeepSelectedAbilityColor()
     {
 
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        _human = FindFirstObjectByType<Human>();
 
         if (_human.CurrentSpecial == SettingsManager.InGameCharacterSettings.Special.Value)
         {
@@ -630,7 +637,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
             if (LoadoutParent.activeInHierarchy == false)
                 LoadoutParent.SetActive(true);
 
-            _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+            _human = FindFirstObjectByType<Human>();
 
             if(_human.Setup.Weapon_2 == HumanWeapon.Blade)
                 LoadoutImage.sprite = LoadSpriteForLoadout("Blades");
@@ -650,7 +657,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
     private void AbilityWheelUpdate()
     {
         bool isAbilityWheelActive = AbilityWheelMenu.activeInHierarchy;
-        if (PhotonExtensions.GetMyPlayer() == null)
+        if (FindFirstObjectByType<Human>() == null)
         {
             if (AbilityWheelMenu.activeInHierarchy || isAbilityWheelActive)
                 HideAbilityWheel();
@@ -658,7 +665,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        _human = FindFirstObjectByType<Human>();
         if ((_human == null || _human.Dead) && isAbilityWheelActive)
         {
             HideAbilityWheel();
@@ -714,7 +721,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
     private void EmHUDUpdate()
     {
-        if (PhotonExtensions.GetMyPlayer() == null && EmVariables.EmHUD)
+        if (FindFirstObjectByType<Human>() == null && EmVariables.EmHUD)
         {
             if (HorseAutoRunAudioObject.activeInHierarchy)
                 CloseEmHUD();
@@ -826,7 +833,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
     private void ShootFlare()
     {
-        _human = PhotonExtensions.GetMyHuman().gameObject.GetComponent<Human>();
+        _human = FindFirstObjectByType<Human>();
         if (_human != null && selectedFlare != -1)
         {
             _human.UseItem(selectedFlare, true);
