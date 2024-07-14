@@ -2387,6 +2387,18 @@ namespace Characters
 
         #endregion
 
+        #region Logistician Items
+
+        public void DeployRestrainingDevice()
+        {
+            GameObject rdGameObject = new GameObject("RestrainingDevice");
+            RestrainingDevice restrainingDevice = rdGameObject.AddComponent<RestrainingDevice>();
+
+            restrainingDevice.StartDeploying(this);
+        }
+
+        #endregion
+
 
         protected void LoadSkin()
         {

@@ -41,6 +41,7 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         LogisticianUpdate();
+        LogisticianItemsUpdate();
         CannoneerUpdate();
         AbilityWheelUpdate();
         EmHUDUpdate();
@@ -855,5 +856,80 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
             CloseFlareMenu();
         }
     }
+    #endregion
+
+
+    #region Logistician Items
+
+    [Header("Logistician Items")]
+    [SerializeField]
+    private GameObject LogisticianItemsMenu;
+    [SerializeField]
+    private GameObject LogisticianItemsCanvas;
+    [SerializeField]
+    private RawImage RestrainingDeviceImage;
+
+    private bool RestrainingDeviceSelected = false;
+
+     public void OnHoverRDOption()
+    {
+        RestrainingDeviceSelected = true;
+        MenuAudioSource.Play();
+        RestrainingDeviceImage.color = new Color(0.525f, 0.164f, 0.227f);
+    }
+
+    public void OnHoverExitRDOption()
+    {
+        RestrainingDeviceSelected = false;
+        RestrainingDeviceImage.color = Color.white;
+    }
+
+    private void OpenLogisticianItemsMenu()
+    {
+        LogisticianItemsMenu.SetActive(true);
+        EmVariables.LogisticianOpen = true;
+    }
+
+    private void CloseLogisticianItemMenu(Human _human)
+    {
+        LogisticianItemsMenu.SetActive(false);
+        EmVariables.LogisticianOpen = false;
+        RestrainingDeviceImage.color = Color.white;
+
+        if (RestrainingDeviceSelected == true)
+        {
+            _human.DeployRestrainingDevice();
+        }
+    }
+    private void LogisticianItemsUpdate()
+    {
+        if (FindFirstObjectByType<Human>() == null)
+        {
+            LogisticianItemsCanvas.SetActive(false);
+            LogisticianItemsMenu.SetActive(false);
+            return;
+        }
+
+        _human = FindFirstObjectByType<Human>();
+
+        if (!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Logistician"))
+        {
+            LogisticianItemsCanvas.SetActive(false);
+            return;
+        }
+        else
+            LogisticianItemsCanvas.SetActive(true);
+
+        bool inMenu = InGameMenu.InMenu() || ChatManager.IsChatActive() || CustomLogicManager.Cutscene;
+        if (_humanInput.LogisticianItemsMenu.GetKeyDown() && !inMenu)
+        {
+            OpenLogisticianItemsMenu();
+        }
+        if (_humanInput.LogisticianItemsMenu.GetKeyUp())
+        {
+            CloseLogisticianItemMenu(_human);
+        }
+    }
+
     #endregion
 }

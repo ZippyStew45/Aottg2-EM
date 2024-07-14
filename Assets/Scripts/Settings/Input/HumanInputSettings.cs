@@ -12,6 +12,7 @@
         public KeybindSetting DashUpwards = new KeybindSetting(new string[] { "V", "None" }); // Added by Ata 2 May 24 //
         public KeybindSetting DashDownwards = new KeybindSetting(new string[] { "LeftControl", "None" }); // Added by Ata 2 May 24 //
         public KeybindSetting LogisticianMenu = new KeybindSetting(new string[] { "N", "None" }); // Added by Zippy 5 May 24 //
+        public KeybindSetting LogisticianItemsMenu = new KeybindSetting(new string[] { "J", "None" }); // Added by Ata 14 Jul 24 //
         public KeybindSetting CannoneerSpawn = new KeybindSetting(new string[] { "N", "None" }); // Added by Zippy 8 May 24 //
         public KeybindSetting AbilityWheelMenu = new KeybindSetting(new string[] { "B", "None" }); // Added by Ata 12 May 24 for Ability Wheel//
         public KeybindSetting Ability1 = new KeybindSetting(new string[] { "Alpha1", "None" }); // Added by Ata 12 May 24 for Ability Wheel//
