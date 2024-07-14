@@ -1,5 +1,7 @@
 using UnityEngine;
 using Characters;
+using Photon.Pun;
+using Utility;
 
 // item deploys after a delay (give it 5 seconds for now)
 // item has a fixed amount that can be used set as the same number for everybody by the MC. if someone uses one, number goes down for everyone
@@ -38,6 +40,7 @@ class RestrainingDevice : MonoBehaviour
     public bool Activating = false;
     public bool IsDeployed = false;
     public bool IsActivated = false;
+    private bool PlayingAnim = false;
 
     // Interaction //
     private string[] Errors = new string[] { "WagonFar", "DeviceNearby", "DeviceFar", "NoDeviceLeft", "Common", "HumanMove", "Deploying" };
@@ -126,7 +129,10 @@ class RestrainingDevice : MonoBehaviour
         Debug.Log("DEPLOYMENT TIME: " + DeploymentTimeLeft);
         if (DeploymentTimeLeft > 0)
         {
-            _owner.PlayAnimation(HumanAnimations.Refill);
+            if(PlayingAnim == false)
+                PlayRefillAnimation();
+            
+            PlayingAnim = false;
             Deploying = true;
             DeploymentTimeLeft -= Time.deltaTime;
         }
@@ -134,6 +140,12 @@ class RestrainingDevice : MonoBehaviour
         {
             FinishDeployment();
         }
+    }
+
+    private void PlayRefillAnimation()
+    {
+        PlayingAnim = true;
+        _owner.PlayAnimation(HumanAnimations.Refill);
     }
 
     private void PrintDeploymentError(string reason)
@@ -144,6 +156,7 @@ class RestrainingDevice : MonoBehaviour
     private void FinishDeployment()
     {
         // instantiate the prefab and aoe //
+        GameObject go = PhotonNetwork.Instantiate(ResourcePaths.EE + "/Functionality/RestrainingDevice/Prefabs/RestrainingDevice", _owner.transform.position, _owner.transform.rotation, 0);
         _owner.Idle();
         IsDeployed = true;
         Deploying = false;

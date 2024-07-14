@@ -912,13 +912,15 @@ class ZippsUIManager : MonoBehaviourPunCallbacks
 
         _human = FindFirstObjectByType<Human>();
 
-        if (!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Logistician"))
+        /* if (!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Logistician"))
         {
             LogisticianItemsCanvas.SetActive(false);
             return;
         }
         else
-            LogisticianItemsCanvas.SetActive(true);
+            LogisticianItemsCanvas.SetActive(true); */
+        
+        LogisticianItemsCanvas.SetActive(true);
 
         bool inMenu = InGameMenu.InMenu() || ChatManager.IsChatActive() || CustomLogicManager.Cutscene;
         if (_humanInput.LogisticianItemsMenu.GetKeyDown() && !inMenu)

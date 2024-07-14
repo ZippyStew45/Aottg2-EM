@@ -17,5 +17,6 @@ namespace Utility
         public static string Spawnables = "Spawnables/Prefabs";
         public static string Projectiles = "Projectiles/Prefabs";
         public static string Weather = "Weather";
+        public static string EE = "Momos Folder"; // added by ata 14 July 2024
     }
 }
