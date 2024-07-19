@@ -2,6 +2,8 @@ using UnityEngine;
 using Characters;
 using Photon.Pun;
 using Utility;
+using Unity.VisualScripting;
+using System;
 
 // item deploys after a delay (give it 5 seconds for now)
 // item has a fixed amount that can be used set as the same number for everybody by the MC. if someone uses one, number goes down for everyone
@@ -57,6 +59,8 @@ class RestrainingDevice : MonoBehaviour
         if (Deploying == true)
         {
             UpdateDeployment();
+            if (IsHumanMoving())
+                CancelDeployment();
         }
     }
 
@@ -167,5 +171,14 @@ class RestrainingDevice : MonoBehaviour
         Deploying = false;
         IsDeployed = false; // set this to false just in case of potential bugs
         PrintDeploymentError(Errors[5]);
+    }
+
+    private bool IsHumanMoving()
+    {
+        Vector3 velocity = _owner.GetComponent<Rigidbody>().velocity;
+        float moveThreshold = 0.2f;
+
+        bool isMoving = Math.Abs(velocity.x) > moveThreshold && Math.Abs(velocity.y) > moveThreshold && Math.Abs(velocity.z) > moveThreshold;
+        return isMoving;
     }
 }
